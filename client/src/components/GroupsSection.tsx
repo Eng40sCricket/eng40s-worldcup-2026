@@ -69,7 +69,7 @@ export default function GroupsSection() {
   );
 
   return (
-    <section id="groups" className="relative py-16 sm:py-24 overflow-hidden">
+    <section id="groups" aria-labelledby="groups-heading" className="relative py-16 sm:py-24 overflow-hidden">
       {/* Dark background */}
       <div className="absolute inset-0 bg-navy" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.08),transparent_60%)]" />
@@ -86,7 +86,7 @@ export default function GroupsSection() {
           <p className="font-body text-sky-light text-sm tracking-[0.25em] uppercase mb-2 font-medium">
             Tournament
           </p>
-          <h2 className="font-display text-white text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase">
+          <h2 id="groups-heading" className="font-display text-white text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase">
             Groups &amp; Standings
           </h2>
           <div className="w-16 h-1 bg-gold mx-auto mt-3 rounded-full" />
@@ -112,7 +112,8 @@ export default function GroupsSection() {
             >
               <button
                 onClick={() => setEnglandFocus(false)}
-                className={`pill text-sm transition-all ${
+                aria-pressed={!englandFocus}
+                className={`pill text-sm transition-all min-h-[44px] px-4 ${
                   !englandFocus
                     ? 'bg-sky text-white shadow-lg shadow-sky/25'
                     : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white'
@@ -123,7 +124,8 @@ export default function GroupsSection() {
               </button>
               <button
                 onClick={() => setEnglandFocus(true)}
-                className={`pill text-sm transition-all ${
+                aria-pressed={englandFocus}
+                className={`pill text-sm transition-all min-h-[44px] px-4 ${
                   englandFocus
                     ? 'bg-gold text-navy font-semibold shadow-lg shadow-gold/25'
                     : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white'
@@ -307,7 +309,7 @@ function GroupTable({
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full" aria-label={`${group.name} standings`}>
           <thead>
             <tr className="bg-white/[0.03]">
               <th className="text-left font-body text-[10px] text-white/40 uppercase tracking-wider px-4 py-2 w-8">#</th>
@@ -354,20 +356,20 @@ function GroupTable({
                       </span>
                     </div>
                   </td>
-                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.played}</td>
-                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.won}</td>
-                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.lost}</td>
-                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.tied}</td>
-                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.noResult}</td>
+                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5 tabular-nums">{team.played}</td>
+                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5 tabular-nums">{team.won}</td>
+                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5 tabular-nums">{team.lost}</td>
+                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5 tabular-nums">{team.tied}</td>
+                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5 tabular-nums">{team.noResult}</td>
                   <td className="text-center px-2 py-2.5">
-                    <span className={`font-display text-sm font-bold ${
+                    <span className={`font-display text-sm font-bold tabular-nums ${
                       team.isEngland ? 'text-sky' : 'text-white'
                     }`}>
                       {team.points}
                     </span>
                   </td>
                   <td className="text-center px-2 py-2.5">
-                    <span className={`font-body text-xs ${
+                    <span className={`font-body text-xs tabular-nums ${
                       team.nrr.startsWith('+') && parseFloat(team.nrr) > 0 ? 'text-emerald-400' :
                       team.nrr.startsWith('-') ? 'text-red-400' : 'text-white/40'
                     }`}>

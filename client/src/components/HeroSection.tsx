@@ -52,6 +52,8 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
+      role="banner"
+      aria-label="England Over 40s ODI World Cup 2026"
       className="relative min-h-[100vh] flex items-center justify-center overflow-hidden"
     >
       {/* Background image */}
@@ -131,7 +133,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="mt-4 inline-flex flex-col items-center gap-1 text-white/40 hover:text-white/70 transition-colors"
+          className="mt-4 inline-flex flex-col items-center gap-1 text-white/40 hover:text-white/70 transition-colors min-h-[48px] min-w-[48px] justify-center"
           aria-label="Scroll to tournament facts"
         >
           <span className="font-body text-xs tracking-widest uppercase">Explore</span>

@@ -7,7 +7,7 @@ const ICONS = [Trophy, MapPin, Calendar, Target, Users, Shield];
 
 export default function QuickFacts() {
   return (
-    <section id="facts" className="section-white py-16 sm:py-20">
+    <section id="facts" aria-labelledby="facts-heading" className="section-white py-16 sm:py-20">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -16,13 +16,13 @@ export default function QuickFacts() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <h2 className="font-display text-navy text-3xl sm:text-4xl font-bold tracking-wide uppercase">
+          <h2 id="facts-heading" className="font-display text-navy text-3xl sm:text-4xl font-bold tracking-wide uppercase">
             Tournament at a Glance
           </h2>
           <div className="w-16 h-1 bg-sky mx-auto mt-3 rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" role="list" aria-label="Tournament facts">
           {QUICK_FACTS.map((fact, i) => {
             const Icon = ICONS[i] || Trophy;
             return (

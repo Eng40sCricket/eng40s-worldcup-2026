@@ -108,7 +108,7 @@ export default function FixturesSection() {
   }, [hasFixtures]);
 
   return (
-    <section id="fixtures" className="section-white py-16 sm:py-24">
+    <section id="fixtures" aria-labelledby="fixtures-heading" className="section-white py-16 sm:py-24">
       <div className="container">
         {/* Section header */}
         <motion.div
@@ -118,7 +118,7 @@ export default function FixturesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <h2 className="font-display text-navy text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase">
+          <h2 id="fixtures-heading" className="font-display text-navy text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase">
             Fixtures
           </h2>
           <div className="w-16 h-1 bg-sky mx-auto mt-3 rounded-full" />
@@ -140,7 +140,8 @@ export default function FixturesSection() {
                 <div className="flex items-center gap-1 bg-navy/5 rounded-lg p-1">
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-body font-medium transition-all ${
+                    aria-pressed={viewMode === 'list'}
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-body font-medium transition-all min-h-[44px] ${
                       viewMode === 'list'
                         ? 'bg-white text-navy shadow-sm'
                         : 'text-navy/50 hover:text-navy/80'
@@ -151,7 +152,8 @@ export default function FixturesSection() {
                   </button>
                   <button
                     onClick={() => setViewMode('calendar')}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-body font-medium transition-all ${
+                    aria-pressed={viewMode === 'calendar'}
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-body font-medium transition-all min-h-[44px] ${
                       viewMode === 'calendar'
                         ? 'bg-white text-navy shadow-sm'
                         : 'text-navy/50 hover:text-navy/80'
@@ -168,7 +170,8 @@ export default function FixturesSection() {
                     <button
                       key={f.value}
                       onClick={() => setTeamFilter(f.value)}
-                      className={`pill text-xs transition-all ${
+                      aria-pressed={teamFilter === f.value}
+                      className={`pill text-xs transition-all min-h-[44px] px-3 ${
                         teamFilter === f.value
                           ? f.value === 'england'
                             ? 'bg-navy text-white shadow-md'

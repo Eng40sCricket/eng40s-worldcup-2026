@@ -99,6 +99,36 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Tabular numerals for standings tables */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Skip-to-content link */
+  .skip-to-content {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.75rem 1.5rem;
+    background: oklch(0.58 0.2 240);
+    color: white;
+    font-weight: 600;
+    border-radius: 0 0 0.5rem 0.5rem;
+    transition: top 0.2s;
+  }
+  .skip-to-content:focus {
+    top: 0;
+  }
+
+  /* Visible focus ring for keyboard users */
+  *:focus-visible {
+    outline: 2px solid oklch(0.58 0.2 240);
+    outline-offset: 2px;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
@@ -204,6 +234,16 @@
     background: oklch(0.15 0.04 260 / 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   /* Scrollbar styling */

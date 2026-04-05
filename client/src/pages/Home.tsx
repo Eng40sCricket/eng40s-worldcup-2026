@@ -1,5 +1,6 @@
 // DESIGN: "Stadium Broadcast" — Main page composing all sections
 // Section order: hero → facts → squad → fixtures → groups → news → press → footer
+// Enhanced: skip-to-content link, semantic main landmark
 import StickyNav from '@/components/StickyNav';
 import HeroSection from '@/components/HeroSection';
 import QuickFacts from '@/components/QuickFacts';
@@ -13,8 +14,14 @@ import Footer from '@/components/Footer';
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Skip-to-content for keyboard users */}
+      <a href="#facts" className="skip-to-content">
+        Skip to content
+      </a>
+
       <StickyNav />
-      <main>
+
+      <main id="main-content" role="main">
         <HeroSection />
         <QuickFacts />
         <SquadSection />
@@ -23,6 +30,7 @@ export default function Home() {
         <NewsSection />
         <PressReleaseSection />
       </main>
+
       <Footer />
     </div>
   );

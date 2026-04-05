@@ -112,7 +112,7 @@ export default function NewsSection() {
   }, []);
 
   return (
-    <section id="news" className="section-slate py-16 sm:py-24 clip-top">
+    <section id="news" aria-labelledby="news-heading" className="section-slate py-16 sm:py-24 clip-top">
       <div className="container">
         {/* Section header */}
         <motion.div
@@ -125,7 +125,7 @@ export default function NewsSection() {
           <p className="font-body text-sky text-sm tracking-[0.25em] uppercase mb-2 font-medium">
             Team Updates
           </p>
-          <h2 className="font-display text-navy text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase">
+          <h2 id="news-heading" className="font-display text-navy text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase">
             News &amp; Bulletins
           </h2>
           <div className="w-16 h-1 bg-sky mx-auto mt-3 rounded-full" />
@@ -169,7 +169,8 @@ export default function NewsSection() {
                     <button
                       key={cat.key}
                       onClick={() => setActiveCategory(cat.key)}
-                      className={`pill text-xs transition-all ${
+                      aria-pressed={activeCategory === cat.key}
+                      className={`pill text-xs transition-all min-h-[44px] px-3 ${
                         isActive
                           ? 'bg-navy text-white shadow-md'
                           : 'bg-navy/5 text-navy/60 hover:bg-navy/10 hover:text-navy'

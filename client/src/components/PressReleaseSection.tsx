@@ -98,7 +98,7 @@ function releaseToPlainText(pr: PressRelease): string {
 
 export default function PressReleaseSection() {
   return (
-    <section id="press" className="section-white py-16 sm:py-24">
+    <section id="press" aria-labelledby="press-heading" className="section-white py-16 sm:py-24">
       <div className="container">
         {/* Section header */}
         <motion.div
@@ -111,7 +111,7 @@ export default function PressReleaseSection() {
           <p className="font-body text-sky text-sm tracking-[0.25em] uppercase mb-2 font-medium">
             Media Centre
           </p>
-          <h2 className="font-display text-navy text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase">
+          <h2 id="press-heading" className="font-display text-navy text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase">
             Official Press Releases
           </h2>
           <div className="w-16 h-1 bg-sky mx-auto mt-3 rounded-full" />
@@ -323,21 +323,24 @@ function PressReleaseCard({ release, index }: { release: PressRelease; index: nu
         <div className="flex flex-wrap gap-2 mt-4">
           <button
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-navy/5 text-navy/70 text-xs font-body font-medium hover:bg-navy/10 hover:text-navy transition-colors"
+            aria-label="Copy press release text to clipboard"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-navy/5 text-navy/70 text-xs font-body font-medium hover:bg-navy/10 hover:text-navy transition-colors min-h-[44px]"
           >
             <Copy className="w-3.5 h-3.5" />
             Copy Text
           </button>
           <button
             onClick={handlePrint}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-navy/5 text-navy/70 text-xs font-body font-medium hover:bg-navy/10 hover:text-navy transition-colors"
+            aria-label="Print this press release"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-navy/5 text-navy/70 text-xs font-body font-medium hover:bg-navy/10 hover:text-navy transition-colors min-h-[44px]"
           >
             <Printer className="w-3.5 h-3.5" />
             Print
           </button>
           <button
             onClick={handlePdfView}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-navy/5 text-navy/70 text-xs font-body font-medium hover:bg-navy/10 hover:text-navy transition-colors"
+            aria-label="Open PDF-ready view for saving"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-navy/5 text-navy/70 text-xs font-body font-medium hover:bg-navy/10 hover:text-navy transition-colors min-h-[44px]"
           >
             <FileDown className="w-3.5 h-3.5" />
             PDF View
