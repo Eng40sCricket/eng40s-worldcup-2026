@@ -1,5 +1,5 @@
 // DESIGN: "Stadium Broadcast" — Navy footer with links and branding
-import { TOURNAMENT } from '@/lib/data';
+import { TOURNAMENT, ASSETS } from '@/lib/data';
 import { ArrowUp } from 'lucide-react';
 
 export default function Footer() {
@@ -10,9 +10,11 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-full bg-sky flex items-center justify-center">
-                <span className="text-white font-display font-bold text-sm leading-none">E40</span>
-              </div>
+              <img
+                src={ASSETS.englandLogo}
+                alt="England Cricket Over 40s"
+                className="h-10 w-auto object-contain drop-shadow-md"
+              />
               <div>
                 <p className="font-display text-white text-base font-semibold tracking-wide">
                   ENGLAND OVER 40s

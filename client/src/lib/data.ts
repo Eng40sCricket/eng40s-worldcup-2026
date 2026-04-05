@@ -11,6 +11,7 @@ export const ASSETS = {
   cricketAction: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/england-cricket-action-LCVTpzjaUmfkpnrjzSDtYw.webp',
   guyanaStadium: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/guyana-stadium-f9TnX5GJjUKewEtHM47nM2.webp',
   cricketBall: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/cricket-ball-texture-PKPxPpgnLXUsqBvQkBMHrk.webp',
+  englandLogo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Eng40s_51bd7799.png',
 } as const;
 
 // ---- TOURNAMENT INFO ----
@@ -170,94 +171,195 @@ export function getPlayerFirstName(player: Player): string {
 
 
 // ============================================================
-// SQUAD DATA — 3 example placeholder players + 13 TBA slots
+// SQUAD DATA — 16 confirmed players from the official press release
 // ============================================================
-// EDITORIAL NOTE: Only clearly-marked placeholder values are used below.
-// Real player details require editorial verification before publishing.
-// Replace each entry with verified data as it becomes available.
+// EDITORIAL NOTE: Names and clubs are confirmed from the 25 March 2026
+// press release. Role categories, batting/bowling styles, bios, and
+// photos still require editorial verification.
+// Update profileStatus to 'confirmed' once full profiles are verified.
 
 export const SQUAD: Player[] = [
-  // ── EXAMPLE 1: Confirmed captain with full profile ──
   {
     id: 'eng-wc-001',
-    fullName: '[Captain — Name TBC]',
-    image: undefined,                         // PLACEHOLDER: Photo not yet supplied
-    roleCategory: 'Batter',
-    battingStyle: 'Right-hand bat',           // PLACEHOLDER: Style to be confirmed
-    bowlingStyle: 'Right-arm medium',         // PLACEHOLDER: Style to be confirmed
+    fullName: 'Darren Stevens',
+    image: undefined,
+    roleCategory: 'All-rounder',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'Right-arm medium',
     wicketkeeperFlag: false,
-    clubEngland: '[Club TBC]',                // PLACEHOLDER: Club to be confirmed
-    shortBio: 'Squad captain. Full biography will be published once the touring party is officially announced.',
+    clubEngland: 'St Lawrence & Highland Court CC',
+    shortBio: 'Former professional cricketer and squad captain. A vastly experienced all-rounder who brings leadership and match-winning ability to the squad.',
     leadershipTag: 'Captain',
     profileStatus: 'provisional',
-    county: undefined,                        // PLACEHOLDER: County to be confirmed
-    capNumber: undefined,                     // PLACEHOLDER: Cap number to be confirmed
+    county: 'Kent',
   },
-
-  // ── EXAMPLE 2: Wicketkeeper-batter demonstrating the wicketkeeperFlag logic ──
   {
     id: 'eng-wc-002',
-    fullName: '[Wicketkeeper — Name TBC]',
-    image: undefined,                         // PLACEHOLDER: Photo not yet supplied
-    roleCategory: 'Wicketkeeper',
-    battingStyle: 'Right-hand bat',           // PLACEHOLDER: Style to be confirmed
-    bowlingStyle: 'N/A',                      // Ignored by UI — wicketkeeperFlag overrides
-    wicketkeeperFlag: true,
-    clubEngland: '[Club TBC]',                // PLACEHOLDER: Club to be confirmed
-    shortBio: 'First-choice wicketkeeper. Profile details pending official squad announcement.',
-    leadershipTag: undefined,
+    fullName: 'Sean Park',
+    image: undefined,
+    roleCategory: 'All-rounder',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'Right-arm medium',
+    wicketkeeperFlag: false,
+    clubEngland: 'Bury St. Edmunds CC',
+    shortBio: 'Vice-captain and dependable all-rounder. A key figure in the squad\'s leadership group.',
+    leadershipTag: 'Vice-Captain',
     profileStatus: 'provisional',
-    county: undefined,
-    capNumber: undefined,
   },
-
-  // ── EXAMPLE 3: All-rounder with minimal placeholder data ──
   {
     id: 'eng-wc-003',
-    fullName: '[All-rounder — Name TBC]',
-    image: undefined,                         // PLACEHOLDER: Photo not yet supplied
-    roleCategory: 'All-rounder',
-    battingStyle: 'Left-hand bat',            // PLACEHOLDER: Style to be confirmed
-    bowlingStyle: 'Left-arm fast-medium',     // PLACEHOLDER: Style to be confirmed
-    wicketkeeperFlag: false,
-    clubEngland: '[Club TBC]',                // PLACEHOLDER: Club to be confirmed
-    shortBio: undefined,                      // Bio not yet available
-    leadershipTag: 'Vice-Captain',
-    profileStatus: 'placeholder',
-    county: undefined,
-    capNumber: undefined,
-  },
-
-  // ── REMAINING 13 TBA SLOTS ──
-  // These represent the remaining squad positions. Replace with real data
-  // as players are selected and verified.
-  ...Array.from({ length: 13 }, (_, i) => ({
-    id: `eng-wc-${String(i + 4).padStart(3, '0')}`,
-    fullName: `[Player ${i + 4} — TBA]`,
+    fullName: 'Taqi Abbas',
     image: undefined,
-    roleCategory: (
-      i < 3 ? 'Batter' :
-      i < 6 ? 'Seamer' :
-      i < 8 ? 'Spinner' :
-      i < 11 ? 'All-rounder' :
-      'Wicketkeeper'
-    ) as RoleCategory,
-    battingStyle: (i % 3 === 0 ? 'Left-hand bat' : 'Right-hand bat') as BattingStyle,
-    bowlingStyle: (
-      i < 3 ? 'N/A' :
-      i < 6 ? 'Right-arm fast-medium' :
-      i < 8 ? 'Right-arm off-break' :
-      i < 11 ? 'Right-arm medium' :
-      'N/A'
-    ) as BowlingStyle,
-    wicketkeeperFlag: i >= 11,
-    clubEngland: '[Club TBC]',
-    shortBio: undefined,
-    leadershipTag: undefined,
-    profileStatus: 'placeholder' as ProfileStatus,
-    county: undefined,
-    capNumber: undefined,
-  })),
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Harold Wood CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-004',
+    fullName: 'George Brooksbank',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Hurlingham Club',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-005',
+    fullName: 'Ryan Canning',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Ribblesdale Wanderers CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-006',
+    fullName: 'James Duffy',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Lindow CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-007',
+    fullName: 'Ben Frazer',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Harpenden CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-008',
+    fullName: 'James Hamblin',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Cranleigh CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-009',
+    fullName: 'Sean Heather',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Middleton-on-sea CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-010',
+    fullName: 'Jayden Levitt',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Bromsgrove CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-011',
+    fullName: 'Steve Naylor',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Royal Ascot CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-012',
+    fullName: 'Garry Park',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Alvaston & Boulton CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-013',
+    fullName: 'Iresh Saxena',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Totteridge Millhillians CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-014',
+    fullName: 'Richard Sims',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Swardeston CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-015',
+    fullName: 'Jonny Wightman',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'South Northumberland CC',
+    profileStatus: 'provisional',
+  },
+  {
+    id: 'eng-wc-016',
+    fullName: 'Jake Wilson',
+    image: undefined,
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'N/A',
+    wicketkeeperFlag: false,
+    clubEngland: 'Normandy CC',
+    profileStatus: 'provisional',
+  },
 ];
 
 
@@ -495,10 +597,10 @@ export const BULLETIN_CATEGORIES: Record<BulletinCategory, { label: string; colo
 export const BULLETINS: Bulletin[] = [
   {
     id: 'bul-1',
-    date: '2026-04-05',
-    headline: 'England Over 40s Squad Confirmed for World Cup 2026',
+    date: '2026-03-25',
+    headline: 'England Over 40s Cricket Announce Squad for IMC O40s World Cup 2026',
     category: 'squad',
-    summary: 'England Over 40s Cricket is pleased to confirm that a squad of 16 players has been selected to represent England at the IMC Over 40s ODI World Cup in Georgetown, Guyana, from 17 to 31 October 2026. Further tournament details, including the group draw and full fixture list, are still awaited from the IMC.',
+    summary: 'England Over 40s Cricket has today announced its squad for the IMC O40s World Cup 2026, to be held in Georgetown, Guyana, from 17\u201331 October 2026. The England party will be led on the field by captain Darren Stevens, the former professional cricketer, alongside a strong group of high-quality club players drawn from across the country.',
     isPinned: true,
     isFeatured: true,
     isOfficial: true,
@@ -603,31 +705,60 @@ export interface PressRelease {
 export const PRESS_RELEASES: PressRelease[] = [
   {
     id: 'pr-1',
-    date: '2026-04-05',
-    title: 'England Over 40s Announce World Cup Campaign',
-    subtitle: 'Sixteen players selected for IMC Over 40s ODI World Cup 2026 in Guyana',
+    date: '2026-03-25',
+    title: 'England Over 40s Cricket Announce Squad for IMC O40s World Cup 2026 in Guyana',
+    subtitle: 'Sixteen players selected for IMC Over 40s ODI World Cup 2026 in Georgetown, Guyana (October 2026)',
     author: 'England Over 40s Cricket',
     blocks: [
       {
         type: 'paragraph',
-        text: 'England Over 40s Cricket is delighted to announce preparations for the IMC Over 40s ODI World Cup 2026, to be held in Georgetown, Guyana from 17 to 31 October 2026.',
+        text: 'London, United Kingdom \u2013 Wednesday 25 March 2026 \u2013 England Over 40s Cricket has today announced its squad for the IMC O40s World Cup 2026, to be held in Georgetown, Guyana, from 17\u201331 October 2026.',
       },
       {
         type: 'paragraph',
-        text: 'A squad of 16 players will represent England in the 45-over format tournament, competing against up to 16 nations from across the globe. The squad will be drawn from our performance group of 50 players, all of whom have been preparing throughout the 2026 domestic season.',
+        text: 'The England party will be led on the field by captain Darren Stevens, the former professional cricketer, alongside a strong group of high-quality club players drawn from across the country. The squad has been selected from a wider national programme, reflecting form, commitment and suitability for international tournament cricket.',
       },
       {
         type: 'quote',
-        text: 'We are immensely proud to be representing England at the Over 40s World Cup. The squad has been selected from a talented group of cricketers, and we look forward to competing on the world stage in Guyana.',
-        attribution: 'Director of Cricket, England Over 40s',
+        text: 'Today\u2019s announcement is a hugely exciting moment for everyone involved with England Over 40s Cricket. To represent England at a World Cup is a privilege, and we\u2019re proud of the standard of players who have earned selection. With Darren\u2019s leadership and the depth of quality in the group, we\u2019re looking forward to competing strongly in Guyana.',
+        attribution: 'Chris Mays, Director and Tour Manager',
+      },
+      {
+        type: 'quote',
+        text: 'I\u2019m really excited to be leading the squad into the 2026 summer. We have lots of games through the year to help us build for the World Cup in Guyana. We\u2019ve been building a very exciting squad over the last two years. We lost in the semi-final last time out, so we\u2019ll be doing our best to go another step further.',
+        attribution: 'Darren Stevens, Captain',
       },
       {
         type: 'paragraph',
-        text: 'England Over 40s Cricket is a not-for-profit company endorsed by the ECB to run high-standard recreational cricket for players over the age of 40, both in England and on overseas tours.',
+        text: 'The tournament represents a major milestone in England Over 40s Cricket\u2019s international calendar and continues the organisation\u2019s mission to provide competitive, high-quality international cricket for players aged 40+, in an ECB-endorsed environment.',
+      },
+      {
+        type: 'subheading',
+        text: 'England Over 40s World Cup Squad',
       },
       {
         type: 'paragraph',
-        text: 'Further details regarding the final squad, fixture schedule, and group draw will be announced in due course. We encourage all supporters, families, and media to follow this page for the latest updates.',
+        text: 'Darren Stevens (captain) \u2013 St Lawrence & Highland Court CC\nSean Park (vice-captain) \u2013 Bury St. Edmunds CC\nTaqi Abbas \u2013 Harold Wood CC\nGeorge Brooksbank \u2013 Hurlingham Club\nRyan Canning \u2013 Ribblesdale Wanderers CC\nJames Duffy \u2013 Lindow CC\nBen Frazer \u2013 Harpenden CC\nJames Hamblin \u2013 Cranleigh CC\nSean Heather \u2013 Middleton-on-sea CC\nJayden Levitt \u2013 Bromsgrove CC\nSteve Naylor \u2013 Royal Ascot CC\nGarry Park \u2013 Alvaston & Boulton CC\nIresh Saxena \u2013 Totteridge Millhillians CC\nRichard Sims \u2013 Swardeston CC\nJonny Wightman \u2013 South Northumberland CC\nJake Wilson \u2013 Normandy CC',
+      },
+      {
+        type: 'paragraph',
+        text: 'Further announcements, including match schedule updates, player profiles and media content, will be shared via the England Over 40s Cricket website and social channels.',
+      },
+      {
+        type: 'subheading',
+        text: 'Tournament Details',
+      },
+      {
+        type: 'note',
+        text: 'Event: IMC O40s World Cup 2026',
+      },
+      {
+        type: 'note',
+        text: 'Location: Georgetown, Guyana',
+      },
+      {
+        type: 'note',
+        text: 'Dates: 17\u201331 October 2026',
       },
       {
         type: 'subheading',
@@ -635,18 +766,18 @@ export const PRESS_RELEASES: PressRelease[] = [
       },
       {
         type: 'note',
-        text: 'England Over 40s Cricket is endorsed by the England and Wales Cricket Board (ECB) and operates as a not-for-profit company. The organisation manages a performance squad of approximately 50 players, from which touring squads are selected for international competition.',
+        text: 'England Over 40s Cricket is a voluntary, non-profit organisation providing competitive international cricket opportunities for players aged 40+, endorsed by the ECB.',
       },
       {
         type: 'note',
-        text: 'The IMC Over 40s ODI World Cup is organised by International Masters Cricket (IMC) and hosted by the Cricket West Indies Masters Association (CWIMA). The tournament features 45-over matches played across venues in the Georgetown area.',
+        text: 'The squad will travel to Guyana in October 2026 for the IMC O40s World Cup 2026.',
       },
     ],
     contacts: [
       {
-        name: 'England Over 40s Cricket Press Office',
-        role: 'Media Enquiries',
-        email: 'press@englandover40s.co.uk',
+        name: 'Chris Mays',
+        role: 'Director and Tour Manager, England Over 40s Cricket',
+        email: 'englandover40scricket@outlook.com',
       },
     ],
   },

@@ -421,7 +421,7 @@ function ReleaseBlock({ block }: { block: PressReleaseBlock }) {
   switch (block.type) {
     case 'paragraph':
       return (
-        <p className="font-body text-sm sm:text-base text-navy/75 leading-[1.8] mb-5">
+        <p className="font-body text-sm sm:text-base text-navy/75 leading-[1.8] mb-5 whitespace-pre-line">
           {block.text}
         </p>
       );
@@ -506,7 +506,7 @@ function PlaceholderBody({ title, date }: { title: string; date: string }) {
 function blockToHtml(block: PressReleaseBlock): string {
   switch (block.type) {
     case 'paragraph':
-      return `<p>${block.text}</p>`;
+      return `<p>${block.text.replace(/\n/g, '<br/>')}</p>`;
     case 'quote':
       return `<blockquote><p>"${block.text}"</p>${
         block.attribution ? `<div class="attr">— ${block.attribution}</div>` : ''

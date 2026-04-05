@@ -1,6 +1,6 @@
 // DESIGN: "Stadium Broadcast" — Frosted glass sticky navigation bar
 // Oswald condensed font for nav labels, sky-blue active indicator
-import { NAV_SECTIONS } from '@/lib/data';
+import { NAV_SECTIONS, ASSETS } from '@/lib/data';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -46,9 +46,11 @@ export default function StickyNav() {
           onClick={() => scrollTo('hero')}
           className="flex items-center gap-3"
         >
-          <div className="w-9 h-9 rounded-full bg-sky flex items-center justify-center">
-            <span className="text-white font-display font-bold text-sm leading-none">E40</span>
-          </div>
+          <img
+            src={ASSETS.englandLogo}
+            alt="England Cricket Over 40s"
+            className="h-10 w-auto object-contain drop-shadow-md"
+          />
           <div className="hidden sm:block">
             <span className="font-display text-white text-lg font-semibold tracking-wide">
               ENGLAND OVER 40s
