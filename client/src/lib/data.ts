@@ -549,12 +549,55 @@ export const BULLETINS: Bulletin[] = [
 // PRESS RELEASES
 // ============================================================
 
+/**
+ * PressReleaseBlock — A single content block within a press release.
+ *
+ * type:
+ *   'paragraph'  — Standard body paragraph
+ *   'quote'      — Attributed quotation (blockquote style)
+ *   'subheading' — Section subheading within the release
+ *   'note'       — Editor's note or footnote (smaller, muted)
+ */
+export interface PressReleaseBlock {
+  type: 'paragraph' | 'quote' | 'subheading' | 'note';
+  text: string;
+  attribution?: string;  // Used with 'quote' type
+}
+
+/**
+ * PressReleaseContact — Media contact details appended to the release.
+ */
+export interface PressReleaseContact {
+  name: string;
+  role?: string;
+  email?: string;
+  phone?: string;
+}
+
+/**
+ * PressRelease — A formal press release from England Over 40s Cricket.
+ *
+ * Fields:
+ *   id          — Unique identifier
+ *   date        — ISO date string (YYYY-MM-DD)
+ *   title       — Main headline
+ *   subtitle    — Optional subheading / strapline
+ *   author      — Issuing organisation or person
+ *   embargo     — Optional embargo notice (e.g. 'Embargoed until 10:00 BST, 5 April 2026')
+ *   blocks      — Ordered array of content blocks (paragraphs, quotes, subheadings, notes)
+ *   contacts    — Media contact details
+ *   isPlaceholder — If true, the release shell is shown but body content is pending
+ */
 export interface PressRelease {
   id: string;
   date: string;
   title: string;
-  body: string;
+  subtitle?: string;
   author?: string;
+  embargo?: string;
+  blocks: PressReleaseBlock[];
+  contacts?: PressReleaseContact[];
+  isPlaceholder?: boolean;
 }
 
 export const PRESS_RELEASES: PressRelease[] = [
@@ -562,15 +605,49 @@ export const PRESS_RELEASES: PressRelease[] = [
     id: 'pr-1',
     date: '2026-04-05',
     title: 'England Over 40s Announce World Cup Campaign',
+    subtitle: 'Sixteen players selected for IMC Over 40s ODI World Cup 2026 in Guyana',
     author: 'England Over 40s Cricket',
-    body: `England Over 40s Cricket is delighted to announce preparations for the IMC Over 40s ODI World Cup 2026, to be held in Georgetown, Guyana from 17 to 31 October 2026.
-
-A squad of 16 players will represent England in the 45-over format tournament, competing against up to 16 nations from across the globe. The squad will be drawn from our performance group of 50 players, all of whom have been preparing throughout the 2026 domestic season.
-
-England Over 40s Cricket is a not-for-profit company endorsed by the ECB to run high-standard recreational cricket for players over the age of 40, both in England and on overseas tours.
-
-Further details regarding the final squad, fixture schedule, and group draw will be announced in due course. We encourage all supporters, families, and media to follow this page for the latest updates.
-
-For media enquiries, please contact the England Over 40s Cricket press office.`,
+    blocks: [
+      {
+        type: 'paragraph',
+        text: 'England Over 40s Cricket is delighted to announce preparations for the IMC Over 40s ODI World Cup 2026, to be held in Georgetown, Guyana from 17 to 31 October 2026.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A squad of 16 players will represent England in the 45-over format tournament, competing against up to 16 nations from across the globe. The squad will be drawn from our performance group of 50 players, all of whom have been preparing throughout the 2026 domestic season.',
+      },
+      {
+        type: 'quote',
+        text: 'We are immensely proud to be representing England at the Over 40s World Cup. The squad has been selected from a talented group of cricketers, and we look forward to competing on the world stage in Guyana.',
+        attribution: 'Director of Cricket, England Over 40s',
+      },
+      {
+        type: 'paragraph',
+        text: 'England Over 40s Cricket is a not-for-profit company endorsed by the ECB to run high-standard recreational cricket for players over the age of 40, both in England and on overseas tours.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Further details regarding the final squad, fixture schedule, and group draw will be announced in due course. We encourage all supporters, families, and media to follow this page for the latest updates.',
+      },
+      {
+        type: 'subheading',
+        text: 'Notes to Editors',
+      },
+      {
+        type: 'note',
+        text: 'England Over 40s Cricket is endorsed by the England and Wales Cricket Board (ECB) and operates as a not-for-profit company. The organisation manages a performance squad of approximately 50 players, from which touring squads are selected for international competition.',
+      },
+      {
+        type: 'note',
+        text: 'The IMC Over 40s ODI World Cup is organised by International Masters Cricket (IMC) and hosted by the Cricket West Indies Masters Association (CWIMA). The tournament features 45-over matches played across venues in the Georgetown area.',
+      },
+    ],
+    contacts: [
+      {
+        name: 'England Over 40s Cricket Press Office',
+        role: 'Media Enquiries',
+        email: 'press@englandover40s.co.uk',
+      },
+    ],
   },
 ];
