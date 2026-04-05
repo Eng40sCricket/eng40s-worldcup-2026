@@ -1,25 +1,29 @@
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+// DESIGN: "Stadium Broadcast" — Main page composing all sections
+// Section order: hero → facts → squad → fixtures → groups → news → press → footer
+import StickyNav from '@/components/StickyNav';
+import HeroSection from '@/components/HeroSection';
+import QuickFacts from '@/components/QuickFacts';
+import SquadSection from '@/components/SquadSection';
+import FixturesSection from '@/components/FixturesSection';
+import GroupsSection from '@/components/GroupsSection';
+import NewsSection from '@/components/NewsSection';
+import PressReleaseSection from '@/components/PressReleaseSection';
+import Footer from '@/components/Footer';
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
- */
 export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
-
   return (
     <div className="min-h-screen flex flex-col">
+      <StickyNav />
       <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
+        <HeroSection />
+        <QuickFacts />
+        <SquadSection />
+        <FixturesSection />
+        <GroupsSection />
+        <NewsSection />
+        <PressReleaseSection />
       </main>
+      <Footer />
     </div>
   );
 }
