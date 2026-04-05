@@ -1,7 +1,7 @@
 // DESIGN: "Stadium Broadcast" — Squad section with navy background, pill filters, sortable grid
 // Uses new schema: roleCategory, clubEngland, getPlayerSurname
 import { useState, useMemo } from 'react';
-import { SQUAD, ROLE_FILTERS, SORT_OPTIONS, ASSETS, type Player, getPlayerSurname } from '@/lib/data';
+import { squadData, ASSETS, type Player, getPlayerSurname } from '@/lib/data';
 import PlayerCard from './PlayerCard';
 import PlayerModal from './PlayerModal';
 import { motion } from 'framer-motion';
@@ -14,7 +14,7 @@ export default function SquadSection() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const filteredAndSorted = useMemo(() => {
-    let players = [...SQUAD];
+    let players = [...squadData.players];
 
     // Filter by roleCategory
     if (roleFilter !== 'all') {
@@ -74,11 +74,11 @@ export default function SquadSection() {
             England Over 40s
           </p>
           <h2 className="font-display text-white text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase">
-            World Cup Squad
+            {squadData.title}
           </h2>
           <div className="w-16 h-1 bg-gold mx-auto mt-3 rounded-full" />
           <p className="font-body text-white/50 text-sm mt-4 max-w-md mx-auto">
-            16 players selected to represent England in Georgetown, Guyana
+            {squadData.subtitle}
           </p>
         </motion.div>
 
@@ -92,7 +92,7 @@ export default function SquadSection() {
         >
           {/* Role filter pills */}
           <div className="flex flex-wrap justify-center gap-2 mb-4">
-            {ROLE_FILTERS.map((filter) => (
+            {squadData.roleFilters.map((filter) => (
               <button
                 key={filter.value}
                 onClick={() => setRoleFilter(filter.value)}
@@ -111,7 +111,7 @@ export default function SquadSection() {
           <div className="flex items-center justify-center gap-2">
             <SlidersHorizontal className="w-4 h-4 text-white/40" />
             <span className="font-body text-xs text-white/40 uppercase tracking-wider">Sort by:</span>
-            {SORT_OPTIONS.map((opt) => (
+            {squadData.sortOptions.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => setSortBy(opt.value)}
@@ -129,7 +129,7 @@ export default function SquadSection() {
 
         {/* Player count */}
         <p className="font-body text-white/40 text-xs text-center mb-6 tracking-wider">
-          Showing {filteredAndSorted.length} of {SQUAD.length} players
+          Showing {filteredAndSorted.length} of {squadData.players.length} players
         </p>
 
         {/* Player grid */}
@@ -144,8 +144,8 @@ export default function SquadSection() {
           ))}
         </div>
 
-        {/* Empty state */}
-        {filteredAndSorted.length === 0 && (
+        {/* Empty state — no players match filter */}
+        {filteredAndSorted.length === 0 && squadData.players.length > 0 && (
           <div className="text-center py-16">
             <p className="font-display text-white/30 text-xl">No players match this filter</p>
             <button
@@ -154,6 +154,17 @@ export default function SquadSection() {
             >
               Show all players
             </button>
+          </div>
+        )}
+
+        {/* Empty state — squad not yet announced */}
+        {squadData.players.length === 0 && (
+          <div className="text-center py-20">
+            <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
+              <SlidersHorizontal className="w-7 h-7 text-white/20" />
+            </div>
+            <p className="font-display text-white/40 text-xl mb-2">{squadData.emptyState.heading}</p>
+            <p className="font-body text-white/25 text-sm max-w-md mx-auto">{squadData.emptyState.message}</p>
           </div>
         )}
       </div>

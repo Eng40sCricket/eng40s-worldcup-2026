@@ -2,8 +2,7 @@
 // category filters, pinned items, and official England badges
 import { useState, useMemo } from 'react';
 import {
-  BULLETINS,
-  BULLETIN_CATEGORIES,
+  newsData,
   ASSETS,
   type Bulletin,
   type BulletinCategory,
@@ -90,13 +89,13 @@ export default function NewsSection() {
 
   // Separate featured item (first isFeatured bulletin)
   const featured = useMemo(
-    () => BULLETINS.find((b) => b.isFeatured) ?? null,
+    () => newsData.bulletins.find((b) => b.isFeatured) ?? null,
     [],
   );
 
   // Filter and sort remaining bulletins
   const feedItems = useMemo(() => {
-    const nonFeatured = BULLETINS.filter((b) => b.id !== featured?.id);
+    const nonFeatured = newsData.bulletins.filter((b) => b.id !== featured?.id);
     const filtered = activeCategory === 'all'
       ? nonFeatured
       : nonFeatured.filter((b) => b.category === activeCategory);
@@ -105,8 +104,8 @@ export default function NewsSection() {
 
   // Count per category for filter badges
   const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: BULLETINS.length };
-    for (const b of BULLETINS) {
+    const counts: Record<string, number> = { all: newsData.bulletins.length };
+    for (const b of newsData.bulletins) {
       counts[b.category] = (counts[b.category] || 0) + 1;
     }
     return counts;
@@ -132,7 +131,7 @@ export default function NewsSection() {
           <div className="w-16 h-1 bg-sky mx-auto mt-3 rounded-full" />
         </motion.div>
 
-        {BULLETINS.length > 0 ? (
+        {newsData.bulletins.length > 0 ? (
           <>
             {/* Featured story */}
             {featured && (
@@ -251,7 +250,7 @@ export default function NewsSection() {
 // ============================================================
 
 function FeaturedStory({ bulletin }: { bulletin: Bulletin }) {
-  const catConfig = BULLETIN_CATEGORIES[bulletin.category];
+  const catConfig = newsData.categories[bulletin.category];
   const CatIcon = getCategoryIcon(bulletin.category);
 
   return (
@@ -335,7 +334,7 @@ function FeaturedStory({ bulletin }: { bulletin: Bulletin }) {
 // ============================================================
 
 function BulletinCard({ bulletin, index }: { bulletin: Bulletin; index: number }) {
-  const catConfig = BULLETIN_CATEGORIES[bulletin.category];
+  const catConfig = newsData.categories[bulletin.category];
   const CatIcon = getCategoryIcon(bulletin.category);
   const bgImage = bulletin.imageUrl || CARD_IMAGES[index % CARD_IMAGES.length];
 

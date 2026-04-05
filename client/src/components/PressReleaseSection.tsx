@@ -3,7 +3,7 @@
 // copy-to-clipboard, print-friendly view, and PDF-ready export
 import { useRef, useCallback } from 'react';
 import {
-  PRESS_RELEASES,
+  pressReleaseData,
   type PressRelease,
   type PressReleaseBlock,
 } from '@/lib/data';
@@ -117,9 +117,9 @@ export default function PressReleaseSection() {
           <div className="w-16 h-1 bg-sky mx-auto mt-3 rounded-full" />
         </motion.div>
 
-        {PRESS_RELEASES.length > 0 ? (
+        {pressReleaseData.releases.length > 0 ? (
           <div className="max-w-3xl mx-auto space-y-10">
-            {PRESS_RELEASES.map((pr, i) => (
+            {pressReleaseData.releases.map((pr, i) => (
               <PressReleaseCard key={pr.id} release={pr} index={i} />
             ))}
           </div>

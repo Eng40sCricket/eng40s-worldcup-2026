@@ -2,8 +2,8 @@
 // Uses standings-engine for modular ranking, state derivation, and England focus
 import { useState, useMemo } from 'react';
 import {
-  GROUPS,
-  FIXTURES,
+  groupData,
+  fixtureData,
   type Group,
   type GroupTeam,
 } from '@/lib/data';
@@ -37,16 +37,16 @@ export default function GroupsSection() {
 
   // Derive tournament state from data
   const tournamentState = useMemo(
-    () => deriveTournamentState(GROUPS, FIXTURES),
+    () => deriveTournamentState(groupData.groups, fixtureData.matches),
     [],
   );
 
   // Build standings from fixtures when tournament is live/completed
   const computedGroups = useMemo(() => {
     if (tournamentState === 'pre-draw') return [];
-    if (tournamentState === 'draw-announced') return GROUPS;
+    if (tournamentState === 'draw-announced') return groupData.groups;
     // Live or completed: recalculate from fixture results
-    return buildStandingsFromFixtures(GROUPS, FIXTURES);
+    return buildStandingsFromFixtures(groupData.groups, fixtureData.matches);
   }, [tournamentState]);
 
   // Sort groups: England's group first when focus mode is on
@@ -221,7 +221,7 @@ function TournamentStateBadge({ state, progress }: { state: TournamentState; pro
   const config = {
     'pre-draw': {
       icon: Eye,
-      label: 'Draw Pending',
+      label: groupData.emptyState.badge,
       className: 'bg-white/5 text-white/40',
     },
     'draw-announced': {
@@ -565,12 +565,10 @@ function PreDrawPlaceholder() {
           <BarChart3 className="w-8 h-8 text-white/15" />
         </div>
         <h3 className="font-display text-white text-xl sm:text-2xl font-semibold mb-3">
-          Draw to Be Announced
+          {groupData.emptyState.heading}
         </h3>
         <p className="font-body text-white/40 text-sm max-w-lg mx-auto leading-relaxed mb-4">
-          Group compositions will be published here once the official draw has taken place.
-          Standings will populate automatically when the tournament schedule is confirmed
-          and match results are entered.
+          {groupData.emptyState.message}
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5">

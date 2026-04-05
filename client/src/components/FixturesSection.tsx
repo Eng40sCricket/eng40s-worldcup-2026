@@ -2,9 +2,7 @@
 // Uses enhanced Fixture schema: stage, isEngland, matchCentreUrl, group
 import { useState, useMemo } from 'react';
 import {
-  FIXTURES,
-  FIXTURE_FILTERS,
-  TOURNAMENT_VENUES,
+  fixtureData,
   type Fixture,
 } from '@/lib/data';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -58,11 +56,11 @@ export default function FixturesSection() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [venueFilter, setVenueFilter] = useState('all');
 
-  const hasFixtures = FIXTURES.length > 0;
+  const hasFixtures = fixtureData.matches.length > 0;
 
   const filtered = useMemo(() => {
     if (!hasFixtures) return [];
-    let matches = [...FIXTURES];
+    let matches = [...fixtureData.matches];
 
     if (teamFilter === 'england') {
       matches = matches.filter((m) => m.isEngland);
@@ -104,8 +102,8 @@ export default function FixturesSection() {
 
   // Unique venues for venue filter
   const venues = useMemo(() => {
-    if (!hasFixtures) return TOURNAMENT_VENUES;
-    const set = new Set(FIXTURES.map((f) => f.venue));
+    if (!hasFixtures) return fixtureData.venues;
+    const set = new Set(fixtureData.matches.map((f) => f.venue));
     return Array.from(set).sort();
   }, [hasFixtures]);
 
@@ -166,7 +164,7 @@ export default function FixturesSection() {
 
                 {/* Team filter pills */}
                 <div className="flex flex-wrap gap-2">
-                  {FIXTURE_FILTERS.team.map((f) => (
+                  {fixtureData.filters.team.map((f) => (
                     <button
                       key={f.value}
                       onClick={() => setTeamFilter(f.value)}
@@ -190,7 +188,7 @@ export default function FixturesSection() {
                 <span className="font-body text-xs text-navy/40 uppercase tracking-wider mr-1">Filter:</span>
 
                 {/* Stage */}
-                {FIXTURE_FILTERS.stage.map((f) => (
+                {fixtureData.filters.stage.map((f) => (
                   <button
                     key={f.value}
                     onClick={() => setStageFilter(f.value)}
@@ -207,7 +205,7 @@ export default function FixturesSection() {
                 <span className="text-navy/15">|</span>
 
                 {/* Status */}
-                {FIXTURE_FILTERS.status.map((f) => (
+                {fixtureData.filters.status.map((f) => (
                   <button
                     key={f.value}
                     onClick={() => setStatusFilter(f.value)}
@@ -239,7 +237,7 @@ export default function FixturesSection() {
 
             {/* Match count */}
             <p className="font-body text-navy/40 text-xs text-center mb-6 tracking-wider">
-              Showing {filtered.length} of {FIXTURES.length} matches
+              Showing {filtered.length} of {fixtureData.matches.length} matches
             </p>
 
             {/* List view */}
@@ -509,12 +507,10 @@ function FixturesPlaceholder() {
           <CalendarX2 className="w-8 h-8 text-navy/25" />
         </div>
         <h3 className="font-display text-navy text-xl sm:text-2xl font-semibold mb-3">
-          Fixture Details Pending
+          {fixtureData.emptyState.heading}
         </h3>
         <p className="font-body text-muted-foreground text-sm max-w-lg mx-auto leading-relaxed mb-4">
-          England fixtures will appear here once the official draw is released.
-          The match schedule for the IMC Over 40s ODI World Cup 2026 has not yet been
-          published by the tournament organisers.
+          {fixtureData.emptyState.message}
         </p>
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy/5">
           <Clock className="w-4 h-4 text-navy/30" />
@@ -525,9 +521,9 @@ function FixturesPlaceholder() {
 
         {/* Expected venues */}
         <div className="mt-8 pt-6 border-t border-navy/10 max-w-md mx-auto">
-          <p className="font-body text-xs text-navy/30 uppercase tracking-wider mb-3">Expected Venues</p>
+          <p className="font-body text-xs text-navy/30 uppercase tracking-wider mb-3">{fixtureData.emptyState.venuesLabel}</p>
           <div className="flex flex-wrap justify-center gap-2">
-            {TOURNAMENT_VENUES.map((v) => (
+            {fixtureData.venues.map((v) => (
               <span key={v} className="pill text-xs bg-navy/5 text-navy/40">
                 <MapPin className="w-3 h-3 mr-1" />
                 {v}
