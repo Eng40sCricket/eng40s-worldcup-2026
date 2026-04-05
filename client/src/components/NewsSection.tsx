@@ -1,14 +1,117 @@
-// DESIGN: "Stadium Broadcast" — News bulletins with card layout
-import { NEWS, ASSETS } from '@/lib/data';
-import { motion } from 'framer-motion';
-import { Newspaper, Calendar, ArrowRight } from 'lucide-react';
+// DESIGN: "Stadium Broadcast" — Team update feed with featured story,
+// category filters, pinned items, and official England badges
+import { useState, useMemo } from 'react';
+import {
+  BULLETINS,
+  BULLETIN_CATEGORIES,
+  ASSETS,
+  type Bulletin,
+  type BulletinCategory,
+} from '@/lib/data';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Newspaper,
+  Calendar,
+  ArrowRight,
+  Pin,
+  Shield,
+  Users,
+  MapPin,
+  Dumbbell,
+  Swords,
+  Trophy,
+  Camera,
+  Megaphone,
+  CalendarDays,
+  Filter,
+} from 'lucide-react';
+
+// ---- HELPERS ----
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr + 'T00:00:00');
   return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
+function getCategoryIcon(cat: BulletinCategory) {
+  switch (cat) {
+    case 'squad': return Users;
+    case 'fixtures': return CalendarDays;
+    case 'travel': return MapPin;
+    case 'training': return Dumbbell;
+    case 'matchday': return Swords;
+    case 'results': return Trophy;
+    case 'media': return Camera;
+    case 'announcements': return Megaphone;
+    default: return Newspaper;
+  }
+}
+
+/**
+ * Sorts bulletins: pinned first, then newest-first by date.
+ */
+function sortBulletins(items: Bulletin[]): Bulletin[] {
+  return [...items].sort((a, b) => {
+    // Pinned items always float to top
+    if (a.isPinned && !b.isPinned) return -1;
+    if (!a.isPinned && b.isPinned) return 1;
+    // Then sort by date descending
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+}
+
+// ---- CATEGORY FILTER PILLS ----
+
+const ALL_CATEGORIES: Array<{ key: BulletinCategory | 'all'; label: string }> = [
+  { key: 'all', label: 'All Updates' },
+  { key: 'squad', label: 'Squad' },
+  { key: 'fixtures', label: 'Fixtures' },
+  { key: 'travel', label: 'Travel' },
+  { key: 'training', label: 'Training' },
+  { key: 'matchday', label: 'Matchday' },
+  { key: 'results', label: 'Results' },
+  { key: 'media', label: 'Media' },
+  { key: 'announcements', label: 'Announcements' },
+];
+
+// ---- BACKGROUND IMAGES FOR CARDS ----
+const CARD_IMAGES = [
+  ASSETS.cricketAction,
+  ASSETS.guyanaStadium,
+  ASSETS.cricketBall,
+];
+
+// ============================================================
+// MAIN COMPONENT
+// ============================================================
+
 export default function NewsSection() {
+  const [activeCategory, setActiveCategory] = useState<BulletinCategory | 'all'>('all');
+
+  // Separate featured item (first isFeatured bulletin)
+  const featured = useMemo(
+    () => BULLETINS.find((b) => b.isFeatured) ?? null,
+    [],
+  );
+
+  // Filter and sort remaining bulletins
+  const feedItems = useMemo(() => {
+    const nonFeatured = BULLETINS.filter((b) => b.id !== featured?.id);
+    const filtered = activeCategory === 'all'
+      ? nonFeatured
+      : nonFeatured.filter((b) => b.category === activeCategory);
+    return sortBulletins(filtered);
+  }, [activeCategory, featured]);
+
+  // Count per category for filter badges
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: BULLETINS.length };
+    for (const b of BULLETINS) {
+      counts[b.category] = (counts[b.category] || 0) + 1;
+    }
+    return counts;
+  }, []);
+
   return (
     <section id="news" className="section-slate py-16 sm:py-24 clip-top">
       <div className="container">
@@ -20,70 +123,105 @@ export default function NewsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <h2 className="font-display text-navy text-3xl sm:text-4xl font-bold tracking-wide uppercase">
-            News &amp; Updates
+          <p className="font-body text-sky text-sm tracking-[0.25em] uppercase mb-2 font-medium">
+            Team Updates
+          </p>
+          <h2 className="font-display text-navy text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase">
+            News &amp; Bulletins
           </h2>
           <div className="w-16 h-1 bg-sky mx-auto mt-3 rounded-full" />
         </motion.div>
 
-        {NEWS.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {NEWS.map((item, i) => (
-              <motion.article
-                key={item.id}
+        {BULLETINS.length > 0 ? (
+          <>
+            {/* Featured story */}
+            {featured && (
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="bg-white rounded-lg border border-border overflow-hidden shadow-sm hover:shadow-md transition-shadow group"
+                transition={{ duration: 0.6 }}
+                className="mb-10"
               >
-                {/* Image or placeholder */}
-                <div className="h-40 bg-gradient-to-br from-navy/5 to-sky/5 overflow-hidden">
-                  {item.imageUrl ? (
-                    <img
-                      src={item.imageUrl}
-                      alt={item.headline}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <img
-                        src={i === 0 ? ASSETS.cricketAction : i === 1 ? ASSETS.guyanaStadium : ASSETS.cricketBall}
-                        alt=""
-                        className="w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                  )}
-                </div>
+                <FeaturedStory bulletin={featured} />
+              </motion.div>
+            )}
 
-                <div className="p-5">
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
-                    <time className="font-body text-xs text-muted-foreground">
-                      {formatDate(item.date)}
-                    </time>
-                  </div>
-                  <h3 className="font-display text-navy text-base font-semibold leading-snug mb-2">
-                    {item.headline}
-                  </h3>
-                  <p className="font-body text-sm text-navy/60 leading-relaxed line-clamp-3">
-                    {item.summary}
-                  </p>
-                  {item.link && (
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1 font-body text-sm text-sky font-medium hover:underline"
+            {/* Category filter pills */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mb-8"
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <Filter className="w-4 h-4 text-navy/40" />
+                <span className="font-body text-xs text-navy/40 uppercase tracking-wider font-medium">
+                  Filter by category
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {ALL_CATEGORIES.map((cat) => {
+                  const count = categoryCounts[cat.key] || 0;
+                  if (cat.key !== 'all' && count === 0) return null;
+                  const isActive = activeCategory === cat.key;
+                  return (
+                    <button
+                      key={cat.key}
+                      onClick={() => setActiveCategory(cat.key)}
+                      className={`pill text-xs transition-all ${
+                        isActive
+                          ? 'bg-navy text-white shadow-md'
+                          : 'bg-navy/5 text-navy/60 hover:bg-navy/10 hover:text-navy'
+                      }`}
                     >
-                      Read more <ArrowRight className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                </div>
-              </motion.article>
-            ))}
-          </div>
+                      {cat.label}
+                      {count > 0 && (
+                        <span className={`ml-1.5 text-[10px] px-1.5 py-0.5 rounded-full ${
+                          isActive ? 'bg-white/20 text-white' : 'bg-navy/10 text-navy/40'
+                        }`}>
+                          {count}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </motion.div>
+
+            {/* Bulletin feed */}
+            <AnimatePresence mode="wait">
+              {feedItems.length > 0 ? (
+                <motion.div
+                  key={activeCategory}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
+                >
+                  {feedItems.map((item, i) => (
+                    <BulletinCard key={item.id} bulletin={item} index={i} />
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="empty-filter"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-center py-12"
+                >
+                  <p className="font-body text-navy/40 text-sm">
+                    No bulletins in this category yet. Check back closer to the tournament.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
         ) : (
+          /* Empty state when no bulletins at all */
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -104,5 +242,186 @@ export default function NewsSection() {
         )}
       </div>
     </section>
+  );
+}
+
+
+// ============================================================
+// FEATURED STORY COMPONENT
+// ============================================================
+
+function FeaturedStory({ bulletin }: { bulletin: Bulletin }) {
+  const catConfig = BULLETIN_CATEGORIES[bulletin.category];
+  const CatIcon = getCategoryIcon(bulletin.category);
+
+  return (
+    <div className="relative max-w-5xl mx-auto rounded-xl overflow-hidden shadow-lg border border-border">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <img
+          src={bulletin.imageUrl || ASSETS.cricketAction}
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/80 to-navy/50" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
+        <div className="max-w-xl">
+          {/* Badges row */}
+          <div className="flex flex-wrap items-center gap-2 mb-4">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gold/20 text-gold text-[11px] font-body font-semibold uppercase tracking-wider">
+              <Pin className="w-3 h-3" />
+              Featured
+            </span>
+            {bulletin.isOfficial && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-sky/20 text-sky text-[11px] font-body font-semibold uppercase tracking-wider">
+                <Shield className="w-3 h-3" />
+                Official England Update
+              </span>
+            )}
+            <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-body font-medium ${catConfig.color}`}>
+              <CatIcon className="w-3 h-3" />
+              {catConfig.label}
+            </span>
+          </div>
+
+          {/* Date */}
+          <div className="flex items-center gap-1.5 mb-3">
+            <Calendar className="w-3.5 h-3.5 text-white/40" />
+            <time className="font-body text-xs text-white/50">
+              {formatDate(bulletin.date)}
+            </time>
+          </div>
+
+          {/* Headline */}
+          <h3 className="font-display text-white text-xl sm:text-2xl md:text-3xl font-bold leading-tight mb-4">
+            {bulletin.headline}
+          </h3>
+
+          {/* Summary */}
+          <p className="font-body text-white/70 text-sm sm:text-base leading-relaxed mb-4">
+            {bulletin.summary}
+          </p>
+
+          {/* Author */}
+          {bulletin.author && (
+            <p className="font-body text-xs text-white/30 mb-4">
+              By {bulletin.author}
+            </p>
+          )}
+
+          {/* Link */}
+          {bulletin.link && (
+            <a
+              href={bulletin.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 font-body text-sm text-sky font-medium hover:text-sky-light transition-colors"
+            >
+              Read full story <ArrowRight className="w-4 h-4" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+// ============================================================
+// BULLETIN CARD COMPONENT
+// ============================================================
+
+function BulletinCard({ bulletin, index }: { bulletin: Bulletin; index: number }) {
+  const catConfig = BULLETIN_CATEGORIES[bulletin.category];
+  const CatIcon = getCategoryIcon(bulletin.category);
+  const bgImage = bulletin.imageUrl || CARD_IMAGES[index % CARD_IMAGES.length];
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.06 }}
+      className="bg-white rounded-lg border border-border overflow-hidden shadow-sm hover:shadow-md transition-all group"
+    >
+      {/* Image header */}
+      <div className="h-40 relative overflow-hidden">
+        <img
+          src={bgImage}
+          alt=""
+          className="w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
+
+        {/* Pinned badge */}
+        {bulletin.isPinned && (
+          <div className="absolute top-3 left-3">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-navy/80 text-gold text-[10px] font-body font-semibold uppercase tracking-wider backdrop-blur-sm">
+              <Pin className="w-2.5 h-2.5" />
+              Pinned
+            </span>
+          </div>
+        )}
+
+        {/* Official badge */}
+        {bulletin.isOfficial && (
+          <div className="absolute top-3 right-3">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky/90 text-white text-[10px] font-body font-semibold uppercase tracking-wider backdrop-blur-sm">
+              <Shield className="w-2.5 h-2.5" />
+              Official
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-5">
+        {/* Category tag + date */}
+        <div className="flex items-center justify-between gap-2 mb-2.5">
+          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-body font-medium ${catConfig.color}`}>
+            <CatIcon className="w-3 h-3" />
+            {catConfig.label}
+          </span>
+          <div className="flex items-center gap-1">
+            <Calendar className="w-3 h-3 text-muted-foreground" />
+            <time className="font-body text-[11px] text-muted-foreground">
+              {formatDate(bulletin.date)}
+            </time>
+          </div>
+        </div>
+
+        {/* Headline */}
+        <h3 className="font-display text-navy text-base font-semibold leading-snug mb-2">
+          {bulletin.headline}
+        </h3>
+
+        {/* Summary */}
+        <p className="font-body text-sm text-navy/60 leading-relaxed line-clamp-3">
+          {bulletin.summary}
+        </p>
+
+        {/* Author */}
+        {bulletin.author && (
+          <p className="font-body text-[11px] text-navy/30 mt-2">
+            By {bulletin.author}
+          </p>
+        )}
+
+        {/* Link */}
+        {bulletin.link && (
+          <a
+            href={bulletin.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center gap-1 font-body text-sm text-sky font-medium hover:underline"
+          >
+            Read more <ArrowRight className="w-3.5 h-3.5" />
+          </a>
+        )}
+      </div>
+    </motion.article>
   );
 }

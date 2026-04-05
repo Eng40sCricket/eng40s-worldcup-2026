@@ -426,36 +426,121 @@ export const GROUPS: Group[] = [];
 
 
 // ============================================================
-// NEWS
+// NEWS BULLETINS
 // ============================================================
 
-export interface NewsItem {
+/**
+ * BulletinCategory — Content categories for the team update feed.
+ * Used for filtering and visual tagging.
+ */
+export type BulletinCategory =
+  | 'squad'
+  | 'fixtures'
+  | 'travel'
+  | 'training'
+  | 'matchday'
+  | 'results'
+  | 'media'
+  | 'announcements';
+
+/**
+ * Bulletin — A single news item in the team update feed.
+ *
+ * Fields:
+ *   id            — Unique identifier
+ *   date          — ISO date string (YYYY-MM-DD)
+ *   headline      — Short, punchy title
+ *   category      — One of the defined BulletinCategory values
+ *   summary       — 1–3 sentence summary of the update
+ *   imageUrl      — Optional hero image for the bulletin card
+ *   link          — Optional URL to the full article or external source
+ *   isPinned      — If true, bulletin stays at the top of the feed
+ *   isFeatured    — If true, bulletin appears in the featured story area
+ *   isOfficial    — If true, shows an "Official England Update" badge
+ *   author        — Optional byline
+ */
+export interface Bulletin {
   id: string;
   date: string;
   headline: string;
+  category: BulletinCategory;
   summary: string;
   imageUrl?: string;
   link?: string;
+  isPinned?: boolean;
+  isFeatured?: boolean;
+  isOfficial?: boolean;
+  author?: string;
 }
 
-export const NEWS: NewsItem[] = [
+/**
+ * Category display configuration — label, colour, and icon mapping.
+ * Used by the UI to render consistent category tags.
+ */
+export const BULLETIN_CATEGORIES: Record<BulletinCategory, { label: string; color: string }> = {
+  squad:         { label: 'Squad',         color: 'bg-sky/15 text-sky' },
+  fixtures:      { label: 'Fixtures',      color: 'bg-emerald-500/15 text-emerald-600' },
+  travel:        { label: 'Travel',        color: 'bg-amber-500/15 text-amber-600' },
+  training:      { label: 'Training',      color: 'bg-violet-500/15 text-violet-600' },
+  matchday:      { label: 'Matchday',      color: 'bg-red-500/15 text-red-600' },
+  results:       { label: 'Results',       color: 'bg-blue-500/15 text-blue-600' },
+  media:         { label: 'Media',         color: 'bg-pink-500/15 text-pink-600' },
+  announcements: { label: 'Announcements', color: 'bg-gold/15 text-amber-700' },
+};
+
+// ---- BULLETINS DATA ----
+// Newest first. Pinned items float to the top regardless of date.
+// The first isFeatured item is displayed in the featured story area.
+
+export const BULLETINS: Bulletin[] = [
   {
-    id: 'news-1',
+    id: 'bul-1',
     date: '2026-04-05',
-    headline: 'England Over 40s World Cup Page Launched',
-    summary: 'Welcome to the official England Over 40s ODI World Cup 2026 hub. This page will be your one-stop destination for squad news, fixtures, group standings, and live updates from Georgetown, Guyana.',
+    headline: 'England Over 40s Squad Confirmed for World Cup 2026',
+    category: 'squad',
+    summary: 'England Over 40s Cricket is pleased to confirm that a squad of 16 players has been selected to represent England at the IMC Over 40s ODI World Cup in Georgetown, Guyana, from 17 to 31 October 2026. Further tournament details, including the group draw and full fixture list, are still awaited from the IMC.',
+    isPinned: true,
+    isFeatured: true,
+    isOfficial: true,
+    author: 'England Over 40s Cricket',
   },
   {
-    id: 'news-2',
+    id: 'bul-2',
+    date: '2026-04-05',
+    headline: 'Official World Cup Hub Now Live',
+    category: 'announcements',
+    summary: 'Welcome to the official England Over 40s ODI World Cup 2026 hub. This page will be your one-stop destination for squad news, fixtures, group standings, and live updates from Georgetown, Guyana. Bookmark this page and check back regularly for the latest information.',
+    isOfficial: true,
+    author: 'England Over 40s Cricket',
+  },
+  {
+    id: 'bul-3',
     date: '2026-03-15',
     headline: 'World Cup Dates Confirmed: 17–31 October 2026',
-    summary: 'The IMC has confirmed that the Over 40s ODI World Cup will take place in Georgetown, Guyana from 17 to 31 October 2026. Up to 16 nations are expected to compete in the 45-over format.',
+    category: 'announcements',
+    summary: 'The IMC has confirmed that the Over 40s ODI World Cup will take place in Georgetown, Guyana from 17 to 31 October 2026. Up to 16 nations are expected to compete in the 45-over format tournament.',
+    isOfficial: true,
   },
   {
-    id: 'news-3',
+    id: 'bul-4',
     date: '2026-03-04',
     headline: 'Guyana Confirmed as Host Nation',
-    summary: 'The Cricket West Indies Masters Association (CWIMA) has secured hosting rights for the 2026 Over 40s World Cup in the Caribbean, with Georgetown, Guyana confirmed as the primary venue.',
+    category: 'announcements',
+    summary: 'The Cricket West Indies Masters Association (CWIMA) has secured hosting rights for the 2026 Over 40s World Cup in the Caribbean, with Georgetown, Guyana confirmed as the primary venue. Matches are expected to be played across several grounds in the Georgetown area.',
+  },
+  {
+    id: 'bul-5',
+    date: '2026-02-20',
+    headline: 'Performance Squad Training Programme Underway',
+    category: 'training',
+    summary: 'The England Over 40s performance squad of 50 players has begun its 2026 pre-season training programme. The coaching team is working with all squad members ahead of the domestic season, from which the final 16-player World Cup squad will be selected.',
+  },
+  {
+    id: 'bul-6',
+    date: '2026-02-10',
+    headline: 'Travel and Logistics Planning Begins',
+    category: 'travel',
+    summary: 'The England Over 40s management team has commenced planning for travel and accommodation arrangements for the squad\'s trip to Guyana. Further details will be shared with selected players and travelling supporters in due course.',
   },
 ];
 
