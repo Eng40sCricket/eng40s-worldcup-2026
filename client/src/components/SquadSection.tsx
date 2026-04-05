@@ -55,7 +55,7 @@ function SquadSkeleton() {
 
 export default function SquadSection() {
   const [roleFilter, setRoleFilter] = useState('all');
-  const [sortBy, setSortBy] = useState('squadNumber');
+  const [sortBy, setSortBy] = useState('surname');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [modalOpen, setModalOpen] = useState(false);

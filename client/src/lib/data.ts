@@ -208,7 +208,7 @@ export const squadData = {
     {
       id: 'eng-wc-001',
       fullName: 'Darren Stevens',
-      image: undefined,
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/stevens-captain_63c37db0.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm medium',
