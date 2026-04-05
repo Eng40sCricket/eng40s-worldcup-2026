@@ -106,6 +106,9 @@ export default function PlayerModal({ player, open, onClose }: PlayerModalProps)
             {player.wicketkeeperFlag && player.roleCategory !== 'Wicketkeeper' && (
               <span className="pill text-sm bg-gold/20 text-gold-dark">Wicketkeeper</span>
             )}
+            {player.squadNumber !== undefined && (
+              <span className="pill text-sm bg-navy/10 text-navy font-display">#{player.squadNumber}</span>
+            )}
             {player.capNumber && (
               <span className="pill text-sm bg-navy/10 text-navy">Cap #{player.capNumber}</span>
             )}

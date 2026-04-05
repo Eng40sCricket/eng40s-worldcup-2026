@@ -1,5 +1,5 @@
-// DESIGN: "Stadium Broadcast" — Squad section with search, filters, sort, share, skeleton
-// Enhanced: search within profiles, share button, loading skeleton, semantic HTML, ARIA
+// DESIGN: "Stadium Broadcast" — Squad section with captain featured, rows of three
+// Captain (Darren Stevens) centred at top, remaining 15 players in 3-column grid
 import { useState, useMemo, useEffect } from 'react';
 import { squadData, ASSETS, type Player, getPlayerSurname } from '@/lib/data';
 import PlayerCard from './PlayerCard';
@@ -10,15 +10,16 @@ import { toast } from 'sonner';
 
 function SquadSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" aria-hidden="true">
-      {Array.from({ length: 8 }).map((_, i) => (
-        <div key={i} className="bg-white/5 rounded-lg overflow-hidden animate-pulse">
-          <div className="h-48 bg-white/10" />
-          <div className="p-4 space-y-3">
-            <div className="h-5 bg-white/10 rounded w-3/4" />
+    <div className="space-y-6" aria-hidden="true">
+      {/* Captain skeleton */}
+      <div className="flex justify-center">
+        <div className="w-full max-w-sm bg-white/5 rounded-lg overflow-hidden animate-pulse">
+          <div className="h-64 bg-white/10" />
+          <div className="p-5 space-y-3">
+            <div className="h-6 bg-white/10 rounded w-3/4" />
             <div className="flex gap-2">
+              <div className="h-5 bg-white/8 rounded-full w-20" />
               <div className="h-5 bg-white/8 rounded-full w-16" />
-              <div className="h-5 bg-white/8 rounded-full w-24" />
             </div>
             <div className="space-y-2">
               <div className="h-3 bg-white/5 rounded w-full" />
@@ -27,14 +28,34 @@ function SquadSkeleton() {
             </div>
           </div>
         </div>
-      ))}
+      </div>
+      {/* Grid skeleton */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="bg-white/5 rounded-lg overflow-hidden animate-pulse">
+            <div className="h-48 bg-white/10" />
+            <div className="p-4 space-y-3">
+              <div className="h-5 bg-white/10 rounded w-3/4" />
+              <div className="flex gap-2">
+                <div className="h-5 bg-white/8 rounded-full w-16" />
+                <div className="h-5 bg-white/8 rounded-full w-24" />
+              </div>
+              <div className="space-y-2">
+                <div className="h-3 bg-white/5 rounded w-full" />
+                <div className="h-3 bg-white/5 rounded w-full" />
+                <div className="h-3 bg-white/5 rounded w-2/3" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
 export default function SquadSection() {
   const [roleFilter, setRoleFilter] = useState('all');
-  const [sortBy, setSortBy] = useState('surname');
+  const [sortBy, setSortBy] = useState('squadNumber');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -49,7 +70,7 @@ export default function SquadSection() {
   const filteredAndSorted = useMemo(() => {
     let players = [...squadData.players];
 
-    // Search filter — matches name, club, role, batting/bowling style
+    // Search filter — matches name, club, role, batting/bowling style, squad number
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       players = players.filter(
@@ -58,7 +79,8 @@ export default function SquadSection() {
           p.clubEngland.toLowerCase().includes(q) ||
           p.roleCategory.toLowerCase().includes(q) ||
           p.battingStyle.toLowerCase().includes(q) ||
-          p.bowlingStyle.toLowerCase().includes(q)
+          p.bowlingStyle.toLowerCase().includes(q) ||
+          (p.squadNumber !== undefined && p.squadNumber.toString() === q)
       );
     }
 
@@ -70,6 +92,8 @@ export default function SquadSection() {
     // Sort
     players.sort((a, b) => {
       switch (sortBy) {
+        case 'squadNumber':
+          return (a.squadNumber ?? 999) - (b.squadNumber ?? 999);
         case 'surname':
           return getPlayerSurname(a).localeCompare(getPlayerSurname(b));
         case 'club':
@@ -85,6 +109,12 @@ export default function SquadSection() {
 
     return players;
   }, [roleFilter, sortBy, searchQuery]);
+
+  // Separate captain from rest for featured layout
+  const captain = filteredAndSorted.find((p) => p.leadershipTag === 'Captain');
+  const restOfSquad = filteredAndSorted.filter((p) => p.leadershipTag !== 'Captain');
+  // Show featured layout only when no active filters/search are narrowing results
+  const showFeaturedLayout = roleFilter === 'all' && !searchQuery.trim();
 
   const handlePlayerClick = (player: Player) => {
     setSelectedPlayer(player);
@@ -159,7 +189,7 @@ export default function SquadSection() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 pointer-events-none" aria-hidden="true" />
               <input
                 type="search"
-                placeholder="Search by name, club, or role..."
+                placeholder="Search by name, club, role, or squad number..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-9 py-3 rounded-lg bg-white/10 border border-white/15 text-white placeholder:text-white/35 font-body text-sm focus:outline-none focus:ring-2 focus:ring-sky/50 focus:border-sky/50 transition-all min-h-[48px]"
@@ -239,7 +269,7 @@ export default function SquadSection() {
         <div className="text-center mb-6" aria-live="polite" aria-atomic="true">
           <p className="font-body text-white/40 text-xs tracking-wider">
             Showing {filteredAndSorted.length} of {squadData.players.length} players
-            {searchQuery && <span className="text-sky/60"> — searching "{searchQuery}"</span>}
+            {searchQuery && <span className="text-sky/60"> — searching &ldquo;{searchQuery}&rdquo;</span>}
           </p>
         </div>
 
@@ -248,22 +278,56 @@ export default function SquadSection() {
           <SquadSkeleton />
         ) : (
           <>
-            {/* Player grid */}
-            <div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
-              role="list"
-              aria-label="Squad players"
-            >
-              {filteredAndSorted.map((player, i) => (
-                <div key={player.id} role="listitem">
-                  <PlayerCard
-                    player={player}
-                    index={i}
-                    onClick={handlePlayerClick}
-                  />
+            {/* FEATURED LAYOUT: Captain centred at top, rest in 3-column grid */}
+            {showFeaturedLayout && captain ? (
+              <>
+                {/* Captain — centred featured card */}
+                <div className="flex justify-center mb-8">
+                  <div className="w-full max-w-sm">
+                    <PlayerCard
+                      player={captain}
+                      index={0}
+                      onClick={handlePlayerClick}
+                      featured
+                    />
+                  </div>
                 </div>
-              ))}
-            </div>
+
+                {/* Remaining players — 3-column grid */}
+                <div
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+                  role="list"
+                  aria-label="Squad players"
+                >
+                  {restOfSquad.map((player, i) => (
+                    <div key={player.id} role="listitem">
+                      <PlayerCard
+                        player={player}
+                        index={i + 1}
+                        onClick={handlePlayerClick}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              /* FILTERED/SEARCH LAYOUT: Standard 3-column grid */
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+                role="list"
+                aria-label="Squad players"
+              >
+                {filteredAndSorted.map((player, i) => (
+                  <div key={player.id} role="listitem">
+                    <PlayerCard
+                      player={player}
+                      index={i}
+                      onClick={handlePlayerClick}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Empty state — no players match filter/search */}
             {filteredAndSorted.length === 0 && squadData.players.length > 0 && (

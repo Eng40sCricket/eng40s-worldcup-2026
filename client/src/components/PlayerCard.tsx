@@ -1,4 +1,4 @@
-// DESIGN: "Stadium Broadcast" — Player card with stat pills, role badge, hover lift
+// DESIGN: "Stadium Broadcast" — Player card with squad number, stat pills, role badge
 // Enhanced: semantic HTML, ARIA labels, larger touch targets, focus-visible ring
 import type { Player } from '@/lib/data';
 import { getDisplayBowling, getBowlingLabel, getPlayerFirstName, getPlayerSurname } from '@/lib/data';
@@ -9,6 +9,8 @@ interface PlayerCardProps {
   player: Player;
   index: number;
   onClick: (player: Player) => void;
+  /** If true, renders a larger featured captain variant */
+  featured?: boolean;
 }
 
 const ROLE_COLORS: Record<string, string> = {
@@ -25,7 +27,7 @@ const STATUS_BADGE: Record<string, { label: string; className: string }> = {
   placeholder: { label: 'Profile pending', className: 'bg-white/10 text-muted-foreground' },
 };
 
-export default function PlayerCard({ player, index, onClick }: PlayerCardProps) {
+export default function PlayerCard({ player, index, onClick, featured = false }: PlayerCardProps) {
   const roleColor = ROLE_COLORS[player.roleCategory] || 'bg-sky/15 text-sky';
   const displayBowling = getDisplayBowling(player);
   const bowlingLabel = getBowlingLabel(player);
@@ -42,14 +44,25 @@ export default function PlayerCard({ player, index, onClick }: PlayerCardProps) 
       transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.4) }}
       className={`group relative bg-white rounded-lg border overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${
         isPlaceholder ? 'border-dashed border-border/60 opacity-75' : 'border-border'
-      }`}
+      } ${featured ? 'ring-2 ring-gold/40' : ''}`}
     >
       <button
         onClick={() => onClick(player)}
         className="w-full text-left focus-visible:ring-2 focus-visible:ring-sky focus-visible:ring-offset-2 rounded-lg"
         aria-label={`View profile for ${player.fullName}, ${player.roleCategory} from ${player.clubEngland}`}
       >
-        {/* Leadership badge */}
+        {/* Squad number badge — top left */}
+        {player.squadNumber !== undefined && (
+          <div className="absolute top-3 left-3 z-10">
+            <span className={`inline-flex items-center justify-center font-display font-bold text-white rounded-md shadow-md ${
+              featured ? 'w-10 h-10 text-lg bg-gold' : 'w-8 h-8 text-sm bg-navy'
+            }`}>
+              {player.squadNumber}
+            </span>
+          </div>
+        )}
+
+        {/* Leadership badge — top right */}
         {player.leadershipTag && (
           <div className="absolute top-3 right-3 z-10">
             <span className="pill bg-gold/20 text-gold-dark">
@@ -61,7 +74,9 @@ export default function PlayerCard({ player, index, onClick }: PlayerCardProps) 
         )}
 
         {/* Photo area */}
-        <div className="relative h-48 bg-gradient-to-br from-navy/5 to-navy/10 flex items-center justify-center overflow-hidden">
+        <div className={`relative bg-gradient-to-br from-navy/5 to-navy/10 flex items-center justify-center overflow-hidden ${
+          featured ? 'h-56 sm:h-64' : 'h-48'
+        }`}>
           {player.image ? (
             <img
               src={player.image}
@@ -71,7 +86,7 @@ export default function PlayerCard({ player, index, onClick }: PlayerCardProps) 
             />
           ) : (
             <div className="flex flex-col items-center gap-2 text-navy/20" aria-hidden="true">
-              <User className="w-16 h-16" strokeWidth={1} />
+              <User className={featured ? 'w-20 h-20' : 'w-16 h-16'} strokeWidth={1} />
               <span className="font-body text-xs tracking-wider uppercase">Photo TBC</span>
             </div>
           )}
@@ -80,11 +95,13 @@ export default function PlayerCard({ player, index, onClick }: PlayerCardProps) 
         </div>
 
         {/* Info area */}
-        <div className="p-4 pt-2">
+        <div className={`p-4 pt-2 ${featured ? 'pb-5' : ''}`}>
           {/* Name */}
-          <h3 className="font-display text-navy text-lg font-semibold leading-tight">
+          <h3 className={`font-display text-navy font-semibold leading-tight ${
+            featured ? 'text-xl sm:text-2xl' : 'text-lg'
+          }`}>
             {firstName}{' '}
-            <span className="text-xl">{surname.toUpperCase()}</span>
+            <span className={featured ? 'text-2xl sm:text-3xl' : 'text-xl'}>{surname.toUpperCase()}</span>
           </h3>
 
           {/* Role pill + status */}
