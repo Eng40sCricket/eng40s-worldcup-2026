@@ -1,7 +1,9 @@
 // DESIGN: "Stadium Broadcast" — Slide-up modal sheet for player detail
+// Uses new schema: fullName, roleCategory, wicketkeeperFlag, clubEngland, profileStatus
 import type { Player } from '@/lib/data';
+import { getDisplayBowling, getBowlingLabel, getPlayerFirstName, getPlayerSurname } from '@/lib/data';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { User, Shield, Star, MapPin } from 'lucide-react';
+import { User, Shield, Star, MapPin, Clock, Info } from 'lucide-react';
 
 interface PlayerModalProps {
   player: Player | null;
@@ -20,17 +22,21 @@ const ROLE_COLORS: Record<string, string> = {
 export default function PlayerModal({ player, open, onClose }: PlayerModalProps) {
   if (!player) return null;
 
-  const roleColor = ROLE_COLORS[player.role] || 'bg-sky/15 text-sky';
+  const roleColor = ROLE_COLORS[player.roleCategory] || 'bg-sky/15 text-sky';
+  const firstName = getPlayerFirstName(player);
+  const surname = getPlayerSurname(player);
+  const displayBowling = getDisplayBowling(player);
+  const bowlingLabel = getBowlingLabel(player);
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-lg p-0 overflow-hidden bg-white border-none">
         {/* Header with photo */}
         <div className="relative h-56 sm:h-64 bg-gradient-to-br from-navy to-navy-light flex items-end overflow-hidden">
-          {player.photo ? (
+          {player.image ? (
             <img
-              src={player.photo}
-              alt={`${player.firstName} ${player.lastName}`}
+              src={player.image}
+              alt={player.fullName}
               className="absolute inset-0 w-full h-full object-cover opacity-60"
             />
           ) : (
@@ -43,15 +49,15 @@ export default function PlayerModal({ player, open, onClose }: PlayerModalProps)
           <div className="relative z-10 p-6 pb-5 w-full">
             {player.leadershipTag && (
               <span className="pill bg-gold/30 text-gold mb-2 inline-flex items-center">
-                {player.isCaptain && <Shield className="w-3 h-3 mr-1" />}
-                {player.isViceCaptain && <Star className="w-3 h-3 mr-1" />}
+                {player.leadershipTag === 'Captain' && <Shield className="w-3 h-3 mr-1" />}
+                {player.leadershipTag === 'Vice-Captain' && <Star className="w-3 h-3 mr-1" />}
                 {player.leadershipTag}
               </span>
             )}
             <DialogHeader>
               <DialogTitle className="font-display text-white text-3xl sm:text-4xl font-bold tracking-tight leading-none">
-                {player.firstName}{' '}
-                <span className="block">{player.lastName.toUpperCase()}</span>
+                {firstName}{' '}
+                <span className="block">{surname.toUpperCase()}</span>
               </DialogTitle>
             </DialogHeader>
           </div>
@@ -59,10 +65,24 @@ export default function PlayerModal({ player, open, onClose }: PlayerModalProps)
 
         {/* Body */}
         <div className="p-6 space-y-5">
+          {/* Profile status banner */}
+          {player.profileStatus !== 'confirmed' && (
+            <div className={`flex items-center gap-2 px-3 py-2 rounded-md text-xs font-body ${
+              player.profileStatus === 'provisional'
+                ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                : 'bg-gray-50 text-gray-500 border border-gray-200'
+            }`}>
+              <Info className="w-3.5 h-3.5 shrink-0" />
+              {player.profileStatus === 'provisional'
+                ? 'This profile is subject to confirmation. Details may change before the final squad announcement.'
+                : 'Profile details are pending. This entry will be updated when the squad is officially announced.'}
+            </div>
+          )}
+
           {/* Role + badges */}
           <div className="flex flex-wrap gap-2">
-            <span className={`pill text-sm ${roleColor}`}>{player.role}</span>
-            {player.isWicketkeeper && player.role !== 'Wicketkeeper' && (
+            <span className={`pill text-sm ${roleColor}`}>{player.roleCategory}</span>
+            {player.wicketkeeperFlag && player.roleCategory !== 'Wicketkeeper' && (
               <span className="pill text-sm bg-gold/20 text-gold-dark">Wicketkeeper</span>
             )}
             {player.capNumber && (
@@ -74,20 +94,20 @@ export default function PlayerModal({ player, open, onClose }: PlayerModalProps)
           <div className="grid grid-cols-2 gap-4">
             <DetailItem label="Batting" value={player.battingStyle} />
             <DetailItem
-              label={player.isWicketkeeper ? 'Designation' : 'Bowling'}
-              value={player.bowlingStyle}
+              label={bowlingLabel}
+              value={displayBowling}
             />
-            <DetailItem label="Club" value={player.club} icon={<MapPin className="w-3.5 h-3.5" />} />
+            <DetailItem label="Club" value={player.clubEngland} icon={<MapPin className="w-3.5 h-3.5" />} />
             {player.county && (
               <DetailItem label="County" value={player.county} />
             )}
           </div>
 
           {/* Bio */}
-          {player.bio && (
+          {player.shortBio && (
             <div className="pt-3 border-t border-border">
               <p className="font-body text-sm text-navy/70 leading-relaxed">
-                {player.bio}
+                {player.shortBio}
               </p>
             </div>
           )}

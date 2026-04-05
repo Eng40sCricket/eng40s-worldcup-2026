@@ -1,6 +1,7 @@
 // DESIGN: "Stadium Broadcast" — Squad section with navy background, pill filters, sortable grid
+// Uses new schema: roleCategory, clubEngland, getPlayerSurname
 import { useState, useMemo } from 'react';
-import { SQUAD, ROLE_FILTERS, SORT_OPTIONS, ASSETS, type Player } from '@/lib/data';
+import { SQUAD, ROLE_FILTERS, SORT_OPTIONS, ASSETS, type Player, getPlayerSurname } from '@/lib/data';
 import PlayerCard from './PlayerCard';
 import PlayerModal from './PlayerModal';
 import { motion } from 'framer-motion';
@@ -15,21 +16,21 @@ export default function SquadSection() {
   const filteredAndSorted = useMemo(() => {
     let players = [...SQUAD];
 
-    // Filter
+    // Filter by roleCategory
     if (roleFilter !== 'all') {
-      players = players.filter((p) => p.role === roleFilter);
+      players = players.filter((p) => p.roleCategory === roleFilter);
     }
 
     // Sort
     players.sort((a, b) => {
       switch (sortBy) {
         case 'surname':
-          return a.lastName.localeCompare(b.lastName);
+          return getPlayerSurname(a).localeCompare(getPlayerSurname(b));
         case 'club':
-          return a.club.localeCompare(b.club);
+          return a.clubEngland.localeCompare(b.clubEngland);
         case 'role': {
           const roleOrder = ['Batter', 'All-rounder', 'Seamer', 'Spinner', 'Wicketkeeper'];
-          return roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role);
+          return roleOrder.indexOf(a.roleCategory) - roleOrder.indexOf(b.roleCategory);
         }
         default:
           return 0;

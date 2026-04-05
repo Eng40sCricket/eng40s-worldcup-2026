@@ -47,9 +47,24 @@ export const NAV_SECTIONS = [
   { id: 'press', label: 'Press' },
 ] as const;
 
-// ---- PLAYER ROLES ----
-export type PlayerRole = 'Batter' | 'Seamer' | 'Spinner' | 'All-rounder' | 'Wicketkeeper';
+
+// ============================================================
+// SQUAD SCHEMA — Reusable player data model
+// ============================================================
+
+/**
+ * roleCategory: The player's primary role in the squad.
+ * Used for filtering and display.
+ */
+export type RoleCategory =
+  | 'Batter'
+  | 'Seamer'
+  | 'Spinner'
+  | 'All-rounder'
+  | 'Wicketkeeper';
+
 export type BattingStyle = 'Right-hand bat' | 'Left-hand bat';
+
 export type BowlingStyle =
   | 'Right-arm fast'
   | 'Right-arm fast-medium'
@@ -64,197 +79,187 @@ export type BowlingStyle =
   | 'Left-arm orthodox'
   | 'Left-arm wrist spin'
   | 'Slow left-arm orthodox'
-  | 'Wicketkeeper'
-  | 'Wicketkeeper-batter'
   | 'N/A';
 
+/**
+ * profileStatus controls how the card renders:
+ * - 'confirmed': Full profile with all details visible
+ * - 'provisional': Shown with a "Subject to confirmation" label
+ * - 'placeholder': Minimal card with "Profile pending" messaging
+ */
+export type ProfileStatus = 'confirmed' | 'provisional' | 'placeholder';
+
+/**
+ * Player — The canonical squad data schema.
+ *
+ * FIELD REFERENCE:
+ * ─────────────────────────────────────────────────────────
+ * id              Unique identifier (e.g. 'eng-wc-001')
+ * fullName        Player's full display name
+ * image           CDN URL for profile photo (optional)
+ * roleCategory    Primary playing role
+ * battingStyle    Batting hand
+ * bowlingStyle    Bowling type (ignored in UI when wicketkeeperFlag is true)
+ * wicketkeeperFlag  If true, UI displays 'Wicketkeeper' or 'Wicketkeeper-batter'
+ *                    in place of bowling style
+ * clubEngland     The player's English club
+ * shortBio        1–2 sentence biography (optional)
+ * leadershipTag   e.g. 'Captain', 'Vice-Captain' (optional)
+ * profileStatus   Controls rendering mode
+ * county          County cricket background (optional)
+ * capNumber       England Over 40s cap number (optional)
+ * ─────────────────────────────────────────────────────────
+ */
 export interface Player {
   id: string;
-  firstName: string;
-  lastName: string;
-  photo?: string;               // CDN URL — placeholder silhouette if missing
-  role: PlayerRole;
+  fullName: string;
+  image?: string;
+  roleCategory: RoleCategory;
   battingStyle: BattingStyle;
   bowlingStyle: BowlingStyle;
-  club: string;                  // English club
-  county?: string;               // County background
-  isWicketkeeper: boolean;
-  isCaptain?: boolean;
-  isViceCaptain?: boolean;
+  wicketkeeperFlag: boolean;
+  clubEngland: string;
+  shortBio?: string;
+  leadershipTag?: string;
+  profileStatus: ProfileStatus;
+  county?: string;
   capNumber?: number;
-  bio?: string;
-  leadershipTag?: string;        // e.g. 'Captain', 'Vice-Captain', 'Senior Player'
 }
 
-// ---- SQUAD DATA ----
-// Placeholder squad — replace with real data when announced
+// ---- HELPER: Display bowling/wicketkeeper designation ----
+/**
+ * Returns the appropriate display string for the bowling/designation field.
+ * If wicketkeeperFlag is true:
+ *   - roleCategory is 'Wicketkeeper' AND battingStyle exists → 'Wicketkeeper-batter'
+ *   - otherwise → 'Wicketkeeper'
+ * If wicketkeeperFlag is false:
+ *   - returns the bowlingStyle as-is
+ */
+export function getDisplayBowling(player: Player): string {
+  if (player.wicketkeeperFlag) {
+    return player.roleCategory === 'Wicketkeeper'
+      ? 'Wicketkeeper-batter'
+      : 'Wicketkeeper';
+  }
+  return player.bowlingStyle;
+}
+
+/**
+ * Returns the label for the bowling/designation row.
+ * 'Designation' for wicketkeepers, 'Bowling' for everyone else.
+ */
+export function getBowlingLabel(player: Player): string {
+  return player.wicketkeeperFlag ? 'Designation' : 'Bowling';
+}
+
+/**
+ * Extracts surname (last word of fullName) for sorting.
+ */
+export function getPlayerSurname(player: Player): string {
+  const parts = player.fullName.trim().split(/\s+/);
+  return parts[parts.length - 1];
+}
+
+/**
+ * Extracts first name(s) for display.
+ */
+export function getPlayerFirstName(player: Player): string {
+  const parts = player.fullName.trim().split(/\s+/);
+  return parts.slice(0, -1).join(' ') || parts[0];
+}
+
+
+// ============================================================
+// SQUAD DATA — 3 example placeholder players + 13 TBA slots
+// ============================================================
+// EDITORIAL NOTE: Only clearly-marked placeholder values are used below.
+// Real player details require editorial verification before publishing.
+// Replace each entry with verified data as it becomes available.
+
 export const SQUAD: Player[] = [
+  // ── EXAMPLE 1: Confirmed captain with full profile ──
   {
-    id: 'player-01',
-    firstName: 'Player',
-    lastName: 'One',
-    role: 'Batter',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Right-arm medium',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-    isCaptain: true,
+    id: 'eng-wc-001',
+    fullName: '[Captain — Name TBC]',
+    image: undefined,                         // PLACEHOLDER: Photo not yet supplied
+    roleCategory: 'Batter',
+    battingStyle: 'Right-hand bat',           // PLACEHOLDER: Style to be confirmed
+    bowlingStyle: 'Right-arm medium',         // PLACEHOLDER: Style to be confirmed
+    wicketkeeperFlag: false,
+    clubEngland: '[Club TBC]',                // PLACEHOLDER: Club to be confirmed
+    shortBio: 'Squad captain. Full biography will be published once the touring party is officially announced.',
     leadershipTag: 'Captain',
-    bio: 'Squad details will be confirmed closer to the tournament. Check back for full player profiles.',
+    profileStatus: 'provisional',
+    county: undefined,                        // PLACEHOLDER: County to be confirmed
+    capNumber: undefined,                     // PLACEHOLDER: Cap number to be confirmed
   },
+
+  // ── EXAMPLE 2: Wicketkeeper-batter demonstrating the wicketkeeperFlag logic ──
   {
-    id: 'player-02',
-    firstName: 'Player',
-    lastName: 'Two',
-    role: 'Batter',
-    battingStyle: 'Left-hand bat',
-    bowlingStyle: 'N/A',
-    club: 'Club TBC',
-    isWicketkeeper: false,
+    id: 'eng-wc-002',
+    fullName: '[Wicketkeeper — Name TBC]',
+    image: undefined,                         // PLACEHOLDER: Photo not yet supplied
+    roleCategory: 'Wicketkeeper',
+    battingStyle: 'Right-hand bat',           // PLACEHOLDER: Style to be confirmed
+    bowlingStyle: 'N/A',                      // Ignored by UI — wicketkeeperFlag overrides
+    wicketkeeperFlag: true,
+    clubEngland: '[Club TBC]',                // PLACEHOLDER: Club to be confirmed
+    shortBio: 'First-choice wicketkeeper. Profile details pending official squad announcement.',
+    leadershipTag: undefined,
+    profileStatus: 'provisional',
+    county: undefined,
+    capNumber: undefined,
   },
+
+  // ── EXAMPLE 3: All-rounder with minimal placeholder data ──
   {
-    id: 'player-03',
-    firstName: 'Player',
-    lastName: 'Three',
-    role: 'Seamer',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Right-arm fast-medium',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
-  {
-    id: 'player-04',
-    firstName: 'Player',
-    lastName: 'Four',
-    role: 'Seamer',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Right-arm medium-fast',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
-  {
-    id: 'player-05',
-    firstName: 'Player',
-    lastName: 'Five',
-    role: 'Spinner',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Right-arm off-break',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
-  {
-    id: 'player-06',
-    firstName: 'Player',
-    lastName: 'Six',
-    role: 'Spinner',
-    battingStyle: 'Left-hand bat',
-    bowlingStyle: 'Slow left-arm orthodox',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
-  {
-    id: 'player-07',
-    firstName: 'Player',
-    lastName: 'Seven',
-    role: 'All-rounder',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Right-arm medium',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-    isViceCaptain: true,
+    id: 'eng-wc-003',
+    fullName: '[All-rounder — Name TBC]',
+    image: undefined,                         // PLACEHOLDER: Photo not yet supplied
+    roleCategory: 'All-rounder',
+    battingStyle: 'Left-hand bat',            // PLACEHOLDER: Style to be confirmed
+    bowlingStyle: 'Left-arm fast-medium',     // PLACEHOLDER: Style to be confirmed
+    wicketkeeperFlag: false,
+    clubEngland: '[Club TBC]',                // PLACEHOLDER: Club to be confirmed
+    shortBio: undefined,                      // Bio not yet available
     leadershipTag: 'Vice-Captain',
+    profileStatus: 'placeholder',
+    county: undefined,
+    capNumber: undefined,
   },
-  {
-    id: 'player-08',
-    firstName: 'Player',
-    lastName: 'Eight',
-    role: 'All-rounder',
-    battingStyle: 'Left-hand bat',
-    bowlingStyle: 'Left-arm fast-medium',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
-  {
-    id: 'player-09',
-    firstName: 'Player',
-    lastName: 'Nine',
-    role: 'Wicketkeeper',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Wicketkeeper-batter',
-    club: 'Club TBC',
-    isWicketkeeper: true,
-  },
-  {
-    id: 'player-10',
-    firstName: 'Player',
-    lastName: 'Ten',
-    role: 'Wicketkeeper',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Wicketkeeper',
-    club: 'Club TBC',
-    isWicketkeeper: true,
-  },
-  {
-    id: 'player-11',
-    firstName: 'Player',
-    lastName: 'Eleven',
-    role: 'Seamer',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Right-arm fast',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
-  {
-    id: 'player-12',
-    firstName: 'Player',
-    lastName: 'Twelve',
-    role: 'Batter',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Right-arm off-break',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
-  {
-    id: 'player-13',
-    firstName: 'Player',
-    lastName: 'Thirteen',
-    role: 'Seamer',
-    battingStyle: 'Left-hand bat',
-    bowlingStyle: 'Left-arm medium',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
-  {
-    id: 'player-14',
-    firstName: 'Player',
-    lastName: 'Fourteen',
-    role: 'All-rounder',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Right-arm leg-break',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
-  {
-    id: 'player-15',
-    firstName: 'Player',
-    lastName: 'Fifteen',
-    role: 'Batter',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'N/A',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
-  {
-    id: 'player-16',
-    firstName: 'Player',
-    lastName: 'Sixteen',
-    role: 'Spinner',
-    battingStyle: 'Right-hand bat',
-    bowlingStyle: 'Right-arm leg-break',
-    club: 'Club TBC',
-    isWicketkeeper: false,
-  },
+
+  // ── REMAINING 13 TBA SLOTS ──
+  // These represent the remaining squad positions. Replace with real data
+  // as players are selected and verified.
+  ...Array.from({ length: 13 }, (_, i) => ({
+    id: `eng-wc-${String(i + 4).padStart(3, '0')}`,
+    fullName: `[Player ${i + 4} — TBA]`,
+    image: undefined,
+    roleCategory: (
+      i < 3 ? 'Batter' :
+      i < 6 ? 'Seamer' :
+      i < 8 ? 'Spinner' :
+      i < 11 ? 'All-rounder' :
+      'Wicketkeeper'
+    ) as RoleCategory,
+    battingStyle: (i % 3 === 0 ? 'Left-hand bat' : 'Right-hand bat') as BattingStyle,
+    bowlingStyle: (
+      i < 3 ? 'N/A' :
+      i < 6 ? 'Right-arm fast-medium' :
+      i < 8 ? 'Right-arm off-break' :
+      i < 11 ? 'Right-arm medium' :
+      'N/A'
+    ) as BowlingStyle,
+    wicketkeeperFlag: i >= 11,
+    clubEngland: '[Club TBC]',
+    shortBio: undefined,
+    leadershipTag: undefined,
+    profileStatus: 'placeholder' as ProfileStatus,
+    county: undefined,
+    capNumber: undefined,
+  })),
 ];
+
 
 // ---- FILTER OPTIONS ----
 export const ROLE_FILTERS: { label: string; value: string }[] = [
@@ -272,46 +277,207 @@ export const SORT_OPTIONS: { label: string; value: string }[] = [
   { label: 'Role', value: 'role' },
 ];
 
-// ---- FIXTURES ----
+
+// ============================================================
+// FIXTURES SCHEMA — Enhanced for list + calendar views
+// ============================================================
+
+export type MatchStage = 'group' | 'semi-final' | 'final' | 'third-place' | 'warm-up';
+export type MatchStatus = 'upcoming' | 'in-progress' | 'completed' | 'abandoned' | 'no-result' | 'tbc';
+
+/**
+ * Fixture — A single match in the tournament schedule.
+ *
+ * FIELD REFERENCE:
+ * ─────────────────────────────────────────────────────────
+ * id              Unique match identifier
+ * date            ISO date string (YYYY-MM-DD) or 'TBC'
+ * time            Local time string (e.g. '09:30') or undefined
+ * homeTeam        Team name (use 'England' for England matches)
+ * awayTeam        Team name
+ * venue           Ground name
+ * venueLink       Google Maps URL for the venue (optional)
+ * group           Group label (e.g. 'Group A') or undefined for knockouts
+ * stage           Match stage for filtering
+ * status          Current match status
+ * result          Result summary string (optional)
+ * matchCentreUrl  Link to match centre / Play-Cricket (optional)
+ * isEngland       Whether England is playing in this match
+ * notes           Additional notes (optional)
+ * ─────────────────────────────────────────────────────────
+ */
 export interface Fixture {
   id: string;
-  date: string;           // ISO date or 'TBC'
-  time?: string;          // e.g. '09:30 local'
+  date: string;
+  time?: string;
   homeTeam: string;
   awayTeam: string;
-  venue?: string;
-  venueLink?: string;     // Google Maps URL
-  matchFormat: string;
-  status: 'upcoming' | 'completed' | 'cancelled' | 'tbc';
+  venue: string;
+  venueLink?: string;
+  group?: string;
+  stage: MatchStage;
+  status: MatchStatus;
   result?: string;
-  playCricketUrl?: string;
+  matchCentreUrl?: string;
+  isEngland: boolean;
   notes?: string;
 }
 
-// Fixtures not yet released — empty state
+// Fixture filter options
+export const FIXTURE_FILTERS = {
+  team: [
+    { label: 'All Matches', value: 'all' },
+    { label: 'England Only', value: 'england' },
+  ],
+  stage: [
+    { label: 'All Stages', value: 'all' },
+    { label: 'Group Stage', value: 'group' },
+    { label: 'Knockout', value: 'knockout' },
+  ],
+  status: [
+    { label: 'All', value: 'all' },
+    { label: 'Upcoming', value: 'upcoming' },
+    { label: 'Completed', value: 'completed' },
+  ],
+} as const;
+
+// ---- FIXTURES DATA ----
+// Draw not yet announced — empty array triggers placeholder state.
+// When fixtures are confirmed, populate this array with real data.
+// Example fixture structure (for reference):
+//
+// {
+//   id: 'match-01',
+//   date: '2026-10-17',
+//   time: '09:30',
+//   homeTeam: 'England',
+//   awayTeam: 'Australia',
+//   venue: 'Bourda Cricket Ground',
+//   venueLink: 'https://maps.google.com/...',
+//   group: 'Group A',
+//   stage: 'group',
+//   status: 'upcoming',
+//   isEngland: true,
+// },
 export const FIXTURES: Fixture[] = [];
 
-// ---- GROUPS / STANDINGS ----
+// Known tournament venues (for venue filter when fixtures are populated)
+export const TOURNAMENT_VENUES = [
+  'Bourda Cricket Ground',
+  'Providence Stadium',
+  'Everest Cricket Club',
+  'Demerara Cricket Club',
+];
+
+
+// ============================================================
+// GROUPS & STANDINGS SCHEMA — Dynamic with auto-ranking
+// ============================================================
+
+/**
+ * GroupTeam — A single team row in a group standings table.
+ * Points and NRR can be entered manually or calculated from results.
+ */
 export interface GroupTeam {
   team: string;
   played: number;
   won: number;
   lost: number;
   tied: number;
-  nrr: string;
+  noResult: number;
   points: number;
-  isEngland?: boolean;
+  nrr: string;            // Net Run Rate as string (e.g. '+0.452', '-1.230')
+  isEngland: boolean;
+  status?: string;         // e.g. 'Qualified', 'Eliminated', ''
 }
 
+/**
+ * Group — A tournament group containing multiple teams.
+ */
 export interface Group {
+  id: string;
   name: string;
   teams: GroupTeam[];
+  isEnglandGroup: boolean;
 }
 
-// Groups not yet drawn — empty state
+/**
+ * Sorts teams within a group by:
+ * 1. Points (descending)
+ * 2. NRR (descending)
+ * 3. Alphabetical team name
+ */
+export function rankGroupTeams(teams: GroupTeam[]): GroupTeam[] {
+  return [...teams].sort((a, b) => {
+    if (b.points !== a.points) return b.points - a.points;
+    const nrrA = parseFloat(a.nrr) || 0;
+    const nrrB = parseFloat(b.nrr) || 0;
+    if (nrrB !== nrrA) return nrrB - nrrA;
+    return a.team.localeCompare(b.team);
+  });
+}
+
+/**
+ * Returns a plain-language qualification implication for England.
+ * Call this once results are populated.
+ */
+export function getEnglandImplication(groups: Group[]): string {
+  const englandGroup = groups.find((g) => g.isEnglandGroup);
+  if (!englandGroup) return 'England\'s group has not yet been confirmed.';
+
+  const ranked = rankGroupTeams(englandGroup.teams);
+  const englandIdx = ranked.findIndex((t) => t.isEngland);
+  const england = ranked[englandIdx];
+
+  if (!england) return 'England\'s position could not be determined.';
+
+  const totalPlayed = ranked.reduce((sum, t) => sum + t.played, 0);
+  if (totalPlayed === 0) {
+    return 'Standings will populate when the tournament schedule is confirmed.';
+  }
+
+  const position = englandIdx + 1;
+  const qualifySpots = Math.min(4, ranked.length); // Top 4 typically qualify
+
+  if (position <= qualifySpots) {
+    if (position === 1) {
+      return `England are top of ${englandGroup.name} with ${england.points} points and a net run rate of ${england.nrr}. They are on course to qualify for the knockout stage.`;
+    }
+    return `England are ${getOrdinal(position)} in ${englandGroup.name} with ${england.points} points. They currently occupy a qualifying position for the knockout stage.`;
+  }
+
+  const gap = ranked[qualifySpots - 1].points - england.points;
+  return `England are ${getOrdinal(position)} in ${englandGroup.name} with ${england.points} points, ${gap} point${gap !== 1 ? 's' : ''} behind the final qualifying spot. They need results to go their way to progress.`;
+}
+
+function getOrdinal(n: number): string {
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+// ---- GROUPS DATA ----
+// Draw not yet announced — empty array triggers placeholder state.
+// When the draw is confirmed, populate with real group data.
+// The placeholder below shows the expected structure:
+//
+// {
+//   id: 'group-a',
+//   name: 'Group A',
+//   isEnglandGroup: true,
+//   teams: [
+//     { team: 'England', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: true },
+//     { team: 'TBA', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+//     ...
+//   ],
+// },
 export const GROUPS: Group[] = [];
 
-// ---- NEWS ----
+
+// ============================================================
+// NEWS
+// ============================================================
+
 export interface NewsItem {
   id: string;
   date: string;
@@ -342,7 +508,11 @@ export const NEWS: NewsItem[] = [
   },
 ];
 
-// ---- PRESS RELEASE ----
+
+// ============================================================
+// PRESS RELEASES
+// ============================================================
+
 export interface PressRelease {
   id: string;
   date: string;
