@@ -1,14 +1,24 @@
-// DESIGN: "Stadium Broadcast" — Groups & standings with tabs, auto-ranking, England focus mode
-// Uses Group schema: rankGroupTeams, getEnglandImplication
+// DESIGN: "Stadium Broadcast" — Groups & standings with four tournament states
+// Uses standings-engine for modular ranking, state derivation, and England focus
 import { useState, useMemo } from 'react';
 import {
   GROUPS,
+  FIXTURES,
   type Group,
   type GroupTeam,
-  rankGroupTeams,
-  getEnglandImplication,
 } from '@/lib/data';
-import { motion } from 'framer-motion';
+import {
+  deriveTournamentState,
+  rankTeams,
+  buildStandingsFromFixtures,
+  getEnglandQualificationMessage,
+  sortGroupsEnglandFirst,
+  getGroupStageProgress,
+  getQualificationStatus,
+  DEFAULT_QUALIFY_SPOTS,
+  type TournamentState,
+} from '@/lib/standings-engine';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Trophy,
   Shield,
@@ -17,28 +27,46 @@ import {
   BarChart3,
   Eye,
   Users,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
 } from 'lucide-react';
 
 export default function GroupsSection() {
   const [englandFocus, setEnglandFocus] = useState(false);
-  const hasGroups = GROUPS.length > 0;
+
+  // Derive tournament state from data
+  const tournamentState = useMemo(
+    () => deriveTournamentState(GROUPS, FIXTURES),
+    [],
+  );
+
+  // Build standings from fixtures when tournament is live/completed
+  const computedGroups = useMemo(() => {
+    if (tournamentState === 'pre-draw') return [];
+    if (tournamentState === 'draw-announced') return GROUPS;
+    // Live or completed: recalculate from fixture results
+    return buildStandingsFromFixtures(GROUPS, FIXTURES);
+  }, [tournamentState]);
 
   // Sort groups: England's group first when focus mode is on
-  const sortedGroups = useMemo(() => {
-    if (!hasGroups) return [];
-    if (!englandFocus) return GROUPS;
-    return [...GROUPS].sort((a, b) => {
-      if (a.isEnglandGroup && !b.isEnglandGroup) return -1;
-      if (!a.isEnglandGroup && b.isEnglandGroup) return 1;
-      return 0;
-    });
-  }, [hasGroups, englandFocus]);
+  const displayGroups = useMemo(() => {
+    if (computedGroups.length === 0) return [];
+    if (englandFocus) return sortGroupsEnglandFirst(computedGroups);
+    return computedGroups;
+  }, [computedGroups, englandFocus]);
 
-  // England implication text
-  const implication = useMemo(() => {
-    if (!hasGroups) return '';
-    return getEnglandImplication(GROUPS);
-  }, [hasGroups]);
+  // England qualification message
+  const implication = useMemo(
+    () => getEnglandQualificationMessage(computedGroups, tournamentState),
+    [computedGroups, tournamentState],
+  );
+
+  // Group stage progress
+  const progress = useMemo(
+    () => getGroupStageProgress(computedGroups),
+    [computedGroups],
+  );
 
   return (
     <section id="groups" className="relative py-16 sm:py-24 overflow-hidden">
@@ -62,11 +90,19 @@ export default function GroupsSection() {
             Groups &amp; Standings
           </h2>
           <div className="w-16 h-1 bg-gold mx-auto mt-3 rounded-full" />
+
+          {/* Tournament state badge */}
+          <div className="mt-4">
+            <TournamentStateBadge state={tournamentState} progress={progress} />
+          </div>
         </motion.div>
 
-        {hasGroups ? (
+        {/* Render based on tournament state */}
+        {tournamentState === 'pre-draw' ? (
+          <PreDrawPlaceholder />
+        ) : (
           <>
-            {/* England Focus toggle */}
+            {/* Controls: England Focus toggle */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -99,45 +135,77 @@ export default function GroupsSection() {
             </motion.div>
 
             {/* England implication banner (in focus mode) */}
-            {englandFocus && implication && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="max-w-3xl mx-auto mb-8"
-              >
-                <div className="flex items-start gap-3 bg-sky/10 border border-sky/20 rounded-lg p-4">
-                  <Info className="w-5 h-5 text-sky shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-body text-xs text-sky-light uppercase tracking-wider mb-1 font-medium">
-                      Qualification Outlook
-                    </p>
-                    <p className="font-body text-sm text-white/80 leading-relaxed">
-                      {implication}
-                    </p>
+            <AnimatePresence>
+              {englandFocus && implication && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="max-w-3xl mx-auto mb-8"
+                >
+                  <div className="flex items-start gap-3 bg-sky/10 border border-sky/20 rounded-lg p-4">
+                    <Info className="w-5 h-5 text-sky shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-body text-xs text-sky-light uppercase tracking-wider mb-1 font-medium">
+                        Qualification Outlook
+                      </p>
+                      <p className="font-body text-sm text-white/80 leading-relaxed">
+                        {implication}
+                      </p>
+                    </div>
                   </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Progress bar for live tournaments */}
+            {(tournamentState === 'live') && progress > 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="max-w-xl mx-auto mb-8"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="font-body text-xs text-white/40 uppercase tracking-wider">
+                    Group stage progress
+                  </span>
+                  <span className="font-display text-sm text-sky font-semibold">
+                    {progress}%
+                  </span>
+                </div>
+                <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${progress}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1, ease: 'easeOut' }}
+                    className="h-full bg-gradient-to-r from-sky to-sky-light rounded-full"
+                  />
                 </div>
               </motion.div>
             )}
 
             {/* Group tables */}
-            <div className={`grid gap-6 ${
-              sortedGroups.length === 1 ? 'max-w-3xl mx-auto' :
-              'grid-cols-1 lg:grid-cols-2'
-            }`}>
-              {sortedGroups.map((group, gi) => (
-                <GroupTable
-                  key={group.id}
-                  group={group}
-                  index={gi}
-                  isHighlighted={englandFocus && group.isEnglandGroup}
-                />
-              ))}
-            </div>
+            {tournamentState === 'draw-announced' ? (
+              <DrawAnnouncedState groups={displayGroups} englandFocus={englandFocus} />
+            ) : (
+              <div className={`grid gap-6 ${
+                displayGroups.length === 1 ? 'max-w-3xl mx-auto' :
+                'grid-cols-1 lg:grid-cols-2'
+              }`}>
+                {displayGroups.map((group, gi) => (
+                  <GroupTable
+                    key={group.id}
+                    group={group}
+                    index={gi}
+                    isHighlighted={englandFocus && group.isEnglandGroup}
+                    tournamentState={tournamentState}
+                  />
+                ))}
+              </div>
+            )}
           </>
-        ) : (
-          /* ── PLACEHOLDER STATE ── */
-          <GroupsPlaceholder />
         )}
       </div>
     </section>
@@ -146,12 +214,61 @@ export default function GroupsSection() {
 
 
 // ============================================================
-// GROUP TABLE COMPONENT
+// TOURNAMENT STATE BADGE
 // ============================================================
 
-function GroupTable({ group, index, isHighlighted }: { group: Group; index: number; isHighlighted: boolean }) {
-  const ranked = useMemo(() => rankGroupTeams(group.teams), [group.teams]);
-  const hasResults = ranked.some((t) => t.played > 0);
+function TournamentStateBadge({ state, progress }: { state: TournamentState; progress: number }) {
+  const config = {
+    'pre-draw': {
+      icon: Eye,
+      label: 'Draw Pending',
+      className: 'bg-white/5 text-white/40',
+    },
+    'draw-announced': {
+      icon: Clock,
+      label: 'Groups Confirmed — Awaiting First Match',
+      className: 'bg-sky/10 text-sky',
+    },
+    'live': {
+      icon: AlertCircle,
+      label: `Live — ${progress}% Complete`,
+      className: 'bg-emerald-500/10 text-emerald-400',
+    },
+    'completed': {
+      icon: CheckCircle2,
+      label: 'Group Stage Complete',
+      className: 'bg-gold/10 text-gold',
+    },
+  }[state];
+
+  const Icon = config.icon;
+
+  return (
+    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-body font-medium ${config.className}`}>
+      <Icon className="w-3.5 h-3.5" />
+      {config.label}
+    </span>
+  );
+}
+
+
+// ============================================================
+// GROUP TABLE COMPONENT (Live / Completed states)
+// ============================================================
+
+function GroupTable({
+  group,
+  index,
+  isHighlighted,
+  tournamentState,
+}: {
+  group: Group;
+  index: number;
+  isHighlighted: boolean;
+  tournamentState: TournamentState;
+}) {
+  const ranked = useMemo(() => rankTeams(group.teams), [group.teams]);
+  const hasResults = ranked.some((t: GroupTeam) => t.played > 0);
 
   return (
     <motion.div
@@ -202,84 +319,88 @@ function GroupTable({ group, index, isHighlighted }: { group: Group; index: numb
               <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-10">NR</th>
               <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-12">Pts</th>
               <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-16">NRR</th>
-              {hasResults && (
-                <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-20">Status</th>
-              )}
+              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-20">Status</th>
             </tr>
           </thead>
           <tbody>
-            {ranked.map((team, ti) => (
-              <tr
-                key={team.team}
-                className={`border-t border-white/5 transition-colors ${
-                  team.isEngland
-                    ? 'bg-sky/10 hover:bg-sky/15'
-                    : 'hover:bg-white/[0.03]'
-                }`}
-              >
-                <td className="px-4 py-2.5">
-                  <span className={`font-display text-xs font-semibold ${
-                    ti < 4 ? 'text-gold' : 'text-white/30'
-                  }`}>
-                    {ti + 1}
-                  </span>
-                </td>
-                <td className="px-2 py-2.5">
-                  <div className="flex items-center gap-2">
-                    {team.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0" />}
-                    <span className={`font-body text-sm ${
-                      team.isEngland ? 'text-sky font-semibold' : 'text-white/80'
+            {ranked.map((team: GroupTeam, ti: number) => {
+              const qualStatus = hasResults
+                ? getQualificationStatus(ti + 1, DEFAULT_QUALIFY_SPOTS, tournamentState)
+                : '';
+
+              return (
+                <tr
+                  key={team.team}
+                  className={`border-t border-white/5 transition-colors ${
+                    team.isEngland
+                      ? 'bg-sky/10 hover:bg-sky/15'
+                      : 'hover:bg-white/[0.03]'
+                  }`}
+                >
+                  <td className="px-4 py-2.5">
+                    <span className={`font-display text-xs font-semibold ${
+                      ti < DEFAULT_QUALIFY_SPOTS ? 'text-gold' : 'text-white/30'
                     }`}>
-                      {team.team}
+                      {ti + 1}
                     </span>
-                  </div>
-                </td>
-                <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.played}</td>
-                <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.won}</td>
-                <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.lost}</td>
-                <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.tied}</td>
-                <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.noResult}</td>
-                <td className="text-center px-2 py-2.5">
-                  <span className={`font-display text-sm font-bold ${
-                    team.isEngland ? 'text-sky' : 'text-white'
-                  }`}>
-                    {team.points}
-                  </span>
-                </td>
-                <td className="text-center px-2 py-2.5">
-                  <span className={`font-body text-xs ${
-                    team.nrr.startsWith('+') ? 'text-emerald-400' :
-                    team.nrr.startsWith('-') ? 'text-red-400' : 'text-white/40'
-                  }`}>
-                    {team.nrr}
-                  </span>
-                </td>
-                {hasResults && (
+                  </td>
+                  <td className="px-2 py-2.5">
+                    <div className="flex items-center gap-2">
+                      {team.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0" />}
+                      <span className={`font-body text-sm ${
+                        team.isEngland ? 'text-sky font-semibold' : 'text-white/80'
+                      }`}>
+                        {team.team}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.played}</td>
+                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.won}</td>
+                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.lost}</td>
+                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.tied}</td>
+                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5">{team.noResult}</td>
                   <td className="text-center px-2 py-2.5">
-                    {team.status && (
+                    <span className={`font-display text-sm font-bold ${
+                      team.isEngland ? 'text-sky' : 'text-white'
+                    }`}>
+                      {team.points}
+                    </span>
+                  </td>
+                  <td className="text-center px-2 py-2.5">
+                    <span className={`font-body text-xs ${
+                      team.nrr.startsWith('+') && parseFloat(team.nrr) > 0 ? 'text-emerald-400' :
+                      team.nrr.startsWith('-') ? 'text-red-400' : 'text-white/40'
+                    }`}>
+                      {team.nrr}
+                    </span>
+                  </td>
+                  <td className="text-center px-2 py-2.5">
+                    {qualStatus && (
                       <span className={`pill text-[9px] ${
-                        team.status === 'Qualified'
+                        qualStatus === 'Qualified' || qualStatus === 'Qualifying'
                           ? 'bg-emerald-500/15 text-emerald-400'
-                          : team.status === 'Eliminated'
+                          : qualStatus === 'Eliminated'
                           ? 'bg-red-500/15 text-red-400'
                           : 'bg-white/10 text-white/40'
                       }`}>
-                        {team.status}
+                        {qualStatus}
                       </span>
                     )}
                   </td>
-                )}
-              </tr>
-            ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
 
       {/* Qualification line indicator */}
-      {hasResults && ranked.length > 4 && (
+      {hasResults && ranked.length > DEFAULT_QUALIFY_SPOTS && (
         <div className="px-4 py-1.5 bg-white/[0.02] flex items-center gap-2">
           <div className="flex-1 h-px bg-gold/30 border-dashed" />
-          <span className="font-body text-[10px] text-gold/50 uppercase tracking-wider">Qualification line</span>
+          <span className="font-body text-[10px] text-gold/50 uppercase tracking-wider">
+            Top {DEFAULT_QUALIFY_SPOTS} qualify
+          </span>
           <div className="flex-1 h-px bg-gold/30 border-dashed" />
         </div>
       )}
@@ -289,10 +410,108 @@ function GroupTable({ group, index, isHighlighted }: { group: Group; index: numb
 
 
 // ============================================================
-// PLACEHOLDER STATE
+// DRAW ANNOUNCED STATE — Groups assigned, no matches yet
 // ============================================================
 
-function GroupsPlaceholder() {
+function DrawAnnouncedState({ groups, englandFocus }: { groups: Group[]; englandFocus: boolean }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className={`grid gap-6 ${
+        groups.length === 1 ? 'max-w-3xl mx-auto' :
+        'grid-cols-1 lg:grid-cols-2'
+      }`}>
+        {groups.map((group, gi) => {
+          const isHighlighted = englandFocus && group.isEnglandGroup;
+          return (
+            <motion.div
+              key={group.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: gi * 0.15 }}
+              className={`rounded-lg overflow-hidden ${
+                isHighlighted
+                  ? 'ring-2 ring-gold/50 shadow-lg shadow-gold/10'
+                  : 'ring-1 ring-white/10'
+              }`}
+            >
+              {/* Group header */}
+              <div className={`px-5 py-3 flex items-center justify-between ${
+                isHighlighted
+                  ? 'bg-gradient-to-r from-gold/20 to-gold/10'
+                  : 'bg-white/5'
+              }`}>
+                <div className="flex items-center gap-2">
+                  <Trophy className={`w-4 h-4 ${isHighlighted ? 'text-gold' : 'text-sky'}`} />
+                  <h3 className="font-display text-white text-lg font-semibold tracking-wide">
+                    {group.name}
+                  </h3>
+                  {group.isEnglandGroup && (
+                    <span className="pill text-[10px] bg-sky/20 text-sky">
+                      <Shield className="w-2.5 h-2.5 mr-0.5" />
+                      England
+                    </span>
+                  )}
+                </div>
+                <span className="font-body text-xs text-white/30">
+                  {group.teams.length} teams
+                </span>
+              </div>
+
+              {/* Team list (no stats yet) */}
+              <div className="p-4 space-y-2">
+                {group.teams.map((team: GroupTeam, ti: number) => (
+                  <div
+                    key={team.team}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors ${
+                      team.isEngland
+                        ? 'bg-sky/10 border border-sky/20'
+                        : 'bg-white/[0.03] hover:bg-white/[0.05]'
+                    }`}
+                  >
+                    <span className={`font-display text-xs font-semibold w-5 text-center ${
+                      team.isEngland ? 'text-sky' : 'text-white/30'
+                    }`}>
+                      {ti + 1}
+                    </span>
+                    {team.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0" />}
+                    <span className={`font-body text-sm ${
+                      team.isEngland ? 'text-sky font-semibold' : 'text-white/70'
+                    }`}>
+                      {team.team}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Awaiting matches message */}
+              <div className="px-4 pb-4">
+                <div className="flex items-center gap-2 px-3 py-2 rounded bg-white/[0.03] border border-white/5">
+                  <Clock className="w-3.5 h-3.5 text-white/20" />
+                  <span className="font-body text-xs text-white/30">
+                    Standings will populate when matches begin
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
+
+
+// ============================================================
+// PRE-DRAW PLACEHOLDER STATE
+// ============================================================
+
+function PreDrawPlaceholder() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

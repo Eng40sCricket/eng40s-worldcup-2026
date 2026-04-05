@@ -401,60 +401,11 @@ export interface Group {
   isEnglandGroup: boolean;
 }
 
-/**
- * Sorts teams within a group by:
- * 1. Points (descending)
- * 2. NRR (descending)
- * 3. Alphabetical team name
- */
-export function rankGroupTeams(teams: GroupTeam[]): GroupTeam[] {
-  return [...teams].sort((a, b) => {
-    if (b.points !== a.points) return b.points - a.points;
-    const nrrA = parseFloat(a.nrr) || 0;
-    const nrrB = parseFloat(b.nrr) || 0;
-    if (nrrB !== nrrA) return nrrB - nrrA;
-    return a.team.localeCompare(b.team);
-  });
-}
+// NOTE: rankGroupTeams has been moved to standings-engine.ts → rankTeams()
+// Import from '@/lib/standings-engine' instead.
 
-/**
- * Returns a plain-language qualification implication for England.
- * Call this once results are populated.
- */
-export function getEnglandImplication(groups: Group[]): string {
-  const englandGroup = groups.find((g) => g.isEnglandGroup);
-  if (!englandGroup) return 'England\'s group has not yet been confirmed.';
-
-  const ranked = rankGroupTeams(englandGroup.teams);
-  const englandIdx = ranked.findIndex((t) => t.isEngland);
-  const england = ranked[englandIdx];
-
-  if (!england) return 'England\'s position could not be determined.';
-
-  const totalPlayed = ranked.reduce((sum, t) => sum + t.played, 0);
-  if (totalPlayed === 0) {
-    return 'Standings will populate when the tournament schedule is confirmed.';
-  }
-
-  const position = englandIdx + 1;
-  const qualifySpots = Math.min(4, ranked.length); // Top 4 typically qualify
-
-  if (position <= qualifySpots) {
-    if (position === 1) {
-      return `England are top of ${englandGroup.name} with ${england.points} points and a net run rate of ${england.nrr}. They are on course to qualify for the knockout stage.`;
-    }
-    return `England are ${getOrdinal(position)} in ${englandGroup.name} with ${england.points} points. They currently occupy a qualifying position for the knockout stage.`;
-  }
-
-  const gap = ranked[qualifySpots - 1].points - england.points;
-  return `England are ${getOrdinal(position)} in ${englandGroup.name} with ${england.points} points, ${gap} point${gap !== 1 ? 's' : ''} behind the final qualifying spot. They need results to go their way to progress.`;
-}
-
-function getOrdinal(n: number): string {
-  const s = ['th', 'st', 'nd', 'rd'];
-  const v = n % 100;
-  return n + (s[(v - 20) % 10] || s[v] || s[0]);
-}
+// NOTE: getEnglandImplication has been moved to standings-engine.ts → getEnglandQualificationMessage()
+// Import from '@/lib/standings-engine' instead.
 
 // ---- GROUPS DATA ----
 // Draw not yet announced — empty array triggers placeholder state.
