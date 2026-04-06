@@ -75,13 +75,13 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
 
         {/* Photo area */}
         <div className={`relative bg-gradient-to-br from-navy/5 to-navy/10 flex items-center justify-center overflow-hidden ${
-          featured ? 'h-56 sm:h-64' : 'h-48'
+          featured ? 'h-64 sm:h-72' : 'h-56 sm:h-60'
         }`}>
           {player.image ? (
             <img
               src={player.image}
               alt={`${player.fullName}, ${player.roleCategory}`}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover object-[center_25%] group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
           ) : (
