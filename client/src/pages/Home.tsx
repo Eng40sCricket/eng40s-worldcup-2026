@@ -1,10 +1,11 @@
 // DESIGN: "Stadium Broadcast" — Main page composing all sections
-// Section order: hero → facts → squad → fixtures → groups → news → press → footer
+// Section order: hero → facts → squad → schedule → fixtures → groups → news → press → footer
 // Enhanced: skip-to-content link, semantic main landmark
 import StickyNav from '@/components/StickyNav';
 import HeroSection from '@/components/HeroSection';
 import QuickFacts from '@/components/QuickFacts';
 import SquadSection from '@/components/SquadSection';
+import ScheduleSection from '@/components/ScheduleSection';
 import FixturesSection from '@/components/FixturesSection';
 import GroupsSection from '@/components/GroupsSection';
 import NewsSection from '@/components/NewsSection';
@@ -25,6 +26,7 @@ export default function Home() {
         <HeroSection />
         <QuickFacts />
         <SquadSection />
+        <ScheduleSection />
         <FixturesSection />
         <GroupsSection />
         <NewsSection />

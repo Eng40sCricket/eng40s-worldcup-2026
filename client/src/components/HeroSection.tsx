@@ -73,6 +73,14 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
+          {/* IMC Tournament Logo */}
+          <div className="flex justify-center mb-4">
+            <img
+              src={ASSETS.imcLogo}
+              alt="IMC O40s World Cup 2026 Guyana"
+              className="w-20 h-20 sm:w-24 sm:h-24 object-contain drop-shadow-lg"
+            />
+          </div>
           <p className="font-body text-sky-light text-sm sm:text-base tracking-[0.3em] uppercase mb-4 font-medium">
             {TOURNAMENT.organiser}
           </p>

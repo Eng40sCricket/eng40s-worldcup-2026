@@ -27,6 +27,7 @@ export const ASSETS = {
   guyanaStadium: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/guyana-stadium-f9TnX5GJjUKewEtHM47nM2.webp',
   cricketBall: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/cricket-ball-texture-PKPxPpgnLXUsqBvQkBMHrk.webp',
   englandLogo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Eng40s_51bd7799.png',
+  imcLogo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Untitleddesign_b996de89.png',
 } as const;
 
 export const TOURNAMENT = {
@@ -55,6 +56,7 @@ export const NAV_SECTIONS = [
   { id: 'hero', label: 'Home' },
   { id: 'facts', label: 'Tournament' },
   { id: 'squad', label: 'Squad' },
+  { id: 'schedule', label: 'Schedule' },
   { id: 'fixtures', label: 'Fixtures' },
   { id: 'groups', label: 'Groups' },
   { id: 'news', label: 'News' },
@@ -208,7 +210,7 @@ export const squadData = {
     {
       id: 'eng-wc-001',
       fullName: 'Darren Stevens',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/STEVENS_cbf83cbf.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_STEVENS_369c011e.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm medium',
@@ -223,7 +225,7 @@ export const squadData = {
     {
       id: 'eng-wc-002',
       fullName: 'Taqi Abbas',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/ABBAS_8406aedb.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_ABBAS_3daaa63d.png',
       roleCategory: 'Spinner',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm leg-break',
@@ -235,7 +237,7 @@ export const squadData = {
     {
       id: 'eng-wc-003',
       fullName: 'George Brooksbank',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/BROOKSBANK_c3357b33.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_BROOKSBANK_0cfabd16.png',
       roleCategory: 'Seamer',
       battingStyle: 'Left-hand bat',
       bowlingStyle: 'Left-arm fast-medium',
@@ -247,7 +249,7 @@ export const squadData = {
     {
       id: 'eng-wc-004',
       fullName: 'Ryan Canning',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/CANNING_55d0cd1d.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_CANNING_4291818b.png',
       roleCategory: 'Wicketkeeper',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'N/A',
@@ -259,7 +261,7 @@ export const squadData = {
     {
       id: 'eng-wc-005',
       fullName: 'James Duffy',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/DUFFY_8d590f8c.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_DUFFY_54ce3d92.png',
       roleCategory: 'Batter',
       battingStyle: 'Left-hand bat',
       bowlingStyle: 'N/A',
@@ -271,7 +273,7 @@ export const squadData = {
     {
       id: 'eng-wc-006',
       fullName: 'Ben Frazer',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/FRAZER_b91edb34.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_FRAZER_f4c96e47.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm off-break',
@@ -283,7 +285,7 @@ export const squadData = {
     {
       id: 'eng-wc-007',
       fullName: 'James Hamblin',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/HAMBLIN_16f7af36.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_HAMBLIN_7ce5f1c2.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm medium',
@@ -295,7 +297,7 @@ export const squadData = {
     {
       id: 'eng-wc-008',
       fullName: 'Sean Heather',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/HEATHER_2885f004.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_HEATHER_ce571750.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm medium',
@@ -307,7 +309,7 @@ export const squadData = {
     {
       id: 'eng-wc-009',
       fullName: 'Jayden Levitt',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/LEVITT_db572df1.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_LEVITT_6d65266a.png',
       roleCategory: 'Batter',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'N/A',
@@ -319,7 +321,7 @@ export const squadData = {
     {
       id: 'eng-wc-010',
       fullName: 'Steven Naylor',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/NAYLOR_976e7244.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_Naylor_7fca6a8a.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm off-break',
@@ -331,7 +333,7 @@ export const squadData = {
     {
       id: 'eng-wc-011',
       fullName: 'Garry Park',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/PARKG_8ff88635.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_ParkG_0d9cd414.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm medium',
@@ -343,7 +345,7 @@ export const squadData = {
     {
       id: 'eng-wc-012',
       fullName: 'Sean Park',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/PARKS_610e0821.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_PARKS_7ecb48be.png',
       roleCategory: 'Wicketkeeper',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm medium',
@@ -357,7 +359,7 @@ export const squadData = {
     {
       id: 'eng-wc-013',
       fullName: 'Iresh Saxena',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/SAXENA_06542992.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_saxena_62b4ca0c.png',
       roleCategory: 'Spinner',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Slow left-arm orthodox',
@@ -369,7 +371,7 @@ export const squadData = {
     {
       id: 'eng-wc-014',
       fullName: 'Richard Sims',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/SIMS_2d92349b.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_sims_2c9b20db.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm off-break',
@@ -381,7 +383,7 @@ export const squadData = {
     {
       id: 'eng-wc-015',
       fullName: 'Jonny Wightman',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/WIGHTMAN_3074a405.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_wightman_b0a86fa2.png',
       roleCategory: 'Seamer',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm fast-medium',
@@ -393,7 +395,7 @@ export const squadData = {
     {
       id: 'eng-wc-016',
       fullName: 'Jake Wilson',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/WILSON_2238b097.png',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/v2_wilson_da59539f.png',
       roleCategory: 'Seamer',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Left-arm fast-medium',
@@ -517,12 +519,19 @@ export const fixtureData = {
     ],
   } as const,
 
-  /** Known tournament venues (shown in placeholder state) */
+  /** Known tournament venues (from IMC Newsletter #2) */
   venues: [
     'Bourda Cricket Ground',
-    'Providence Stadium',
+    'Palmyra Cricket Ground',
     'Everest Cricket Club',
-    'Demerara Cricket Club',
+    'Enmore Recreation Ground',
+    'Albion Cricket Ground',
+    'Demerara Cricket Club (DCC)',
+    'Blairmont Cricket Ground',
+    'MMZ Centre Ground',
+    'Police Sports Club Ground',
+    'Malteenoes Sports Club',
+    'Lusignan Sports Club',
   ],
 
   /**
@@ -703,13 +712,32 @@ export const newsData = {
   /** The bulletin feed (newest first, pinned items float to top) */
   bulletins: [
     {
+      id: 'bul-7',
+      date: '2026-04-06',
+      headline: 'Full Tournament Schedule Confirmed by IMC',
+      category: 'fixtures',
+      summary: 'The IMC has released the proposed tournament schedule for the Over 40s World Cup 2026 in Guyana. The itinerary includes 7 group-stage rounds, crossover games, semi-finals, and the Grand Finale on 31 October, plus rest days featuring tours to Kaieteur Falls and a Windies Legends Nostalgia Event. Practice sessions begin 15 October with the Opening Ceremony on 17 October.',
+      isPinned: true,
+      isFeatured: true,
+      isOfficial: true,
+      author: 'International Masters Cricket',
+    },
+    {
+      id: 'bul-8',
+      date: '2026-04-06',
+      headline: '11 Venues Confirmed Across Guyana',
+      category: 'announcements',
+      summary: 'The IMC Newsletter #2 has confirmed 11 cricket grounds across Guyana that will host World Cup matches. Venues include the historic Bourda Cricket Ground in Georgetown, the new Palmyra Stadium in Berbice, Everest Cricket Club, Albion Cricket Ground, Demerara Cricket Club, and several other grounds across the Demerara and Berbice regions.',
+      isOfficial: true,
+      author: 'International Masters Cricket',
+    },
+    {
       id: 'bul-1',
       date: '2026-03-25',
       headline: 'England Over 40s Cricket Announce Squad for IMC O40s World Cup 2026',
       category: 'squad',
       summary: 'England Over 40s Cricket has today announced its squad for the IMC O40s World Cup 2026, to be held in Georgetown, Guyana, from 17\u201331 October 2026. The England party will be led on the field by captain Darren Stevens, the former professional cricketer, alongside a strong group of high-quality club players drawn from across the country.',
-      isPinned: true,
-      isFeatured: true,
+      isPinned: false,
       isOfficial: true,
       author: 'England Over 40s Cricket',
     },
@@ -725,7 +753,7 @@ export const newsData = {
     {
       id: 'bul-3',
       date: '2026-03-15',
-      headline: 'World Cup Dates Confirmed: 17–31 October 2026',
+      headline: 'World Cup Dates Confirmed: 17\u201331 October 2026',
       category: 'announcements',
       summary: 'The IMC has confirmed that the Over 40s ODI World Cup will take place in Georgetown, Guyana from 17 to 31 October 2026. Up to 16 nations are expected to compete in the 45-over format tournament.',
       isOfficial: true,
@@ -920,3 +948,292 @@ export const pressReleaseData = {
 
 // Legacy alias
 export const PRESS_RELEASES = pressReleaseData.releases;
+
+
+// ============================================================
+// 7. SCHEDULE DATA — scheduleData
+// ============================================================
+
+/**
+ * ScheduleEvent — A single day/event in the tournament itinerary.
+ *
+ * eventType controls styling:
+ * - 'match'     → Cricket ball icon, standard row
+ * - 'ceremony'  → Star icon, highlighted row
+ * - 'rest'      → Palm tree icon, muted row
+ * - 'practice'  → Bat icon, muted row
+ * - 'meeting'   → Users icon, muted row
+ * - 'travel'    → Plane icon, muted row
+ */
+export type ScheduleEventType = 'match' | 'ceremony' | 'rest' | 'practice' | 'meeting' | 'travel';
+
+export interface ScheduleEvent {
+  id: string;
+  date: string;
+  dayOfWeek: string;
+  time?: string;
+  event: string;
+  eventType: ScheduleEventType;
+  description?: string;
+  isHighlight?: boolean;
+}
+
+/**
+ * scheduleData — The single source of truth for the tournament itinerary.
+ *
+ * Source: IMC Newsletter #2, February 2026
+ * "Proposed Tournament Schedule — 2026 Over 40s World Cup – Guyana, West Indies"
+ *
+ * EDITING GUIDE:
+ * • To add an event: append an object to the `events` array
+ * • Events with the same date appear grouped together
+ * • Set isHighlight: true for key events (opening/closing ceremonies, finals)
+ * • Multiple events on the same day are supported (e.g. Oct 17 has 3 events)
+ */
+export const scheduleData = {
+  /** Section heading */
+  title: 'Tournament Schedule',
+  subtitle: 'Proposed itinerary from IMC Newsletter #2',
+  source: 'IMC Newsletter #2, February 2026',
+
+  events: [
+    {
+      id: 'sch-01',
+      date: '2026-10-15',
+      dayOfWeek: 'Thursday',
+      event: 'Practice Matches / Net Sessions',
+      eventType: 'practice',
+      description: 'Teams arrive and begin practice sessions',
+    },
+    {
+      id: 'sch-02',
+      date: '2026-10-16',
+      dayOfWeek: 'Friday',
+      event: 'Practice Matches / Net Sessions',
+      eventType: 'practice',
+    },
+    {
+      id: 'sch-03',
+      date: '2026-10-17',
+      dayOfWeek: 'Saturday',
+      time: '10:00 am',
+      event: 'Captains & Managers Meeting',
+      eventType: 'meeting',
+    },
+    {
+      id: 'sch-04',
+      date: '2026-10-17',
+      dayOfWeek: 'Saturday',
+      time: '11:30 am',
+      event: 'Press Conference / Media Briefing',
+      eventType: 'meeting',
+    },
+    {
+      id: 'sch-05',
+      date: '2026-10-17',
+      dayOfWeek: 'Saturday',
+      time: '7:00 pm',
+      event: 'Opening Ceremony',
+      eventType: 'ceremony',
+      isHighlight: true,
+    },
+    {
+      id: 'sch-06',
+      date: '2026-10-18',
+      dayOfWeek: 'Sunday',
+      time: '9:30 am',
+      event: 'Round 1 Matches',
+      eventType: 'match',
+      isHighlight: true,
+      description: 'Group stage begins',
+    },
+    {
+      id: 'sch-07',
+      date: '2026-10-19',
+      dayOfWeek: 'Monday',
+      time: '9:30 am',
+      event: 'Round 2 Matches',
+      eventType: 'match',
+    },
+    {
+      id: 'sch-08',
+      date: '2026-10-20',
+      dayOfWeek: 'Tuesday',
+      event: "Chairman's Lunch / Rest Day / Tours",
+      eventType: 'rest',
+    },
+    {
+      id: 'sch-09',
+      date: '2026-10-21',
+      dayOfWeek: 'Wednesday',
+      time: '9:30 am',
+      event: 'Round 3 Matches',
+      eventType: 'match',
+    },
+    {
+      id: 'sch-10',
+      date: '2026-10-22',
+      dayOfWeek: 'Thursday',
+      time: '9:30 am',
+      event: 'Round 4 Matches',
+      eventType: 'match',
+    },
+    {
+      id: 'sch-11',
+      date: '2026-10-23',
+      dayOfWeek: 'Friday',
+      event: 'Rest Day / Teams Dominoes, King & Queen Tournament',
+      eventType: 'rest',
+    },
+    {
+      id: 'sch-12',
+      date: '2026-10-24',
+      dayOfWeek: 'Saturday',
+      time: '9:30 am',
+      event: 'Round 5 Matches',
+      eventType: 'match',
+    },
+    {
+      id: 'sch-13',
+      date: '2026-10-25',
+      dayOfWeek: 'Sunday',
+      time: '9:30 am',
+      event: 'Round 6 Matches',
+      eventType: 'match',
+    },
+    {
+      id: 'sch-14',
+      date: '2026-10-26',
+      dayOfWeek: 'Monday',
+      event: 'Rest Day / Tours — Kaieteur & Orinduik Falls / Resort',
+      eventType: 'rest',
+      description: 'Optional excursion to Kaieteur Falls and Orinduik Falls',
+    },
+    {
+      id: 'sch-15',
+      date: '2026-10-27',
+      dayOfWeek: 'Tuesday',
+      time: '9:30 am',
+      event: 'Round 7 Matches',
+      eventType: 'match',
+      description: 'Final group stage round',
+    },
+    {
+      id: 'sch-16',
+      date: '2026-10-28',
+      dayOfWeek: 'Wednesday',
+      time: '9:30 am',
+      event: 'Crossover Games / Semi-Finals',
+      eventType: 'match',
+      isHighlight: true,
+    },
+    {
+      id: 'sch-17',
+      date: '2026-10-29',
+      dayOfWeek: 'Thursday',
+      event: 'Rest Day / Windies Legends Nostalgia Event',
+      eventType: 'rest',
+      description: 'Special event celebrating West Indies cricket heritage',
+    },
+    {
+      id: 'sch-18',
+      date: '2026-10-30',
+      dayOfWeek: 'Friday',
+      time: '9:30 am',
+      event: 'Crossover Finals',
+      eventType: 'match',
+      isHighlight: true,
+    },
+    {
+      id: 'sch-19',
+      date: '2026-10-31',
+      dayOfWeek: 'Saturday',
+      time: '9:30 am',
+      event: 'Grand Finale',
+      eventType: 'match',
+      isHighlight: true,
+      description: 'World Cup Final',
+    },
+    {
+      id: 'sch-20',
+      date: '2026-10-31',
+      dayOfWeek: 'Saturday',
+      time: '8:00 pm',
+      event: 'Closing Ceremony',
+      eventType: 'ceremony',
+      isHighlight: true,
+    },
+    {
+      id: 'sch-21',
+      date: '2026-11-01',
+      dayOfWeek: 'Sunday',
+      event: 'Teams Depart',
+      eventType: 'travel',
+    },
+  ] as ScheduleEvent[],
+
+  /** Venue information from IMC Newsletter #2 */
+  venueInfo: [
+    {
+      name: 'Bourda Cricket Ground',
+      location: 'Georgetown',
+      description: 'One of the most historic grounds in world cricket. The first Test ground in mainland South America and the only international stadium built below sea level, uniquely protected by a surrounding moat. Home to the Georgetown Cricket Club, Bourda has hosted legends such as Sir Clive Lloyd and Brian Lara.',
+    },
+    {
+      name: 'Palmyra Cricket Ground',
+      location: 'Region Six (Berbice)',
+      description: 'A new, state-of-the-art stadium currently under development, designed to international standards. The multipurpose venue will be capable of hosting top-level cricket including CPL matches, as well as major cultural and entertainment events.',
+    },
+    {
+      name: 'Everest Cricket Club',
+      location: 'Georgetown',
+      description: 'A historic and active cricket ground known for hosting regional and international practice matches, including during the 2007 World Cup and CPL. Legendary player Shivnarine Chanderpaul is a member.',
+    },
+    {
+      name: 'Enmore Recreation Ground',
+      location: 'Enmore, Demerara',
+      description: 'Located in Enmore, the ground first hosted top-level domestic cricket during the 1992\u201393 Geddes Grant Shield. Between 1993 and 2009, the venue staged 17 List A matches and 4 first-class matches.',
+    },
+    {
+      name: 'Albion Cricket Ground',
+      location: 'Albion, Berbice',
+      description: 'Known as the Albion Sports Complex, this historic venue is one of Guyana\u2019s key cricket grounds, famous for hosting early West Indies One-day Internationals. Currently undergoing major upgrades.',
+    },
+    {
+      name: 'Demerara Cricket Club (DCC)',
+      location: 'Queenstown, Georgetown',
+      description: 'A historic ground and hub for Guyanese cricket where legends like Clive Lloyd and Lance Gibbs honed their skills. While international matches moved to Providence Stadium, DCC remains a vital part of Guyana\u2019s cricket heritage.',
+    },
+    {
+      name: 'Blairmont Cricket Ground',
+      location: 'Blairmont, Berbice',
+      description: 'A historic cricket venue known for hosting first-class and List A matches, famous for a record low List A score (18 all out by WI U19s). Opened in 1959, it began hosting first-class cricket in 1989.',
+    },
+    {
+      name: 'MMZ Centre Ground',
+      location: 'Region Three',
+      description: 'The newly upgraded Meten-Meer-Zorg Community Centre Ground, featuring modern floodlights, a new building, and a fresh pitch for training and competitive cricket.',
+    },
+    {
+      name: 'Police Sports Club Ground',
+      location: 'Georgetown',
+      description: 'A key venue for sporting events and community outreach, hosting various local matches and competitions. The dedicated home for the force\u2019s cricket and other sports activities.',
+    },
+    {
+      name: 'Malteenoes Sports Club',
+      location: 'Thomas Lands, Georgetown',
+      description: 'A historic and vibrant hub for cricket, known for producing national players, hosting intense local matches, and fostering community spirit with a laid-back atmosphere.',
+    },
+    {
+      name: 'Lusignan Sports Club',
+      location: 'East Coast Demerara',
+      description: 'A key community venue on the East Coast Demerara, primarily hosting local and developmental cricket matches, including youth series and inter-village competitions.',
+    },
+  ],
+
+  /** Empty-state messaging */
+  emptyState: {
+    heading: 'Schedule to Be Announced',
+    message: 'The tournament itinerary will appear here once the IMC releases the official schedule.',
+  },
+};
