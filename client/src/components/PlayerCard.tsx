@@ -134,10 +134,10 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
             </div>
           </dl>
 
-          {/* Biography */}
-          <div className="mt-3 pt-3 border-t border-border/50">
+          {/* Biography — fixed height (2 lines) for uniform card sizing; full text in modal */}
+          <div className="mt-3 pt-3 border-t border-border/50 h-[3.25rem] overflow-hidden">
             {player.shortBio ? (
-              <p className="font-body text-xs text-navy/60 leading-relaxed line-clamp-3">
+              <p className="font-body text-xs text-navy/60 leading-relaxed line-clamp-2">
                 {player.shortBio}
               </p>
             ) : (
