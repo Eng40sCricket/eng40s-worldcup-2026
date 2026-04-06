@@ -73,12 +73,8 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
           </div>
         )}
 
-        {/* Photo area — aspect-ratio on mobile (full image), fixed heights on tablet/desktop */}
-        <div className={`relative bg-gradient-to-br from-navy/5 to-navy/10 flex items-center justify-center overflow-hidden ${
-          featured 
-            ? 'aspect-[4/5] sm:aspect-auto sm:h-80 lg:h-96' 
-            : 'aspect-[4/5] sm:aspect-auto sm:h-72 lg:h-72'
-        }`}>
+        {/* Photo area — consistent 4:5 portrait aspect ratio at all breakpoints */}
+        <div className="relative bg-gradient-to-br from-navy/5 to-navy/10 flex items-center justify-center overflow-hidden aspect-[4/5]">
           {player.image ? (
             <img
               src={player.image}

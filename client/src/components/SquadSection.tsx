@@ -30,8 +30,8 @@ function SquadSkeleton() {
         </div>
       </div>
       {/* Grid skeleton */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {Array.from({ length: 6 }).map((_, i) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {Array.from({ length: 8 }).map((_, i) => (
           <div key={i} className="bg-white/5 rounded-lg overflow-hidden animate-pulse">
             <div className="h-48 bg-white/10" />
             <div className="p-4 space-y-3">
@@ -293,9 +293,9 @@ export default function SquadSection() {
                   </div>
                 </div>
 
-                {/* Remaining players — 3-column grid */}
+                {/* Remaining players — 4-column grid */}
                 <div
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
                   role="list"
                   aria-label="Squad players"
                 >
@@ -311,9 +311,9 @@ export default function SquadSection() {
                 </div>
               </>
             ) : (
-              /* FILTERED/SEARCH LAYOUT: Standard 3-column grid */
+              /* FILTERED/SEARCH LAYOUT: Standard 4-column grid */
               <div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
                 role="list"
                 aria-label="Squad players"
               >
