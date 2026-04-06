@@ -138,8 +138,21 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
             </div>
           </dl>
 
+          {/* Biography */}
+          <div className="mt-3 pt-3 border-t border-border/50">
+            {player.shortBio ? (
+              <p className="font-body text-xs text-navy/60 leading-relaxed line-clamp-3">
+                {player.shortBio}
+              </p>
+            ) : (
+              <p className="font-body text-xs text-navy/30 italic leading-relaxed">
+                Biography coming soon
+              </p>
+            )}
+          </div>
+
           {/* Tap hint */}
-          <p className="mt-3 font-body text-xs text-sky/60 group-hover:text-sky transition-colors" aria-hidden="true">
+          <p className="mt-2 font-body text-xs text-sky/60 group-hover:text-sky transition-colors" aria-hidden="true">
             Tap for full profile &rarr;
           </p>
         </div>

@@ -132,13 +132,18 @@ export default function PlayerModal({ player, open, onClose }: PlayerModalProps)
           </dl>
 
           {/* Bio */}
-          {player.shortBio && (
-            <div className="pt-3 border-t border-border">
+          <div className="pt-3 border-t border-border">
+            <dt className="font-body text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Biography</dt>
+            {player.shortBio ? (
               <p className="font-body text-sm text-navy/70 leading-relaxed">
                 {player.shortBio}
               </p>
-            </div>
-          )}
+            ) : (
+              <p className="font-body text-sm text-navy/30 italic leading-relaxed">
+                Biography coming soon — max. 50 words
+              </p>
+            )}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
