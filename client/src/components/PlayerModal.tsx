@@ -3,7 +3,7 @@
 import type { Player } from '@/lib/data';
 import { getDisplayBowling, getBowlingLabel, getPlayerFirstName, getPlayerSurname } from '@/lib/data';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { User, Shield, Star, MapPin, Clock, Info, Share2 } from 'lucide-react';
+import { User, Shield, Star, MapPin, Clock, Info, Share2, Award } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface PlayerModalProps {
@@ -66,6 +66,7 @@ export default function PlayerModal({ player, open, onClose }: PlayerModalProps)
               <span className="pill bg-gold/30 text-gold mb-2 inline-flex items-center">
                 {player.leadershipTag === 'Captain' && <Shield className="w-3 h-3 mr-1" aria-hidden="true" />}
                 {player.leadershipTag === 'Vice-Captain' && <Star className="w-3 h-3 mr-1" aria-hidden="true" />}
+                {player.leadershipTag === 'Head Coach' && <Award className="w-3 h-3 mr-1" aria-hidden="true" />}
                 {player.leadershipTag}
               </span>
             )}
@@ -102,11 +103,15 @@ export default function PlayerModal({ player, open, onClose }: PlayerModalProps)
 
           {/* Role + badges */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className={`pill text-sm ${roleColor}`}>{player.roleCategory}</span>
-            {player.wicketkeeperFlag && player.roleCategory !== 'Wicketkeeper' && (
+            {player.isCoachingStaff ? (
+              <span className="pill text-sm bg-navy/15 text-navy">Coaching Staff</span>
+            ) : (
+              <span className={`pill text-sm ${roleColor}`}>{player.roleCategory}</span>
+            )}
+            {player.wicketkeeperFlag && player.roleCategory !== 'Wicketkeeper' && !player.isCoachingStaff && (
               <span className="pill text-sm bg-gold/20 text-gold-dark">Wicketkeeper</span>
             )}
-            {player.squadNumber !== undefined && (
+            {player.squadNumber !== undefined && !player.isCoachingStaff && (
               <span className="pill text-sm bg-navy/10 text-navy font-display">#{player.squadNumber}</span>
             )}
             {player.capNumber && (
@@ -125,8 +130,12 @@ export default function PlayerModal({ player, open, onClose }: PlayerModalProps)
 
           {/* Details grid — using definition list for semantics */}
           <dl className="grid grid-cols-2 gap-4">
-            <DetailItem label="Batting" value={player.battingStyle} />
-            <DetailItem label={bowlingLabel} value={displayBowling} />
+            {!player.isCoachingStaff && (
+              <>
+                <DetailItem label="Batting" value={player.battingStyle} />
+                <DetailItem label={bowlingLabel} value={displayBowling} />
+              </>
+            )}
             <DetailItem label="Club" value={player.clubEngland} icon={<MapPin className="w-3.5 h-3.5" />} />
             {player.county && <DetailItem label="County" value={player.county} />}
           </dl>

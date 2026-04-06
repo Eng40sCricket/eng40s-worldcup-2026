@@ -3,7 +3,7 @@
 import type { Player } from '@/lib/data';
 import { getDisplayBowling, getBowlingLabel, getPlayerFirstName, getPlayerSurname } from '@/lib/data';
 import { motion } from 'framer-motion';
-import { User, Shield, Star, Clock } from 'lucide-react';
+import { User, Shield, Star, Clock, Award } from 'lucide-react';
 
 interface PlayerCardProps {
   player: Player;
@@ -68,6 +68,7 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
             <span className="pill bg-gold/20 text-gold-dark">
               {player.leadershipTag === 'Captain' && <Shield className="w-3 h-3 mr-1" aria-hidden="true" />}
               {player.leadershipTag === 'Vice-Captain' && <Star className="w-3 h-3 mr-1" aria-hidden="true" />}
+              {player.leadershipTag === 'Head Coach' && <Award className="w-3 h-3 mr-1" aria-hidden="true" />}
               {player.leadershipTag}
             </span>
           </div>
@@ -104,8 +105,13 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
 
           {/* Role pill + status */}
           <div className="mt-2 flex flex-wrap gap-1.5">
-            <span className={`pill ${roleColor}`}>{player.roleCategory}</span>
-            {player.wicketkeeperFlag && player.roleCategory !== 'Wicketkeeper' && (
+            {!player.isCoachingStaff && (
+              <span className={`pill ${roleColor}`}>{player.roleCategory}</span>
+            )}
+            {player.isCoachingStaff && (
+              <span className="pill bg-navy/15 text-navy">Coaching Staff</span>
+            )}
+            {player.wicketkeeperFlag && player.roleCategory !== 'Wicketkeeper' && !player.isCoachingStaff && (
               <span className="pill bg-gold/20 text-gold-dark">WK</span>
             )}
             {player.profileStatus !== 'confirmed' && statusInfo && (
@@ -116,18 +122,22 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
             )}
           </div>
 
-          {/* Stats — using definition list for semantics */}
+          {/* Stats — hidden for coaching staff; only club shown */}
           <dl className="mt-3 space-y-1.5">
-            <div className="flex items-center gap-2">
-              <dt className="font-body text-xs text-muted-foreground uppercase tracking-wider w-16 shrink-0">Bat</dt>
-              <dd className="font-body text-sm text-navy/80">{player.battingStyle}</dd>
-            </div>
-            <div className="flex items-center gap-2">
-              <dt className="font-body text-xs text-muted-foreground uppercase tracking-wider w-16 shrink-0">
-                {bowlingLabel === 'Designation' ? 'Role' : 'Bowl'}
-              </dt>
-              <dd className="font-body text-sm text-navy/80">{displayBowling}</dd>
-            </div>
+            {!player.isCoachingStaff && (
+              <>
+                <div className="flex items-center gap-2">
+                  <dt className="font-body text-xs text-muted-foreground uppercase tracking-wider w-16 shrink-0">Bat</dt>
+                  <dd className="font-body text-sm text-navy/80">{player.battingStyle}</dd>
+                </div>
+                <div className="flex items-center gap-2">
+                  <dt className="font-body text-xs text-muted-foreground uppercase tracking-wider w-16 shrink-0">
+                    {bowlingLabel === 'Designation' ? 'Role' : 'Bowl'}
+                  </dt>
+                  <dd className="font-body text-sm text-navy/80">{displayBowling}</dd>
+                </div>
+              </>
+            )}
             <div className="flex items-center gap-2">
               <dt className="font-body text-xs text-muted-foreground uppercase tracking-wider w-16 shrink-0">Club</dt>
               <dd className="font-body text-sm text-navy/80">{player.clubEngland}</dd>

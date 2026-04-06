@@ -89,8 +89,10 @@ export default function SquadSection() {
       players = players.filter((p) => p.roleCategory === roleFilter);
     }
 
-    // Sort
+    // Sort — coaching staff always pinned to end
     players.sort((a, b) => {
+      if (a.isCoachingStaff && !b.isCoachingStaff) return 1;
+      if (!a.isCoachingStaff && b.isCoachingStaff) return -1;
       switch (sortBy) {
         case 'squadNumber':
           return (a.squadNumber ?? 999) - (b.squadNumber ?? 999);

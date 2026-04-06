@@ -138,6 +138,8 @@ export interface Player {
   county?: string;
   capNumber?: number;
   squadNumber?: number;
+  /** If true, this person is coaching staff — card hides batting/bowling stats */
+  isCoachingStaff?: boolean;
 }
 
 // ---- HELPERS ----
@@ -417,6 +419,20 @@ export const squadData = {
       shortBio: '',
       profileStatus: 'confirmed',
       squadNumber: 43,
+    },
+    {
+      id: 'david-hughes',
+      fullName: 'David Hughes',
+      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Hughes_9c603e6c.png',
+      roleCategory: 'All-rounder',
+      battingStyle: 'Right-hand bat',
+      bowlingStyle: 'N/A',
+      wicketkeeperFlag: false,
+      clubEngland: "Bishop's Stortford",
+      shortBio: '',
+      leadershipTag: 'Head Coach',
+      profileStatus: 'confirmed',
+      isCoachingStaff: true,
     },
   ] as Player[],
 
