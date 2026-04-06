@@ -81,7 +81,7 @@ export default function HeroSection() {
               className="w-20 h-20 sm:w-24 sm:h-24 object-contain drop-shadow-lg"
             />
           </div>
-          <p className="font-body text-sky-light text-sm sm:text-base tracking-[0.3em] uppercase mb-4 font-medium">
+          <p className="font-body text-orange-500 text-sm sm:text-base tracking-[0.3em] uppercase mb-4 font-medium">
             {TOURNAMENT.organiser}
           </p>
         </motion.div>
