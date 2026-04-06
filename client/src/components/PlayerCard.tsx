@@ -73,17 +73,17 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
           </div>
         )}
 
-        {/* Photo area — uses aspect-ratio on mobile for proportional face display */}
+        {/* Photo area — aspect-ratio on mobile (full image), fixed heights on tablet/desktop */}
         <div className={`relative bg-gradient-to-br from-navy/5 to-navy/10 flex items-center justify-center overflow-hidden ${
           featured 
-            ? 'aspect-[4/5] sm:aspect-auto sm:h-80' 
-            : 'aspect-[4/5] sm:aspect-auto sm:h-64'
+            ? 'aspect-[4/5] sm:aspect-auto sm:h-80 lg:h-96' 
+            : 'aspect-[4/5] sm:aspect-auto sm:h-72 lg:h-72'
         }`}>
           {player.image ? (
             <img
               src={player.image}
               alt={`${player.fullName}, ${player.roleCategory}`}
-              className="w-full h-full object-cover object-[center_15%] sm:object-[center_25%] group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover object-[center_15%] sm:object-[center_20%] group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
           ) : (
