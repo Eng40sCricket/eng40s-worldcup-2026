@@ -218,7 +218,7 @@ export const squadData = {
       bowlingStyle: 'Right-arm medium',
       wicketkeeperFlag: false,
       clubEngland: 'St Lawrence & Highland Court',
-      shortBio: 'Former professional cricketer and squad captain. A vastly experienced all-rounder who brings leadership and match-winning ability to the squad.',
+      shortBio: 'A legendary English all-rounder who enjoyed an illustrious county career spanning decades with Leicestershire and Kent. Renowned for his exceptional longevity and consistent performances, he amassed over 16,000 first-class runs and nearly 600 wickets. A Wisden Cricketer of the Year, he also featured in overseas leagues in Zimbabwe, New Zealand, and won Bangladesh Premier League titles with Dhaka Gladiators and Comilla Victorians.',
       leadershipTag: 'Captain',
       profileStatus: 'confirmed',
       county: 'Kent',
