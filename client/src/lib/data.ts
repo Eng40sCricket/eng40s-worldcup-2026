@@ -218,7 +218,7 @@ export const squadData = {
       bowlingStyle: 'Right-arm medium',
       wicketkeeperFlag: false,
       clubEngland: 'St Lawrence & Highland Court',
-      shortBio: 'A legendary English all-rounder who enjoyed an illustrious county career spanning decades with Leicestershire and Kent. Renowned for his exceptional longevity and consistent performances, he amassed over 16,000 first-class runs and nearly 600 wickets. A Wisden Cricketer of the Year, he also featured in overseas leagues in Zimbabwe, New Zealand, and won Bangladesh Premier League titles with Dhaka Gladiators and Comilla Victorians.',
+      shortBio: 'A legendary English all-rounder whose illustrious county career spanned Leicestershire (1997–2004) and Kent (2005–2022), amassing over 16,000 first-class runs and nearly 600 wickets. Named a Wisden Cricketer of the Year in 2021, he also played overseas for Mid West Rhinos (Zimbabwe), Otago (New Zealand), and won Bangladesh Premier League titles with Dhaka Gladiators and Comilla Victorians. He played club cricket in South Africa for Pinelands and Claremont.',
       leadershipTag: 'Captain',
       profileStatus: 'confirmed',
       county: 'Kent',
