@@ -104,7 +104,7 @@ export default function PlayerModal({ player, open, onClose }: PlayerModalProps)
           {/* Role + badges */}
           <div className="flex flex-wrap items-center gap-2">
             {player.isCoachingStaff ? (
-              <span className="pill text-sm bg-navy/15 text-navy">Coaching Staff</span>
+              <span className="pill text-sm bg-navy/15 text-navy">{player.leadershipTag || 'Staff'}</span>
             ) : (
               <span className={`pill text-sm ${roleColor}`}>{player.roleCategory}</span>
             )}

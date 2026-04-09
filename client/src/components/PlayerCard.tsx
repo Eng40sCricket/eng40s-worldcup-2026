@@ -109,7 +109,7 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
               <span className={`pill ${roleColor}`}>{player.roleCategory}</span>
             )}
             {player.isCoachingStaff && (
-              <span className="pill bg-navy/15 text-navy">Coaching Staff</span>
+              <span className="pill bg-navy/15 text-navy">{player.leadershipTag || 'Staff'}</span>
             )}
             {player.wicketkeeperFlag && player.roleCategory !== 'Wicketkeeper' && !player.isCoachingStaff && (
               <span className="pill bg-gold/20 text-gold-dark">WK</span>
