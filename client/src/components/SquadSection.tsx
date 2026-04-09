@@ -94,8 +94,19 @@ export default function SquadSection() {
       players = players.filter((p) => p.roleCategory === roleFilter);
     }
 
-    // Sort
+    // Sort — Captain first, Vice-Captain second, then by chosen sort
     players.sort((a, b) => {
+      // Pin Captain first, Vice-Captain second regardless of sort
+      const leaderOrder = (p: Player): number => {
+        if (p.leadershipTag === 'Captain') return 0;
+        if (p.leadershipTag === 'Vice-Captain') return 1;
+        return 2;
+      };
+      const la = leaderOrder(a);
+      const lb = leaderOrder(b);
+      if (la !== lb) return la - lb;
+
+      // For non-leadership players, apply chosen sort
       switch (sortBy) {
         case 'squadNumber':
           return (a.squadNumber ?? 999) - (b.squadNumber ?? 999);
@@ -127,11 +138,8 @@ export default function SquadSection() {
     );
   }, [searchQuery, coachingStaff]);
 
-  // Separate captain from rest for featured layout
-  const captain = filteredAndSorted.find((p) => p.leadershipTag === 'Captain');
-  const restOfSquad = filteredAndSorted.filter((p) => p.leadershipTag !== 'Captain');
-  // Show featured layout only when no active filters/search are narrowing results
-  const showFeaturedLayout = roleFilter === 'all' && !searchQuery.trim();
+  // No separate featured layout — all players in the same grid
+  // Captain and Vice-Captain are already pinned to positions 1 and 2 by the sort
 
   const handlePlayerClick = (player: Player) => {
     setSelectedPlayer(player);
@@ -295,56 +303,22 @@ export default function SquadSection() {
           <SquadSkeleton />
         ) : (
           <>
-            {/* FEATURED LAYOUT: Captain centred at top, rest in 4-column grid */}
-            {showFeaturedLayout && captain ? (
-              <>
-                {/* Captain — centred featured card */}
-                <div className="flex justify-center mb-8">
-                  <div className="w-full max-w-sm">
-                    <PlayerCard
-                      player={captain}
-                      index={0}
-                      onClick={handlePlayerClick}
-                      featured
-                    />
-                  </div>
+            {/* All players in a uniform 4-column grid: Captain first, Vice-Captain second, rest alphabetical */}
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+              role="list"
+              aria-label="Squad players"
+            >
+              {filteredAndSorted.map((player, i) => (
+                <div key={player.id} role="listitem">
+                  <PlayerCard
+                    player={player}
+                    index={i}
+                    onClick={handlePlayerClick}
+                  />
                 </div>
-
-                {/* Remaining players — 4-column grid */}
-                <div
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
-                  role="list"
-                  aria-label="Squad players"
-                >
-                  {restOfSquad.map((player, i) => (
-                    <div key={player.id} role="listitem">
-                      <PlayerCard
-                        player={player}
-                        index={i + 1}
-                        onClick={handlePlayerClick}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              /* FILTERED/SEARCH LAYOUT: Standard 4-column grid */
-              <div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
-                role="list"
-                aria-label="Squad players"
-              >
-                {filteredAndSorted.map((player, i) => (
-                  <div key={player.id} role="listitem">
-                    <PlayerCard
-                      player={player}
-                      index={i}
-                      onClick={handlePlayerClick}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+              ))}
+            </div>
 
             {/* Empty state — no players match filter/search */}
             {filteredAndSorted.length === 0 && allPlayers.length > 0 && (
