@@ -1,11 +1,12 @@
-// DESIGN: "Stadium Broadcast" — Squad section with captain featured, rows of three
-// Captain (Darren Stevens) centred at top, remaining 15 players in 3-column grid
+// DESIGN: "Stadium Broadcast" — Squad section with captain featured, 4-column grid
+// Captain (Darren Stevens) centred at top, remaining players in 4-column grid
+// Coaching & Management staff in a separate section below
 import { useState, useMemo, useEffect } from 'react';
 import { squadData, ASSETS, type Player, getPlayerSurname } from '@/lib/data';
 import PlayerCard from './PlayerCard';
 import PlayerModal from './PlayerModal';
 import { motion } from 'framer-motion';
-import { SlidersHorizontal, Search, Share2, X, Users } from 'lucide-react';
+import { SlidersHorizontal, Search, Share2, X, Users, Shield } from 'lucide-react';
 import { toast } from 'sonner';
 
 function SquadSkeleton() {
@@ -67,8 +68,12 @@ export default function SquadSection() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Split players from coaching staff
+  const allPlayers = useMemo(() => squadData.players.filter(p => !p.isCoachingStaff), []);
+  const coachingStaff = useMemo(() => squadData.players.filter(p => p.isCoachingStaff), []);
+
   const filteredAndSorted = useMemo(() => {
-    let players = [...squadData.players];
+    let players = [...allPlayers];
 
     // Search filter — matches name, club, role, batting/bowling style, squad number
     if (searchQuery.trim()) {
@@ -89,10 +94,8 @@ export default function SquadSection() {
       players = players.filter((p) => p.roleCategory === roleFilter);
     }
 
-    // Sort — coaching staff always pinned to end
+    // Sort
     players.sort((a, b) => {
-      if (a.isCoachingStaff && !b.isCoachingStaff) return 1;
-      if (!a.isCoachingStaff && b.isCoachingStaff) return -1;
       switch (sortBy) {
         case 'squadNumber':
           return (a.squadNumber ?? 999) - (b.squadNumber ?? 999);
@@ -110,7 +113,19 @@ export default function SquadSection() {
     });
 
     return players;
-  }, [roleFilter, sortBy, searchQuery]);
+  }, [roleFilter, sortBy, searchQuery, allPlayers]);
+
+  // Also filter coaching staff by search (but not by role filter)
+  const filteredCoachingStaff = useMemo(() => {
+    if (!searchQuery.trim()) return coachingStaff;
+    const q = searchQuery.toLowerCase().trim();
+    return coachingStaff.filter(
+      (p) =>
+        p.fullName.toLowerCase().includes(q) ||
+        p.clubEngland.toLowerCase().includes(q) ||
+        (p.leadershipTag && p.leadershipTag.toLowerCase().includes(q))
+    );
+  }, [searchQuery, coachingStaff]);
 
   // Separate captain from rest for featured layout
   const captain = filteredAndSorted.find((p) => p.leadershipTag === 'Captain');
@@ -270,7 +285,7 @@ export default function SquadSection() {
         {/* Player count + active filters summary */}
         <div className="text-center mb-6" aria-live="polite" aria-atomic="true">
           <p className="font-body text-white/40 text-xs tracking-wider">
-            Showing {filteredAndSorted.length} of {squadData.players.length} players
+            Showing {filteredAndSorted.length} of {allPlayers.length} players
             {searchQuery && <span className="text-sky/60"> — searching &ldquo;{searchQuery}&rdquo;</span>}
           </p>
         </div>
@@ -280,7 +295,7 @@ export default function SquadSection() {
           <SquadSkeleton />
         ) : (
           <>
-            {/* FEATURED LAYOUT: Captain centred at top, rest in 3-column grid */}
+            {/* FEATURED LAYOUT: Captain centred at top, rest in 4-column grid */}
             {showFeaturedLayout && captain ? (
               <>
                 {/* Captain — centred featured card */}
@@ -332,7 +347,7 @@ export default function SquadSection() {
             )}
 
             {/* Empty state — no players match filter/search */}
-            {filteredAndSorted.length === 0 && squadData.players.length > 0 && (
+            {filteredAndSorted.length === 0 && allPlayers.length > 0 && (
               <div className="text-center py-16" role="status">
                 <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
                   <Search className="w-6 h-6 text-white/20" />
@@ -351,7 +366,7 @@ export default function SquadSection() {
             )}
 
             {/* Empty state — squad not yet announced */}
-            {squadData.players.length === 0 && (
+            {allPlayers.length === 0 && (
               <div className="text-center py-20" role="status">
                 <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
                   <Users className="w-7 h-7 text-white/20" />
@@ -359,6 +374,46 @@ export default function SquadSection() {
                 <p className="font-display text-white/40 text-xl mb-2">{squadData.emptyState.heading}</p>
                 <p className="font-body text-white/25 text-sm max-w-md mx-auto">{squadData.emptyState.message}</p>
               </div>
+            )}
+
+            {/* ─── COACHING & MANAGEMENT SECTION ─── */}
+            {filteredCoachingStaff.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mt-16"
+              >
+                {/* Section divider */}
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+                    <Shield className="w-4 h-4 text-gold" />
+                    <span className="font-display text-white/70 text-xs tracking-[0.2em] uppercase">
+                      Coaching &amp; Management
+                    </span>
+                  </div>
+                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                </div>
+
+                {/* Coaching staff grid — centred, max 4 columns */}
+                <div
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-3xl mx-auto"
+                  role="list"
+                  aria-label="Coaching and management staff"
+                >
+                  {filteredCoachingStaff.map((staff, i) => (
+                    <div key={staff.id} role="listitem">
+                      <PlayerCard
+                        player={staff}
+                        index={filteredAndSorted.length + i + 1}
+                        onClick={handlePlayerClick}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             )}
           </>
         )}
