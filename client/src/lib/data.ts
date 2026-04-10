@@ -442,7 +442,7 @@ export const squadData = {
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm off-break',
       wicketkeeperFlag: false,
-      clubEngland: 'Sussex / Surrey',
+      clubEngland: 'Finchley CC',
       shortBio: 'A former English cricketer who represented Sussex and Surrey at first-class county level. He also played for England-U19s, notably against West Indies Young Cricketers. A right-handed batsman and off-break bowler, Chris retired from county cricket to pursue a medical career as a GP for 30yrs. Played for Sussex (1986) and Surrey (1987-1988). Represented England-U19 (1985).',
       leadershipTag: 'Tour Manager',
       profileStatus: 'confirmed',
