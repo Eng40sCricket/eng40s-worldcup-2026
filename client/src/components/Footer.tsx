@@ -93,28 +93,28 @@ export default function Footer() {
               Tournament
             </h4>
             <dl className="space-y-2 font-body text-sm">
-              <div className="flex gap-2">
-                <dt className="text-white/40">Event:</dt>
-                <dd className="text-white/70">{TOURNAMENT.name}</dd>
+              <div className="flex flex-wrap gap-1 sm:gap-2">
+                <dt className="text-white/40 shrink-0">Event:</dt>
+                <dd className="text-white/70 break-words">{TOURNAMENT.name}</dd>
               </div>
-              <div className="flex gap-2">
-                <dt className="text-white/40">Venue:</dt>
-                <dd className="text-white/70">{TOURNAMENT.location}</dd>
+              <div className="flex flex-wrap gap-1 sm:gap-2">
+                <dt className="text-white/40 shrink-0">Venue:</dt>
+                <dd className="text-white/70 break-words">{TOURNAMENT.location}</dd>
               </div>
-              <div className="flex gap-2">
-                <dt className="text-white/40">Dates:</dt>
-                <dd className="text-white/70">{TOURNAMENT.dates}</dd>
+              <div className="flex flex-wrap gap-1 sm:gap-2">
+                <dt className="text-white/40 shrink-0">Dates:</dt>
+                <dd className="text-white/70 break-words">{TOURNAMENT.dates}</dd>
               </div>
-              <div className="flex gap-2">
-                <dt className="text-white/40">Format:</dt>
-                <dd className="text-white/70">{TOURNAMENT.format}</dd>
+              <div className="flex flex-wrap gap-1 sm:gap-2">
+                <dt className="text-white/40 shrink-0">Format:</dt>
+                <dd className="text-white/70 break-words">{TOURNAMENT.format}</dd>
               </div>
             </dl>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <p className="font-body text-xs text-white/30">
             &copy; {new Date().getFullYear()} England Over 40s Cricket. All rights reserved.
           </p>

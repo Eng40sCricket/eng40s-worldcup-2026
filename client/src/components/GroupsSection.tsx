@@ -312,16 +312,16 @@ function GroupTable({
         <table className="w-full" aria-label={`${group.name} standings`}>
           <thead>
             <tr className="bg-white/[0.03]">
-              <th className="text-left font-body text-[10px] text-white/40 uppercase tracking-wider px-4 py-2 w-8">#</th>
-              <th className="text-left font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2">Team</th>
-              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-10">P</th>
-              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-10">W</th>
-              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-10">L</th>
-              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-10">T</th>
-              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-10">NR</th>
-              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-12">Pts</th>
-              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-16">NRR</th>
-              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-2 py-2 w-20">Status</th>
+              <th className="text-left font-body text-[10px] text-white/40 uppercase tracking-wider px-2 sm:px-4 py-2 w-6 sm:w-8">#</th>
+              <th className="text-left font-body text-[10px] text-white/40 uppercase tracking-wider px-1.5 sm:px-2 py-2">Team</th>
+              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-7 sm:w-10">P</th>
+              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-7 sm:w-10">W</th>
+              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-7 sm:w-10">L</th>
+              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-7 sm:w-10">T</th>
+              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-7 sm:w-10">NR</th>
+              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-8 sm:w-12">Pts</th>
+              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-10 sm:w-16">NRR</th>
+              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-14 sm:w-20">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -339,36 +339,36 @@ function GroupTable({
                       : 'hover:bg-white/[0.03]'
                   }`}
                 >
-                  <td className="px-4 py-2.5">
+                  <td className="px-2 sm:px-4 py-2.5">
                     <span className={`font-display text-xs font-semibold ${
                       ti < DEFAULT_QUALIFY_SPOTS ? 'text-gold' : 'text-white/30'
                     }`}>
                       {ti + 1}
                     </span>
                   </td>
-                  <td className="px-2 py-2.5">
-                    <div className="flex items-center gap-2">
+                  <td className="px-1.5 sm:px-2 py-2.5">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
                       {team.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0" />}
-                      <span className={`font-body text-sm ${
+                      <span className={`font-body text-xs sm:text-sm ${
                         team.isEngland ? 'text-sky font-semibold' : 'text-white/80'
                       }`}>
                         {team.team}
                       </span>
                     </div>
                   </td>
-                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5 tabular-nums">{team.played}</td>
-                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5 tabular-nums">{team.won}</td>
-                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5 tabular-nums">{team.lost}</td>
-                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5 tabular-nums">{team.tied}</td>
-                  <td className="text-center font-body text-sm text-white/60 px-2 py-2.5 tabular-nums">{team.noResult}</td>
-                  <td className="text-center px-2 py-2.5">
+                  <td className="text-center font-body text-xs sm:text-sm text-white/60 px-1 sm:px-2 py-2.5 tabular-nums">{team.played}</td>
+                  <td className="text-center font-body text-xs sm:text-sm text-white/60 px-1 sm:px-2 py-2.5 tabular-nums">{team.won}</td>
+                  <td className="text-center font-body text-xs sm:text-sm text-white/60 px-1 sm:px-2 py-2.5 tabular-nums">{team.lost}</td>
+                  <td className="text-center font-body text-xs sm:text-sm text-white/60 px-1 sm:px-2 py-2.5 tabular-nums">{team.tied}</td>
+                  <td className="text-center font-body text-xs sm:text-sm text-white/60 px-1 sm:px-2 py-2.5 tabular-nums">{team.noResult}</td>
+                  <td className="text-center px-1 sm:px-2 py-2.5">
                     <span className={`font-display text-sm font-bold tabular-nums ${
                       team.isEngland ? 'text-sky' : 'text-white'
                     }`}>
                       {team.points}
                     </span>
                   </td>
-                  <td className="text-center px-2 py-2.5">
+                  <td className="text-center px-1 sm:px-2 py-2.5">
                     <span className={`font-body text-xs tabular-nums ${
                       team.nrr.startsWith('+') && parseFloat(team.nrr) > 0 ? 'text-emerald-400' :
                       team.nrr.startsWith('-') ? 'text-red-400' : 'text-white/40'
@@ -376,7 +376,7 @@ function GroupTable({
                       {team.nrr}
                     </span>
                   </td>
-                  <td className="text-center px-2 py-2.5">
+                  <td className="text-center px-1 sm:px-2 py-2.5">
                     {qualStatus && (
                       <span className={`pill text-[9px] ${
                         qualStatus === 'Qualified' || qualStatus === 'Qualifying'

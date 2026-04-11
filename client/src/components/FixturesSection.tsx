@@ -135,7 +135,7 @@ export default function FixturesSection() {
               className="mb-8 space-y-4"
             >
               {/* View toggle + team filter */}
-              <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3">
                 {/* View mode toggle */}
                 <div className="flex items-center gap-1 bg-navy/5 rounded-lg p-1">
                   <button
@@ -187,7 +187,7 @@ export default function FixturesSection() {
               </div>
 
               {/* Stage + status + venue filters */}
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                 <span className="font-body text-xs text-navy/40 uppercase tracking-wider mr-1">Filter:</span>
 
                 {/* Stage */}
@@ -270,10 +270,10 @@ export default function FixturesSection() {
               <div className="space-y-6 max-w-4xl mx-auto">
                 {Array.from(groupedByDate.entries()).map(([date, matches]) => (
                   <div key={date}>
-                    <div className="flex items-center gap-3 mb-3">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
                       <div className="flex items-center gap-2">
                         <CalendarDays className="w-4 h-4 text-sky" />
-                        <span className="font-display text-navy text-lg font-semibold">
+                        <span className="font-display text-navy text-base sm:text-lg font-semibold">
                           {formatDate(date)}
                         </span>
                       </div>
@@ -348,14 +348,14 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
 
           {/* Teams */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2">
-              <span className={`font-display text-base font-semibold ${
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <span className={`font-display text-sm sm:text-base font-semibold ${
                 fixture.homeTeam === 'England' ? 'text-sky' : 'text-navy'
               }`}>
                 {fixture.homeTeam}
               </span>
               <span className="font-body text-xs text-navy/30 uppercase tracking-wider">vs</span>
-              <span className={`font-display text-base font-semibold ${
+              <span className={`font-display text-sm sm:text-base font-semibold ${
                 fixture.awayTeam === 'England' ? 'text-sky' : 'text-navy'
               }`}>
                 {fixture.awayTeam}
@@ -424,12 +424,12 @@ function CalendarMatchCard({ fixture }: { fixture: Fixture }) {
               {fixture.homeTeam} vs {fixture.awayTeam}
             </span>
           </div>
-          <div className="flex items-center gap-2 mt-0.5">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-0.5">
             {fixture.time && (
               <span className="font-body text-xs text-navy/40">{fixture.time}</span>
             )}
             {fixture.venue && (
-              <span className="font-body text-xs text-navy/40">&middot; {fixture.venue}</span>
+              <span className="font-body text-xs text-navy/40 truncate max-w-[120px] sm:max-w-none">&middot; {fixture.venue}</span>
             )}
             {fixture.group && (
               <span className="font-body text-[10px] text-navy/40">&middot; {fixture.group}</span>
