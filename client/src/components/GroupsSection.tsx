@@ -215,7 +215,7 @@ export default function GroupsSection() {
             {/* Group tables */}
             <div className={`grid gap-6 ${
               displayGroups.length === 1 ? 'max-w-3xl mx-auto' :
-              'grid-cols-1 lg:grid-cols-2'
+              'grid-cols-1 md:grid-cols-2'
             }`}>
               {displayGroups.map((group, gi) => (
                 <GroupTable

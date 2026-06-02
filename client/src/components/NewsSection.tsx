@@ -219,6 +219,14 @@ export default function NewsSection() {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Last updated note */}
+            <div className="mt-6 text-center">
+              <span className="inline-flex items-center gap-1.5 font-body text-xs text-navy/40">
+                <Calendar className="w-3 h-3" />
+                Last updated: {formatDate(newsData.bulletins[0]?.date || '2026-06-02')}
+              </span>
+            </div>
           </>
         ) : (
           /* Empty state when no bulletins at all */
