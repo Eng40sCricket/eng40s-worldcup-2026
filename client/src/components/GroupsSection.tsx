@@ -378,15 +378,15 @@ function GroupTable({
                   <td className="px-1.5 sm:px-2 py-3.5">
                     <div className="flex items-center gap-2 sm:gap-3">
                       {team.logo ? (
-                        <span className={`hidden sm:inline-flex items-center justify-center w-9 h-9 rounded shrink-0 overflow-hidden ${
+                        <span className={`hidden sm:inline-flex items-center justify-center w-11 h-11 rounded-lg shrink-0 overflow-hidden p-1 ${
                           team.isEngland
                             ? 'bg-white/95 border border-sky/30'
                             : 'bg-white/95 border border-white/10'
                         }`}>
-                          <img src={team.logo} alt={team.team} className="w-6 h-6 object-contain" />
+                          <img src={team.logo} alt={team.team} className="w-full h-full object-contain" />
                         </span>
                       ) : (
-                        <span className={`hidden sm:inline-flex items-center justify-center w-7 h-7 rounded text-[10px] font-display font-bold tracking-wide shrink-0 ${
+                        <span className={`hidden sm:inline-flex items-center justify-center w-11 h-11 rounded-lg text-[11px] font-display font-bold tracking-wide shrink-0 ${
                           team.isEngland
                             ? 'bg-sky/20 text-sky border border-sky/30'
                             : 'bg-white/10 text-white/60 border border-white/10'
@@ -528,15 +528,15 @@ function DrawAnnouncedState({ groups, englandFocus }: { groups: Group[]; england
                     </span>
                     {/* Team badge: logo image when available, otherwise 3-letter acronym */}
                     {team.logo ? (
-                      <span className={`inline-flex items-center justify-center w-10 h-10 rounded-md shrink-0 overflow-hidden ${
+                      <span className={`inline-flex items-center justify-center w-12 h-12 rounded-lg shrink-0 overflow-hidden p-1.5 ${
                         team.isEngland
                           ? 'bg-white/95 border border-sky/30'
                           : 'bg-white/95 border border-white/10'
                       }`}>
-                        <img src={team.logo} alt={team.team} className="w-8 h-8 object-contain" />
+                        <img src={team.logo} alt={team.team} className="w-full h-full object-contain" />
                       </span>
                     ) : (
-                      <span className={`inline-flex items-center justify-center w-10 h-10 rounded-md text-xs font-display font-bold tracking-wide shrink-0 ${
+                      <span className={`inline-flex items-center justify-center w-12 h-12 rounded-lg text-xs font-display font-bold tracking-wide shrink-0 ${
                         team.isEngland
                           ? 'bg-sky/20 text-sky border border-sky/30'
                           : 'bg-white/10 text-white/60 border border-white/10'
