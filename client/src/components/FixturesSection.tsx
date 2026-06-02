@@ -1,6 +1,6 @@
 // DESIGN: "Stadium Broadcast" — Fixtures section with list + calendar views, filters, England prominence
 // Uses enhanced Fixture schema: stage, isEngland, matchCentreUrl, group
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import {
   fixtureData,
   type Fixture,
@@ -69,6 +69,8 @@ export default function FixturesSection() {
       matches = matches.filter((m) => m.stage === 'group');
     } else if (stageFilter === 'knockout') {
       matches = matches.filter((m) => m.stage !== 'group' && m.stage !== 'warm-up');
+    } else if (stageFilter === 'warm-up') {
+      matches = matches.filter((m) => m.stage === 'warm-up');
     }
     if (statusFilter === 'upcoming') {
       matches = matches.filter((m) => m.status === 'upcoming' || m.status === 'tbc');
@@ -311,9 +313,37 @@ export default function FixturesSection() {
 // SUB-COMPONENTS
 // ============================================================
 
+/** Countdown hook — returns days/hours/mins/secs until a target date */
+function useCountdown(targetDate: string) {
+  const getTimeLeft = useCallback(() => {
+    if (targetDate === 'TBC') return null;
+    // Target is midnight local time on the match day (Guyana is UTC-4)
+    const target = new Date(targetDate + 'T09:30:00-04:00').getTime();
+    const now = Date.now();
+    const diff = target - now;
+    if (diff <= 0) return null;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    return { days, hours, mins, secs };
+  }, [targetDate]);
+
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft);
+
+  useEffect(() => {
+    const id = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
+    return () => clearInterval(id);
+  }, [getTimeLeft]);
+
+  return timeLeft;
+}
+
 /** List view fixture card */
 function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }) {
   const statusCfg = STATUS_CONFIG[fixture.status] || STATUS_CONFIG.tbc;
+  const countdown = useCountdown(fixture.date);
+  const showCountdown = fixture.status === 'upcoming' && countdown;
 
   return (
     <motion.div
@@ -377,6 +407,9 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
               {fixture.group && (
                 <span className="pill text-[10px] bg-navy/8 text-navy/60">{fixture.group}</span>
               )}
+              {fixture.notes && (
+                <span className="pill text-[10px] bg-amber-500/10 text-amber-700">{fixture.notes}</span>
+              )}
             </div>
 
             {/* Result */}
@@ -385,7 +418,7 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
             )}
           </div>
 
-          {/* Status + match centre */}
+          {/* Status + countdown + match centre */}
           <div className="flex items-center gap-2 sm:flex-col sm:items-end shrink-0">
             <span className={`pill text-[10px] ${statusCfg.className}`}>{statusCfg.label}</span>
             {fixture.matchCentreUrl && (
@@ -400,8 +433,41 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
             )}
           </div>
         </div>
+
+        {/* Countdown timer */}
+        {showCountdown && (
+          <div className="mt-3 pt-3 border-t border-navy/8">
+            <div className="flex items-center gap-2">
+              <Clock className="w-3.5 h-3.5 text-sky" />
+              <span className="font-body text-xs text-navy/50 uppercase tracking-wider">Countdown</span>
+            </div>
+            <div className="flex items-center gap-3 mt-2">
+              <CountdownUnit value={countdown.days} label="Days" />
+              <span className="font-display text-navy/20 text-lg">:</span>
+              <CountdownUnit value={countdown.hours} label="Hrs" />
+              <span className="font-display text-navy/20 text-lg">:</span>
+              <CountdownUnit value={countdown.mins} label="Min" />
+              <span className="font-display text-navy/20 text-lg">:</span>
+              <CountdownUnit value={countdown.secs} label="Sec" />
+            </div>
+          </div>
+        )}
       </div>
     </motion.div>
+  );
+}
+
+/** Single countdown digit unit */
+function CountdownUnit({ value, label }: { value: number; label: string }) {
+  return (
+    <div className="flex flex-col items-center">
+      <span className="font-display text-navy text-xl sm:text-2xl font-bold tabular-nums leading-none">
+        {String(value).padStart(2, '0')}
+      </span>
+      <span className="font-body text-[10px] text-navy/40 uppercase tracking-wider mt-0.5">
+        {label}
+      </span>
+    </div>
   );
 }
 
