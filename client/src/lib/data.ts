@@ -588,7 +588,7 @@ export const fixtureData = {
   /** Empty-state messaging */
   emptyState: {
     heading: 'Fixture Details Pending',
-    message: 'The match schedule for the IMC Over 40s ODI World Cup 2026 has not yet been published by the tournament organisers. Once confirmed, detailed fixtures and scorecards will be hosted on www.eng40scricket.co.uk with a summary shown here.',
+    message: 'The full tournament match schedule will be published here once confirmed by the IMC. Detailed England match coverage including scorecards and live streams will also be available on www.eng40scricket.co.uk.',
     venuesLabel: 'Expected Venues',
   },
 };
@@ -622,6 +622,7 @@ export interface GroupTeam {
   nrr: string;
   isEngland: boolean;
   status?: string;
+  logo?: string;
 }
 
 export interface Group {
@@ -680,13 +681,13 @@ export const groupData = {
       name: 'Group A',
       isEnglandGroup: false,
       teams: [
-        { team: 'West Indies', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'Australia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'Wales', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'Sri Lanka', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'Canada', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'South Africa', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'Namibia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'West Indies', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/westindies_79fbae6e.png' },
+        { team: 'Australia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/australia_10f5ec06.jpg' },
+        { team: 'Wales', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/wales_87a6944f.png' },
+        { team: 'Sri Lanka', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/srilanka_39db185c.png' },
+        { team: 'Canada', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/canada_472d8566.webp' },
+        { team: 'South Africa', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/southafrica_94b5088e.png' },
+        { team: 'Namibia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/namibia_e39d492a.webp' },
         { team: 'Colombia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
       ],
     },
@@ -695,13 +696,13 @@ export const groupData = {
       name: 'Group B',
       isEnglandGroup: true,
       teams: [
-        { team: 'New Zealand', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'Pakistan', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'UAE', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'India', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'England', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: true },
-        { team: 'Scotland', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
-        { team: 'USA', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'New Zealand', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/newzealand_b3f0f425.png' },
+        { team: 'Pakistan', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/pakistan_179291fa.webp' },
+        { team: 'UAE', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/uae_884da59b.png' },
+        { team: 'India', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/india_044f1aee.png' },
+        { team: 'England', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: true, logo: '/manus-storage/england_8c0918e1.webp' },
+        { team: 'Scotland', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/scotland_e125ff83.png' },
+        { team: 'USA', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/usa_093c02a0.png' },
         { team: 'Rest of the World', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
       ],
     },

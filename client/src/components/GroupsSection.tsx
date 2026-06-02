@@ -372,13 +372,23 @@ function GroupTable({
                   </td>
                   <td className="px-1.5 sm:px-2 py-2.5">
                     <div className="flex items-center gap-1.5 sm:gap-2">
-                      <span className={`hidden sm:inline-flex items-center justify-center w-7 h-7 rounded text-[10px] font-display font-bold tracking-wide shrink-0 ${
-                        team.isEngland
-                          ? 'bg-sky/20 text-sky border border-sky/30'
-                          : 'bg-white/10 text-white/60 border border-white/10'
-                      }`}>
-                        {getTeamAcronym(team.team)}
-                      </span>
+                      {team.logo ? (
+                        <span className={`hidden sm:inline-flex items-center justify-center w-7 h-7 rounded shrink-0 overflow-hidden ${
+                          team.isEngland
+                            ? 'bg-white/95 border border-sky/30'
+                            : 'bg-white/95 border border-white/10'
+                        }`}>
+                          <img src={team.logo} alt={team.team} className="w-5 h-5 object-contain" />
+                        </span>
+                      ) : (
+                        <span className={`hidden sm:inline-flex items-center justify-center w-7 h-7 rounded text-[10px] font-display font-bold tracking-wide shrink-0 ${
+                          team.isEngland
+                            ? 'bg-sky/20 text-sky border border-sky/30'
+                            : 'bg-white/10 text-white/60 border border-white/10'
+                        }`}>
+                          {getTeamAcronym(team.team)}
+                        </span>
+                      )}
                       {team.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0 sm:hidden" />}
                       <span className={`font-body text-xs sm:text-sm ${
                         team.isEngland ? 'text-sky font-semibold' : 'text-white/80'
@@ -512,14 +522,24 @@ function DrawAnnouncedState({ groups, englandFocus }: { groups: Group[]; england
                     }`}>
                       {ti + 1}
                     </span>
-                    {/* Team badge: blank background with 3-letter acronym */}
-                    <span className={`inline-flex items-center justify-center w-9 h-9 rounded-md text-[11px] font-display font-bold tracking-wide shrink-0 ${
-                      team.isEngland
-                        ? 'bg-sky/20 text-sky border border-sky/30'
-                        : 'bg-white/10 text-white/60 border border-white/10'
-                    }`}>
-                      {getTeamAcronym(team.team)}
-                    </span>
+                    {/* Team badge: logo image when available, otherwise 3-letter acronym */}
+                    {team.logo ? (
+                      <span className={`inline-flex items-center justify-center w-9 h-9 rounded-md shrink-0 overflow-hidden ${
+                        team.isEngland
+                          ? 'bg-white/95 border border-sky/30'
+                          : 'bg-white/95 border border-white/10'
+                      }`}>
+                        <img src={team.logo} alt={team.team} className="w-7 h-7 object-contain" />
+                      </span>
+                    ) : (
+                      <span className={`inline-flex items-center justify-center w-9 h-9 rounded-md text-[11px] font-display font-bold tracking-wide shrink-0 ${
+                        team.isEngland
+                          ? 'bg-sky/20 text-sky border border-sky/30'
+                          : 'bg-white/10 text-white/60 border border-white/10'
+                      }`}>
+                        {getTeamAcronym(team.team)}
+                      </span>
+                    )}
                     <span className={`font-body text-sm ${
                       team.isEngland ? 'text-sky font-semibold' : 'text-white/70'
                     }`}>
