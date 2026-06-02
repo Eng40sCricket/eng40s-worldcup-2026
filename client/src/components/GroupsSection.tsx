@@ -375,15 +375,15 @@ function GroupTable({
                       {ti + 1}
                     </span>
                   </td>
-                  <td className="px-1.5 sm:px-2 py-2.5">
-                    <div className="flex items-center gap-1.5 sm:gap-2">
+                  <td className="px-1.5 sm:px-2 py-3.5">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       {team.logo ? (
-                        <span className={`hidden sm:inline-flex items-center justify-center w-7 h-7 rounded shrink-0 overflow-hidden ${
+                        <span className={`hidden sm:inline-flex items-center justify-center w-9 h-9 rounded shrink-0 overflow-hidden ${
                           team.isEngland
                             ? 'bg-white/95 border border-sky/30'
                             : 'bg-white/95 border border-white/10'
                         }`}>
-                          <img src={team.logo} alt={team.team} className="w-5 h-5 object-contain" />
+                          <img src={team.logo} alt={team.team} className="w-6 h-6 object-contain" />
                         </span>
                       ) : (
                         <span className={`hidden sm:inline-flex items-center justify-center w-7 h-7 rounded text-[10px] font-display font-bold tracking-wide shrink-0 ${
@@ -395,8 +395,8 @@ function GroupTable({
                         </span>
                       )}
                       {team.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0 sm:hidden" />}
-                      <span className={`font-body text-xs sm:text-sm ${
-                        team.isEngland ? 'text-sky font-semibold' : 'text-white/80'
+                      <span className={`font-display text-sm sm:text-base md:text-lg font-bold tracking-wide ${
+                        team.isEngland ? 'text-sky' : 'text-white'
                       }`}>
                         {team.team}
                       </span>
