@@ -553,6 +553,7 @@ export const fixtureData = {
     ],
     stage: [
       { label: 'All Stages', value: 'all' },
+      { label: 'Warm-Up', value: 'warm-up' },
       { label: 'Group Stage', value: 'group' },
       { label: 'Knockout', value: 'knockout' },
     ],
@@ -583,7 +584,20 @@ export const fixtureData = {
    * Empty array → placeholder state with skeleton cards.
    * Populate when the draw is announced.
    */
-  matches: [] as Fixture[],
+  matches: [
+    {
+      id: 'warmup-01',
+      date: '2026-10-16',
+      time: 'TBC',
+      homeTeam: 'England',
+      awayTeam: 'West Indies',
+      venue: 'Bourda Stadium',
+      stage: 'warm-up',
+      status: 'upcoming',
+      isEngland: true,
+      notes: '45-over friendly',
+    },
+  ] as Fixture[],
 
   /** Empty-state messaging */
   emptyState: {
@@ -1085,8 +1099,19 @@ export const scheduleData = {
       id: 'sch-02',
       date: '2026-10-16',
       dayOfWeek: 'Friday',
-      event: 'Practice Matches / Net Sessions',
+      event: 'Warm-Up Match: England vs West Indies',
+      eventType: 'match',
+      description: '45-over friendly at Bourda Stadium',
+      isHighlight: true,
+    },
+    {
+      id: 'sch-02b',
+      date: '2026-10-17',
+      dayOfWeek: 'Saturday',
+      time: '10:00 am – 12:00 pm',
+      event: 'England Net Session',
       eventType: 'practice',
+      description: 'Morning nets ahead of the Opening Ceremony',
     },
     {
       id: 'sch-03',
