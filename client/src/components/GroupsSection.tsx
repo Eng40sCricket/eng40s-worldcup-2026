@@ -213,24 +213,20 @@ export default function GroupsSection() {
             )}
 
             {/* Group tables */}
-            {tournamentState === 'draw-announced' ? (
-              <DrawAnnouncedState groups={displayGroups} englandFocus={englandFocus} />
-            ) : (
-              <div className={`grid gap-6 ${
-                displayGroups.length === 1 ? 'max-w-3xl mx-auto' :
-                'grid-cols-1 lg:grid-cols-2'
-              }`}>
-                {displayGroups.map((group, gi) => (
-                  <GroupTable
-                    key={group.id}
-                    group={group}
-                    index={gi}
-                    isHighlighted={englandFocus && group.isEnglandGroup}
-                    tournamentState={tournamentState}
-                  />
-                ))}
-              </div>
-            )}
+            <div className={`grid gap-6 ${
+              displayGroups.length === 1 ? 'max-w-3xl mx-auto' :
+              'grid-cols-1 lg:grid-cols-2'
+            }`}>
+              {displayGroups.map((group, gi) => (
+                <GroupTable
+                  key={group.id}
+                  group={group}
+                  index={gi}
+                  isHighlighted={englandFocus && group.isEnglandGroup}
+                  tournamentState={tournamentState}
+                />
+              ))}
+            </div>
           </>
         )}
       </div>
