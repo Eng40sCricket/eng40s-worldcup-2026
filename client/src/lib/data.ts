@@ -29,6 +29,14 @@ export const ASSETS = {
   englandLogo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Eng40s_51bd7799.png',
   imcLogo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/TRANSPwhiteback_716a617b.png',
   imcTextLogo: '/manus-storage/IMCLogo_6458ea74.jpg',
+  // Sponsor logos
+  anwaLogo: '/manus-storage/ANWAwhatsapp_b1f25514.jpeg',
+  athloLogoDark: '/manus-storage/ATHLOLOGOBLACK_a049905d.png',
+  athloLogoLight: '/manus-storage/AthloLogo_694d3813.png',
+  sportaLogo: '/manus-storage/SPORTA_TOURS_GOING_FURTHER-04_3f504ebc.jpg',
+  gpLogo: '/manus-storage/G&PLOGO_64cac674.jpg',
+  delonghiLogo: '/manus-storage/Image04-05-2023at15.10_7290fd9b.png',
+  nvPlayLogo: '/manus-storage/NVPlaylogo_aedff46b.jpg',
 } as const;
 
 export const TOURNAMENT = {

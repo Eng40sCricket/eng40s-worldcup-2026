@@ -10,6 +10,7 @@ import FixturesSection from '@/components/FixturesSection';
 import GroupsSection from '@/components/GroupsSection';
 import NewsSection from '@/components/NewsSection';
 import PressReleaseSection from '@/components/PressReleaseSection';
+import SponsorsSection from '@/components/SponsorsSection';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -31,6 +32,7 @@ export default function Home() {
         <GroupsSection />
         <NewsSection />
         <PressReleaseSection />
+        <SponsorsSection />
       </main>
 
       <Footer />
