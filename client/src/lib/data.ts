@@ -802,13 +802,25 @@ export const newsData = {
   /** The bulletin feed (newest first, pinned items float to top) */
   bulletins: [
     {
+      id: 'bul-9',
+      date: '2026-06-02',
+      headline: 'World Cup Draw Confirmed — England in Group B with Warm-Up vs West Indies',
+      category: 'fixtures',
+      summary: 'The IMC has confirmed the group draw for the Over 40s World Cup 2026. England have been placed in Group B alongside New Zealand, Pakistan, UAE, India, Scotland, USA, and Rest of the World. In addition, a warm-up match has been announced: England will face the West Indies on 16 October at Bourda Stadium in a 45-over friendly, followed by a net session on the morning of 17 October (10am–12pm) ahead of the Opening Ceremony.',
+      imageUrl: '/manus-storage/IMG_6895_61431b21.jpeg',
+      isPinned: true,
+      isFeatured: true,
+      isOfficial: true,
+      author: 'England Over 40s Cricket',
+    },
+    {
       id: 'bul-7',
       date: '2026-04-06',
       headline: 'Full Tournament Schedule Confirmed by IMC',
       category: 'fixtures',
       summary: 'The IMC has released the proposed tournament schedule for the Over 40s World Cup 2026 in Guyana. The itinerary includes 7 group-stage rounds, crossover games, semi-finals, and the Grand Finale on 31 October, plus rest days featuring tours to Kaieteur Falls and a Windies Legends Nostalgia Event. Practice sessions begin 15 October with the Opening Ceremony on 17 October.',
-      isPinned: true,
-      isFeatured: true,
+      isPinned: false,
+      isFeatured: false,
       isOfficial: true,
       author: 'International Masters Cricket',
     },
