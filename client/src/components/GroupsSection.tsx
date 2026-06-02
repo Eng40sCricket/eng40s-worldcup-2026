@@ -227,6 +227,16 @@ export default function GroupsSection() {
                 />
               ))}
             </div>
+
+            {/* Last Updated timestamp */}
+            {groupData.standingsLastUpdated && (
+              <div className="mt-4 text-center">
+                <span className="inline-flex items-center gap-1.5 font-body text-xs text-white/40">
+                  <Clock className="w-3 h-3" />
+                  Standings last updated: {new Date(groupData.standingsLastUpdated + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </span>
+              </div>
+            )}
           </>
         )}
       </div>

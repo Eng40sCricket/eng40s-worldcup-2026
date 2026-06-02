@@ -731,6 +731,9 @@ export const groupData = {
     },
   ] as Group[],
 
+  /** Last time standings were updated (ISO date string) */
+  standingsLastUpdated: '2026-06-02',
+
   /** Empty-state messaging */
   emptyState: {
     heading: 'Draw Confirmed',
