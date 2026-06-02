@@ -20,6 +20,22 @@ export default function QuickFacts() {
             Tournament at a Glance
           </h2>
           <div className="w-16 h-1 bg-sky mx-auto mt-3 rounded-full" />
+          <a
+            href="https://masterscricket.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-5 opacity-80 hover:opacity-100 transition-opacity"
+            aria-label="Visit International Masters Cricket website"
+          >
+            <img
+              src={ASSETS.imcTextLogo}
+              alt="International Masters Cricket"
+              className="h-10 sm:h-12 w-auto mx-auto rounded-md shadow-sm"
+            />
+          </a>
+          <p className="font-body text-muted-foreground text-xs mt-2 tracking-wide">
+            Organised by International Masters Cricket (IMC)
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" role="list" aria-label="Tournament facts">
