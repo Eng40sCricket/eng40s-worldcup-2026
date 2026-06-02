@@ -341,7 +341,6 @@ function GroupTable({
               <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-7 sm:w-10">P</th>
               <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-7 sm:w-10">W</th>
               <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-7 sm:w-10">L</th>
-              <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-7 sm:w-10">T</th>
               <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-7 sm:w-10">NR</th>
               <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-8 sm:w-12">Pts</th>
               <th className="text-center font-body text-[10px] text-white/40 uppercase tracking-wider px-1 sm:px-2 py-2 w-10 sm:w-16">NRR</th>
@@ -400,7 +399,6 @@ function GroupTable({
                   <td className="text-center font-body text-xs sm:text-sm text-white/60 px-1 sm:px-2 py-2.5 tabular-nums">{team.played}</td>
                   <td className="text-center font-body text-xs sm:text-sm text-white/60 px-1 sm:px-2 py-2.5 tabular-nums">{team.won}</td>
                   <td className="text-center font-body text-xs sm:text-sm text-white/60 px-1 sm:px-2 py-2.5 tabular-nums">{team.lost}</td>
-                  <td className="text-center font-body text-xs sm:text-sm text-white/60 px-1 sm:px-2 py-2.5 tabular-nums">{team.tied}</td>
                   <td className="text-center font-body text-xs sm:text-sm text-white/60 px-1 sm:px-2 py-2.5 tabular-nums">{team.noResult}</td>
                   <td className="text-center px-1 sm:px-2 py-2.5">
                     <span className={`font-display text-sm font-bold tabular-nums ${
