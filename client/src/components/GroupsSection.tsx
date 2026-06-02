@@ -511,7 +511,7 @@ function DrawAnnouncedState({ groups, englandFocus }: { groups: Group[]; england
                 {group.teams.map((team: GroupTeam, ti: number) => (
                   <div
                     key={team.team}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors ${
+                    className={`flex items-center gap-4 px-4 py-3.5 rounded-md transition-colors ${
                       team.isEngland
                         ? 'bg-sky/10 border border-sky/20'
                         : 'bg-white/[0.03] hover:bg-white/[0.05]'
@@ -524,15 +524,15 @@ function DrawAnnouncedState({ groups, englandFocus }: { groups: Group[]; england
                     </span>
                     {/* Team badge: logo image when available, otherwise 3-letter acronym */}
                     {team.logo ? (
-                      <span className={`inline-flex items-center justify-center w-9 h-9 rounded-md shrink-0 overflow-hidden ${
+                      <span className={`inline-flex items-center justify-center w-10 h-10 rounded-md shrink-0 overflow-hidden ${
                         team.isEngland
                           ? 'bg-white/95 border border-sky/30'
                           : 'bg-white/95 border border-white/10'
                       }`}>
-                        <img src={team.logo} alt={team.team} className="w-7 h-7 object-contain" />
+                        <img src={team.logo} alt={team.team} className="w-8 h-8 object-contain" />
                       </span>
                     ) : (
-                      <span className={`inline-flex items-center justify-center w-9 h-9 rounded-md text-[11px] font-display font-bold tracking-wide shrink-0 ${
+                      <span className={`inline-flex items-center justify-center w-10 h-10 rounded-md text-xs font-display font-bold tracking-wide shrink-0 ${
                         team.isEngland
                           ? 'bg-sky/20 text-sky border border-sky/30'
                           : 'bg-white/10 text-white/60 border border-white/10'
@@ -540,8 +540,8 @@ function DrawAnnouncedState({ groups, englandFocus }: { groups: Group[]; england
                         {getTeamAcronym(team.team)}
                       </span>
                     )}
-                    <span className={`font-body text-sm ${
-                      team.isEngland ? 'text-sky font-semibold' : 'text-white/70'
+                    <span className={`font-display text-base sm:text-lg font-bold tracking-wide ${
+                      team.isEngland ? 'text-sky' : 'text-white/90'
                     }`}>
                       {team.team}
                     </span>

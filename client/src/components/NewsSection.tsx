@@ -255,30 +255,30 @@ function FeaturedStory({ bulletin }: { bulletin: Bulletin }) {
   const CatIcon = getCategoryIcon(bulletin.category);
 
   return (
-    <div className="relative max-w-5xl mx-auto rounded-xl overflow-hidden shadow-lg border border-border">
-      {/* Background image */}
-      <div className="absolute inset-0">
-        <img
-          src={bulletin.imageUrl || ASSETS.cricketAction}
-          alt=""
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/80 to-navy/50" />
-      </div>
+    <div className="max-w-5xl mx-auto rounded-xl overflow-hidden shadow-lg border border-border bg-white">
+      {/* Two-column layout: image takes centre stage */}
+      <div className="grid md:grid-cols-2">
+        {/* Featured graphic — full prominence */}
+        <div className="relative bg-navy flex items-center justify-center p-4 sm:p-6 min-h-[280px] md:min-h-[360px]">
+          <img
+            src={bulletin.imageUrl || ASSETS.cricketAction}
+            alt={bulletin.headline}
+            className="w-full h-full object-contain max-h-[320px] md:max-h-[400px] rounded-md"
+          />
+        </div>
 
-      {/* Content */}
-      <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
-        <div className="max-w-xl">
+        {/* Text content */}
+        <div className="p-6 sm:p-8 flex flex-col justify-center">
           {/* Badges row */}
           <div className="flex flex-wrap items-center gap-2 mb-4">
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gold/20 text-gold text-[11px] font-body font-semibold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gold/15 text-gold-dark text-[11px] font-body font-semibold uppercase tracking-wider">
               <Pin className="w-3 h-3" />
               Featured
             </span>
             {bulletin.isOfficial && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-sky/20 text-sky text-[11px] font-body font-semibold uppercase tracking-wider">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-sky/15 text-sky text-[11px] font-body font-semibold uppercase tracking-wider">
                 <Shield className="w-3 h-3" />
-                Official England Update
+                Official
               </span>
             )}
             <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-body font-medium ${catConfig.color}`}>
@@ -289,25 +289,25 @@ function FeaturedStory({ bulletin }: { bulletin: Bulletin }) {
 
           {/* Date */}
           <div className="flex items-center gap-1.5 mb-3">
-            <Calendar className="w-3.5 h-3.5 text-white/40" />
-            <time className="font-body text-xs text-white/50">
+            <Calendar className="w-3.5 h-3.5 text-navy/30" />
+            <time className="font-body text-xs text-navy/50">
               {formatDate(bulletin.date)}
             </time>
           </div>
 
           {/* Headline */}
-          <h3 className="font-display text-white text-xl sm:text-2xl md:text-3xl font-bold leading-tight mb-4">
+          <h3 className="font-display text-navy text-xl sm:text-2xl md:text-3xl font-bold leading-tight mb-4">
             {bulletin.headline}
           </h3>
 
           {/* Summary */}
-          <p className="font-body text-white/70 text-sm sm:text-base leading-relaxed mb-4">
+          <p className="font-body text-navy/70 text-sm sm:text-base leading-relaxed mb-4">
             {bulletin.summary}
           </p>
 
           {/* Author */}
           {bulletin.author && (
-            <p className="font-body text-xs text-white/30 mb-4">
+            <p className="font-body text-xs text-navy/40 mb-4">
               By {bulletin.author}
             </p>
           )}
