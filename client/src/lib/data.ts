@@ -37,7 +37,7 @@ export const TOURNAMENT = {
   country: 'West Indies',
   dates: '17 October – 31 October 2026',
   format: '45 Overs per Side',
-  teams: '14–16 Nations',
+  teams: '16 Nations',
   organiser: 'International Masters Cricket (IMC)',
   hostAssociation: 'Cricket West Indies Masters Association (CWIMA)',
   englandTeam: 'England Over 40s',
@@ -48,7 +48,7 @@ export const QUICK_FACTS = [
   { label: 'Host Nation', value: 'Guyana, West Indies' },
   { label: 'Dates', value: '17–31 Oct 2026' },
   { label: 'Format', value: '45 Overs per Side' },
-  { label: 'Teams', value: '14–16 Nations' },
+  { label: 'Teams', value: '16 Nations' },
   { label: 'England Squad', value: '16 Players' },
 ];
 
@@ -588,7 +588,7 @@ export const fixtureData = {
   /** Empty-state messaging */
   emptyState: {
     heading: 'Fixture Details Pending',
-    message: 'England fixtures will appear here once the official draw is released. The match schedule for the IMC Over 40s ODI World Cup 2026 has not yet been published by the tournament organisers.',
+    message: 'The match schedule for the IMC Over 40s ODI World Cup 2026 has not yet been published by the tournament organisers. Once confirmed, detailed fixtures and scorecards will be hosted on www.eng40scricket.co.uk with a summary shown here.',
     venuesLabel: 'Expected Venues',
   },
 };
@@ -671,17 +671,48 @@ export const groupData = {
 
   /**
    * The group compositions.
-   * Empty array → pre-draw placeholder state.
-   * Populate when the draw is announced.
+   * Confirmed draw: 2 groups of 8 teams.
+   * England in Group B.
    */
-  groups: [] as Group[],
+  groups: [
+    {
+      id: 'group-a',
+      name: 'Group A',
+      isEnglandGroup: false,
+      teams: [
+        { team: 'West Indies', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'Australia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'Wales', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'Sri Lanka', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'Canada', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'South Africa', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'Namibia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'Colombia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+      ],
+    },
+    {
+      id: 'group-b',
+      name: 'Group B',
+      isEnglandGroup: true,
+      teams: [
+        { team: 'New Zealand', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'Pakistan', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'UAE', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'India', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'England', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: true },
+        { team: 'Scotland', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'USA', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'Rest of the World', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+      ],
+    },
+  ] as Group[],
 
   /** Empty-state messaging */
   emptyState: {
-    heading: 'Draw to Be Announced',
-    message: 'Group compositions will be published here once the official draw has taken place. Standings will populate automatically when the tournament schedule is confirmed and match results are entered.',
-    badge: 'Draw Pending',
-    englandBadge: 'England Group TBC',
+    heading: 'Draw Confirmed',
+    message: 'The official draw has been confirmed by the IMC. Standings will populate automatically when match results are entered during the tournament.',
+    badge: 'Draw Confirmed',
+    englandBadge: 'England — Group B',
   },
 };
 

@@ -1,6 +1,30 @@
 // DESIGN: "Stadium Broadcast" — Groups & standings with four tournament states
 // Uses standings-engine for modular ranking, state derivation, and England focus
 import { useState, useMemo } from 'react';
+
+/** Three-letter acronym map for all tournament teams */
+const TEAM_ACRONYMS: Record<string, string> = {
+  'West Indies': 'WI',
+  'Australia': 'AUS',
+  'Wales': 'WAL',
+  'Sri Lanka': 'SL',
+  'Canada': 'CAN',
+  'South Africa': 'SA',
+  'Namibia': 'NAM',
+  'Colombia': 'COL',
+  'New Zealand': 'NZ',
+  'Pakistan': 'PAK',
+  'UAE': 'UAE',
+  'India': 'IND',
+  'England': 'ENG',
+  'Scotland': 'SCO',
+  'USA': 'USA',
+  'Rest of the World': 'ROW',
+};
+
+function getTeamAcronym(team: string): string {
+  return TEAM_ACRONYMS[team] || team.slice(0, 3).toUpperCase();
+}
 import {
   groupData,
   fixtureData,
@@ -348,7 +372,14 @@ function GroupTable({
                   </td>
                   <td className="px-1.5 sm:px-2 py-2.5">
                     <div className="flex items-center gap-1.5 sm:gap-2">
-                      {team.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0" />}
+                      <span className={`hidden sm:inline-flex items-center justify-center w-7 h-7 rounded text-[10px] font-display font-bold tracking-wide shrink-0 ${
+                        team.isEngland
+                          ? 'bg-sky/20 text-sky border border-sky/30'
+                          : 'bg-white/10 text-white/60 border border-white/10'
+                      }`}>
+                        {getTeamAcronym(team.team)}
+                      </span>
+                      {team.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0 sm:hidden" />}
                       <span className={`font-body text-xs sm:text-sm ${
                         team.isEngland ? 'text-sky font-semibold' : 'text-white/80'
                       }`}>
@@ -481,7 +512,14 @@ function DrawAnnouncedState({ groups, englandFocus }: { groups: Group[]; england
                     }`}>
                       {ti + 1}
                     </span>
-                    {team.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0" />}
+                    {/* Team badge: blank background with 3-letter acronym */}
+                    <span className={`inline-flex items-center justify-center w-9 h-9 rounded-md text-[11px] font-display font-bold tracking-wide shrink-0 ${
+                      team.isEngland
+                        ? 'bg-sky/20 text-sky border border-sky/30'
+                        : 'bg-white/10 text-white/60 border border-white/10'
+                    }`}>
+                      {getTeamAcronym(team.team)}
+                    </span>
                     <span className={`font-body text-sm ${
                       team.isEngland ? 'text-sky font-semibold' : 'text-white/70'
                     }`}>
@@ -496,7 +534,7 @@ function DrawAnnouncedState({ groups, englandFocus }: { groups: Group[]; england
                 <div className="flex items-center gap-2 px-3 py-2 rounded bg-white/[0.03] border border-white/5">
                   <Clock className="w-3.5 h-3.5 text-white/20" />
                   <span className="font-body text-xs text-white/30">
-                    Standings will populate when matches begin
+                    Fixtures to be confirmed — standings will populate when matches begin
                   </span>
                 </div>
               </div>
@@ -540,7 +578,7 @@ function PreDrawPlaceholder() {
 
             {/* Skeleton rows */}
             <div className="p-4 space-y-3">
-              {Array.from({ length: 7 }, (_, i) => (
+              {Array.from({ length: 8 }, (_, i) => (
                 <div key={i} className="flex items-center gap-3" style={{ opacity: 1 - i * 0.1 }}>
                   <div className="w-5 h-4 bg-white/5 rounded animate-pulse" />
                   <div className={`h-4 bg-white/5 rounded animate-pulse ${
