@@ -74,8 +74,8 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
           </div>
         )}
 
-        {/* Photo area — consistent 4:5 portrait aspect ratio at all breakpoints */}
-        <div className="relative bg-gradient-to-br from-navy/5 to-navy/10 flex items-center justify-center overflow-hidden aspect-[4/5]">
+        {/* Photo area — slightly reduced to give more space to text */}
+        <div className="relative bg-gradient-to-br from-navy/5 to-navy/10 flex items-center justify-center overflow-hidden aspect-[5/5.5]">
           {player.image ? (
             <img
               src={player.image}
@@ -96,17 +96,17 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
         {/* Info area */}
         <div className={`p-4 pt-2 ${featured ? 'pb-5' : ''}`}>
           {/* Name */}
-          <h3 className={`font-display text-navy font-semibold leading-tight ${
-            featured ? 'text-xl sm:text-2xl' : 'text-lg'
+          <h3 className={`font-display text-navy font-bold leading-tight ${
+            featured ? 'text-2xl sm:text-3xl' : 'text-xl'
           }`}>
             {firstName}{' '}
-            <span className={featured ? 'text-2xl sm:text-3xl' : 'text-xl'}>{surname.toUpperCase()}</span>
+            <span className={featured ? 'text-3xl sm:text-4xl' : 'text-2xl'}>{surname.toUpperCase()}</span>
           </h3>
 
           {/* Role pill + status */}
           <div className="mt-2 flex flex-wrap gap-1.5">
             {!player.isCoachingStaff && (
-              <span className={`pill ${roleColor}`}>{player.roleCategory}</span>
+              <span className={`pill font-semibold ${roleColor}`}>{player.roleCategory}</span>
             )}
             {player.isCoachingStaff && (
               <span className="pill bg-navy/15 text-navy">{player.leadershipTag || 'Staff'}</span>
@@ -127,20 +127,20 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
             {!player.isCoachingStaff && (
               <>
                 <div className="flex items-center gap-2">
-                  <dt className="font-body text-xs text-muted-foreground uppercase tracking-wider w-16 shrink-0">Bat</dt>
-                  <dd className="font-body text-sm text-navy/80">{player.battingStyle}</dd>
+                  <dt className="font-body text-xs font-semibold text-muted-foreground uppercase tracking-wider w-16 shrink-0">Bat</dt>
+                  <dd className="font-body text-sm font-medium text-navy/90">{player.battingStyle}</dd>
                 </div>
                 <div className="flex items-center gap-2">
-                  <dt className="font-body text-xs text-muted-foreground uppercase tracking-wider w-16 shrink-0">
+                  <dt className="font-body text-xs font-semibold text-muted-foreground uppercase tracking-wider w-16 shrink-0">
                     {bowlingLabel === 'Designation' ? 'Role' : 'Bowl'}
                   </dt>
-                  <dd className="font-body text-sm text-navy/80">{displayBowling}</dd>
+                  <dd className="font-body text-sm font-medium text-navy/90">{displayBowling}</dd>
                 </div>
               </>
             )}
             <div className="flex items-center gap-2">
-              <dt className="font-body text-xs text-muted-foreground uppercase tracking-wider w-16 shrink-0">Club</dt>
-              <dd className="font-body text-sm text-navy/80">{player.clubEngland}</dd>
+              <dt className="font-body text-xs font-semibold text-muted-foreground uppercase tracking-wider w-16 shrink-0">Club</dt>
+              <dd className="font-body text-sm font-medium text-navy/90">{player.clubEngland}</dd>
             </div>
           </dl>
 

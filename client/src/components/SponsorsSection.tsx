@@ -22,7 +22,7 @@ const sponsors: Sponsor[] = [
     logoClass: 'p-4',
   },
   {
-    name: 'Athlo',
+    name: 'ATHLO',
     role: 'Sponsor',
     logo: ASSETS.athloLogoDark,
     url: 'https://www.athlo.app',
