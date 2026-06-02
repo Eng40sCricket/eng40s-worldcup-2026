@@ -28,6 +28,7 @@ export const ASSETS = {
   cricketBall: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/cricket-ball-texture-PKPxPpgnLXUsqBvQkBMHrk.webp',
   englandLogo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Eng40s_51bd7799.png',
   imcLogo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/TRANSPwhiteback_716a617b.png',
+  imcTextLogo: '/manus-storage/IMCLogo_6458ea74.jpg',
 } as const;
 
 export const TOURNAMENT = {

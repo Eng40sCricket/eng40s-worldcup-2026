@@ -36,22 +36,41 @@ export default function Footer() {
               Quick Links
             </h4>
             <ul className="space-y-2">
-              {[
-                { label: 'England Over 40s Website', url: 'https://www.england-over-40s-cricket.co.uk' },
-                { label: 'International Masters Cricket', url: 'https://masterscricket.org' },
-                { label: 'ECB', url: 'https://www.ecb.co.uk' },
-              ].map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-body text-sm text-white/50 hover:text-sky transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a
+                  href="https://www.eng40scricket.co.uk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body text-sm text-white/50 hover:text-sky transition-colors"
+                >
+                  England Over 40s Website
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://masterscricket.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-body text-sm text-white/50 hover:text-sky transition-colors"
+                >
+                  <img
+                    src={ASSETS.imcTextLogo}
+                    alt="IMC"
+                    className="h-5 w-auto rounded-sm bg-white/90 px-1"
+                  />
+                  International Masters Cricket
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.ecb.co.uk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body text-sm text-white/50 hover:text-sky transition-colors"
+                >
+                  ECB
+                </a>
+              </li>
             </ul>
             <h4 className="font-display text-white text-sm font-semibold tracking-wider uppercase mt-6 mb-3">
               Follow Us
