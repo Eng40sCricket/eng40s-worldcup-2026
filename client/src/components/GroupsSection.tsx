@@ -378,7 +378,7 @@ function GroupTable({
                   <td className="px-1.5 sm:px-2 py-3.5">
                     <div className="flex items-center gap-2 sm:gap-3">
                       {team.logo ? (
-                        <span className={`hidden sm:inline-flex items-center justify-center w-11 h-11 rounded-lg shrink-0 overflow-hidden p-1 ${
+                        <span className={`inline-flex items-center justify-center w-7 h-7 sm:w-11 sm:h-11 rounded-md sm:rounded-lg shrink-0 overflow-hidden p-0.5 sm:p-1 ${
                           team.isEngland
                             ? 'bg-white/95 border border-sky/30'
                             : 'bg-white/95 border border-white/10'
@@ -386,7 +386,7 @@ function GroupTable({
                           <img src={team.logo} alt={team.team} className="w-full h-full object-contain" />
                         </span>
                       ) : (
-                        <span className={`hidden sm:inline-flex items-center justify-center w-11 h-11 rounded-lg text-[11px] font-display font-bold tracking-wide shrink-0 ${
+                        <span className={`inline-flex items-center justify-center w-7 h-7 sm:w-11 sm:h-11 rounded-md sm:rounded-lg text-[9px] sm:text-[11px] font-display font-bold tracking-wide shrink-0 ${
                           team.isEngland
                             ? 'bg-sky/20 text-sky border border-sky/30'
                             : 'bg-white/10 text-white/60 border border-white/10'
@@ -394,7 +394,7 @@ function GroupTable({
                           {getTeamAcronym(team.team)}
                         </span>
                       )}
-                      {team.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0 sm:hidden" />}
+                      
                       <span className={`font-display text-sm sm:text-base md:text-lg font-bold tracking-wide ${
                         team.isEngland ? 'text-sky' : 'text-white'
                       }`}>
