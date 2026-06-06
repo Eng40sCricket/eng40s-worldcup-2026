@@ -352,7 +352,7 @@ function getTeamLogo(teamName: string): string | undefined {
 /** Team badge component */
 function TeamBadge({ teamName, size = 'sm' }: { teamName: string; size?: 'sm' | 'md' }) {
   const logo = getTeamLogo(teamName);
-  const sizeClasses = size === 'md' ? 'w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10' : 'w-6 h-6';
+  const sizeClasses = size === 'md' ? 'w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 xl:w-14 xl:h-14' : 'w-6 h-6';
   if (!logo) return null;
   return (
     <div className={`${sizeClasses} rounded bg-white flex items-center justify-center shrink-0 overflow-hidden`}>
@@ -387,8 +387,8 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
       <div className={`p-4 sm:p-5 lg:p-7 ${fixture.isEngland ? 'pl-5 sm:pl-6 lg:pl-8' : ''}`}>
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           {/* Date + time */}
-          <div className="sm:w-32 lg:w-40 shrink-0">
-            <p className="font-display text-navy text-sm lg:text-base font-semibold">{formatShortDate(fixture.date)}</p>
+          <div className="sm:w-32 lg:w-44 shrink-0">
+            <p className="font-display text-navy text-sm lg:text-lg font-bold">{formatShortDate(fixture.date)}</p>
             <p className="font-body text-xs lg:text-sm text-navy/50">{getDayOfWeek(fixture.date)}</p>
             {fixture.time && (
               <p className="font-body text-xs text-navy/40 flex items-center gap-1 mt-0.5">
@@ -400,16 +400,16 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
 
           {/* Teams */}
           <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 lg:gap-3">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 lg:gap-4">
               <TeamBadge teamName={fixture.homeTeam} size="md" />
-              <span className={`font-display text-sm sm:text-base lg:text-lg font-semibold ${
+              <span className={`font-display text-sm sm:text-base lg:text-xl xl:text-2xl font-bold ${
                 fixture.homeTeam === 'England' ? 'text-sky' : 'text-navy'
               }`}>
                 {fixture.homeTeam}
               </span>
-              <span className="font-body text-xs lg:text-sm text-navy/30 uppercase tracking-wider">vs</span>
+              <span className="font-body text-xs lg:text-base text-navy/30 uppercase tracking-wider font-semibold">vs</span>
               <TeamBadge teamName={fixture.awayTeam} size="md" />
-              <span className={`font-display text-sm sm:text-base lg:text-lg font-semibold ${
+              <span className={`font-display text-sm sm:text-base lg:text-xl xl:text-2xl font-bold ${
                 fixture.awayTeam === 'England' ? 'text-sky' : 'text-navy'
               }`}>
                 {fixture.awayTeam}
