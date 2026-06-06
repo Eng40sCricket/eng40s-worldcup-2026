@@ -789,7 +789,7 @@ export const groupData = {
         { team: 'Canada', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/canada_3c61dabf.png' },
         { team: 'South Africa', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/southafrica_e11a94fc.png' },
         { team: 'Namibia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/namibia_4f321dde.png' },
-        { team: 'Colombia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'Colombia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/colombia_feef8445.png' },
       ],
     },
     {
@@ -804,7 +804,7 @@ export const groupData = {
         { team: 'England', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: true, logo: '/manus-storage/england_3b15416d.png' },
         { team: 'Scotland', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/scotland_9d64bc4c.png' },
         { team: 'USA', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/usa_0e4fc04e.png' },
-        { team: 'Rest of the World', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false },
+        { team: 'Rest of the World', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/restofworld_e1cbd9c6.png' },
       ],
     },
   ] as Group[],
