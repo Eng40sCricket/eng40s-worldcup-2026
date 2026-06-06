@@ -248,7 +248,7 @@ export default function FixturesSection() {
 
             {/* List view */}
             {viewMode === 'list' && (
-              <div className="space-y-3 max-w-4xl mx-auto">
+              <div className="space-y-3 sm:space-y-4 max-w-4xl lg:max-w-6xl mx-auto">
                 <AnimatePresence mode="popLayout">
                   {filtered.map((fixture, i) => (
                     <FixtureListCard key={fixture.id} fixture={fixture} index={i} />
@@ -270,7 +270,7 @@ export default function FixturesSection() {
 
             {/* Calendar view */}
             {viewMode === 'calendar' && (
-              <div className="space-y-6 max-w-4xl mx-auto">
+              <div className="space-y-6 max-w-4xl lg:max-w-6xl mx-auto">
                 {Array.from(groupedByDate.entries()).map(([date, matches]) => (
                   <div key={date}>
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
@@ -352,7 +352,7 @@ function getTeamLogo(teamName: string): string | undefined {
 /** Team badge component */
 function TeamBadge({ teamName, size = 'sm' }: { teamName: string; size?: 'sm' | 'md' }) {
   const logo = getTeamLogo(teamName);
-  const sizeClasses = size === 'md' ? 'w-8 h-8' : 'w-6 h-6';
+  const sizeClasses = size === 'md' ? 'w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10' : 'w-6 h-6';
   if (!logo) return null;
   return (
     <div className={`${sizeClasses} rounded bg-white flex items-center justify-center shrink-0 overflow-hidden`}>
@@ -384,12 +384,12 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-sky" />
       )}
 
-      <div className={`p-4 sm:p-5 ${fixture.isEngland ? 'pl-5 sm:pl-6' : ''}`}>
+      <div className={`p-4 sm:p-5 lg:p-7 ${fixture.isEngland ? 'pl-5 sm:pl-6 lg:pl-8' : ''}`}>
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           {/* Date + time */}
-          <div className="sm:w-32 shrink-0">
-            <p className="font-display text-navy text-sm font-semibold">{formatShortDate(fixture.date)}</p>
-            <p className="font-body text-xs text-navy/50">{getDayOfWeek(fixture.date)}</p>
+          <div className="sm:w-32 lg:w-40 shrink-0">
+            <p className="font-display text-navy text-sm lg:text-base font-semibold">{formatShortDate(fixture.date)}</p>
+            <p className="font-body text-xs lg:text-sm text-navy/50">{getDayOfWeek(fixture.date)}</p>
             {fixture.time && (
               <p className="font-body text-xs text-navy/40 flex items-center gap-1 mt-0.5">
                 <Clock className="w-3 h-3" />
@@ -400,16 +400,16 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
 
           {/* Teams */}
           <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              <TeamBadge teamName={fixture.homeTeam} />
-              <span className={`font-display text-sm sm:text-base font-semibold ${
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 lg:gap-3">
+              <TeamBadge teamName={fixture.homeTeam} size="md" />
+              <span className={`font-display text-sm sm:text-base lg:text-lg font-semibold ${
                 fixture.homeTeam === 'England' ? 'text-sky' : 'text-navy'
               }`}>
                 {fixture.homeTeam}
               </span>
-              <span className="font-body text-xs text-navy/30 uppercase tracking-wider">vs</span>
-              <TeamBadge teamName={fixture.awayTeam} />
-              <span className={`font-display text-sm sm:text-base font-semibold ${
+              <span className="font-body text-xs lg:text-sm text-navy/30 uppercase tracking-wider">vs</span>
+              <TeamBadge teamName={fixture.awayTeam} size="md" />
+              <span className={`font-display text-sm sm:text-base lg:text-lg font-semibold ${
                 fixture.awayTeam === 'England' ? 'text-sky' : 'text-navy'
               }`}>
                 {fixture.awayTeam}
@@ -419,8 +419,8 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
             {/* Venue + group */}
             <div className="flex flex-wrap items-center gap-2 mt-1">
               {fixture.venue && (
-                <span className="font-body text-xs text-navy/50 flex items-center gap-1">
-                  <MapPin className="w-3 h-3" />
+                <span className="font-body text-xs lg:text-sm text-navy/50 flex items-center gap-1">
+                  <MapPin className="w-3 h-3 lg:w-4 lg:h-4" />
                   {fixture.venueLink ? (
                     <a href={fixture.venueLink} target="_blank" rel="noopener noreferrer" className="hover:text-sky transition-colors">
                       {fixture.venue}
