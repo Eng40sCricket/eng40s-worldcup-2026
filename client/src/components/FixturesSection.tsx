@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import {
   fixtureData,
+  groupData,
   type Fixture,
 } from '@/lib/data';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -339,6 +340,27 @@ function useCountdown(targetDate: string) {
   return timeLeft;
 }
 
+/** Get team logo URL from groupData */
+function getTeamLogo(teamName: string): string | undefined {
+  for (const group of groupData.groups) {
+    const found = group.teams.find((t) => t.team === teamName);
+    if (found?.logo) return found.logo;
+  }
+  return undefined;
+}
+
+/** Team badge component */
+function TeamBadge({ teamName, size = 'sm' }: { teamName: string; size?: 'sm' | 'md' }) {
+  const logo = getTeamLogo(teamName);
+  const sizeClasses = size === 'md' ? 'w-8 h-8' : 'w-6 h-6';
+  if (!logo) return null;
+  return (
+    <div className={`${sizeClasses} rounded bg-white flex items-center justify-center shrink-0 overflow-hidden`}>
+      <img src={logo} alt={teamName} className="w-full h-full object-contain p-0.5" />
+    </div>
+  );
+}
+
 /** List view fixture card */
 function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }) {
   const statusCfg = STATUS_CONFIG[fixture.status] || STATUS_CONFIG.tbc;
@@ -379,12 +401,14 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
           {/* Teams */}
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <TeamBadge teamName={fixture.homeTeam} />
               <span className={`font-display text-sm sm:text-base font-semibold ${
                 fixture.homeTeam === 'England' ? 'text-sky' : 'text-navy'
               }`}>
                 {fixture.homeTeam}
               </span>
               <span className="font-body text-xs text-navy/30 uppercase tracking-wider">vs</span>
+              <TeamBadge teamName={fixture.awayTeam} />
               <span className={`font-display text-sm sm:text-base font-semibold ${
                 fixture.awayTeam === 'England' ? 'text-sky' : 'text-navy'
               }`}>
@@ -486,9 +510,11 @@ function CalendarMatchCard({ fixture }: { fixture: Fixture }) {
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             {fixture.isEngland && <Shield className="w-3.5 h-3.5 text-sky shrink-0" />}
+            <TeamBadge teamName={fixture.homeTeam} size="sm" />
             <span className={`font-display text-sm font-semibold ${fixture.isEngland ? 'text-sky' : 'text-navy'}`}>
               {fixture.homeTeam} vs {fixture.awayTeam}
             </span>
+            <TeamBadge teamName={fixture.awayTeam} size="sm" />
           </div>
           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-0.5">
             {fixture.time && (
