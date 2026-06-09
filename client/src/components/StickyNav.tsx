@@ -2,7 +2,7 @@
 // Enhanced: England shortcut, skip-to-content, larger touch targets, keyboard nav, ARIA
 import { NAV_SECTIONS, ASSETS } from '@/lib/data';
 import { useState, useEffect, useCallback } from 'react';
-import { Menu, X, Shield, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Menu, X, Shield, Instagram, Youtube } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function StickyNav() {
@@ -133,15 +133,6 @@ export default function StickyNav() {
           {/* Social media icons */}
           <div className="hidden lg:flex items-center gap-1 ml-3">
             <a
-              href="https://www.facebook.com/EnglandCricketOver40s"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="p-2 text-white/60 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-            >
-              <Facebook className="w-4.5 h-4.5" />
-            </a>
-            <a
               href="https://www.instagram.com/englandcricketover40s"
               target="_blank"
               rel="noopener noreferrer"
@@ -221,15 +212,6 @@ export default function StickyNav() {
 
                 {/* Mobile social media icons */}
                 <div className="flex items-center gap-2 px-4 py-3 mt-1">
-                  <a
-                    href="https://www.facebook.com/EnglandCricketOver40s"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Facebook"
-                    className="p-2 text-white/60 hover:text-white transition-colors"
-                  >
-                    <Facebook className="w-5 h-5" />
-                  </a>
                   <a
                     href="https://www.instagram.com/englandcricketover40s"
                     target="_blank"
