@@ -1,5 +1,5 @@
 // DESIGN: "Stadium Broadcast" — Player card with squad number, stat pills, role badge
-// Enhanced: semantic HTML, ARIA labels, larger touch targets, focus-visible ring
+// Enhanced: Maximised font clarity across mobile/tablet/laptop with prominent captain/vice-captain badges
 import type { Player } from '@/lib/data';
 import { getDisplayBowling, getBowlingLabel, getPlayerFirstName, getPlayerSurname } from '@/lib/data';
 import { motion } from 'framer-motion';
@@ -55,26 +55,32 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
         {player.squadNumber !== undefined && (
           <div className="absolute top-3 left-3 z-10">
             <span className={`inline-flex items-center justify-center font-display font-bold text-white rounded-md shadow-md ${
-              featured ? 'w-10 h-10 text-lg bg-gold' : 'w-8 h-8 text-sm bg-navy'
+              featured ? 'w-11 h-11 text-xl bg-gold' : 'w-9 h-9 text-base bg-navy'
             }`}>
               {player.squadNumber}
             </span>
           </div>
         )}
 
-        {/* Leadership badge — top right */}
+        {/* Leadership badge — top right — LARGER and more prominent */}
         {player.leadershipTag && (
           <div className="absolute top-3 right-3 z-10">
-            <span className="pill bg-gold/20 text-gold-dark">
-              {player.leadershipTag === 'Captain' && <Shield className="w-3 h-3 mr-1" aria-hidden="true" />}
-              {player.leadershipTag === 'Vice-Captain' && <Star className="w-3 h-3 mr-1" aria-hidden="true" />}
-              {player.leadershipTag === 'Head Coach' && <Award className="w-3 h-3 mr-1" aria-hidden="true" />}
-              {player.leadershipTag}
+            <span className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md font-display font-bold text-sm sm:text-base tracking-wide shadow-md ${
+              player.leadershipTag === 'Captain' 
+                ? 'bg-gold text-navy' 
+                : player.leadershipTag === 'Vice-Captain'
+                ? 'bg-gold/80 text-navy'
+                : 'bg-navy/80 text-white'
+            }`}>
+              {player.leadershipTag === 'Captain' && <Shield className="w-4 h-4" aria-hidden="true" />}
+              {player.leadershipTag === 'Vice-Captain' && <Star className="w-4 h-4" aria-hidden="true" />}
+              {player.leadershipTag === 'Head Coach' && <Award className="w-4 h-4" aria-hidden="true" />}
+              {player.leadershipTag.toUpperCase()}
             </span>
           </div>
         )}
 
-        {/* Photo area — slightly reduced to give more space to text */}
+        {/* Photo area */}
         <div className="relative bg-gradient-to-br from-navy/5 to-navy/10 flex items-center justify-center overflow-hidden aspect-[5/5.5]">
           {player.image ? (
             <img
@@ -93,72 +99,74 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" aria-hidden="true" />
         </div>
 
-        {/* Info area */}
-        <div className={`p-4 pt-2 ${featured ? 'pb-5' : ''}`}>
-          {/* Name */}
+        {/* Info area — enhanced font sizes for clarity */}
+        <div className={`p-4 sm:p-5 pt-2 sm:pt-3 ${featured ? 'pb-5' : ''}`}>
+          {/* Name — significantly larger and bolder */}
           <h3 className={`font-display text-navy font-bold leading-tight ${
-            featured ? 'text-2xl sm:text-3xl' : 'text-xl'
+            featured ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-xl sm:text-2xl lg:text-2xl'
           }`}>
             {firstName}{' '}
-            <span className={featured ? 'text-3xl sm:text-4xl' : 'text-2xl'}>{surname.toUpperCase()}</span>
+            <span className={`block ${featured ? 'text-3xl sm:text-4xl lg:text-5xl' : 'text-2xl sm:text-3xl lg:text-3xl'}`}>
+              {surname.toUpperCase()}
+            </span>
           </h3>
 
-          {/* Role pill + status */}
-          <div className="mt-2 flex flex-wrap gap-1.5">
+          {/* Role pill + status — larger pills */}
+          <div className="mt-2.5 flex flex-wrap gap-2">
             {!player.isCoachingStaff && (
-              <span className={`pill font-semibold ${roleColor}`}>{player.roleCategory}</span>
+              <span className={`pill font-bold text-sm sm:text-base px-3 py-1 ${roleColor}`}>{player.roleCategory.toUpperCase()}</span>
             )}
             {player.isCoachingStaff && (
-              <span className="pill bg-navy/15 text-navy">{player.leadershipTag || 'Staff'}</span>
+              <span className="pill bg-navy/15 text-navy font-bold text-sm sm:text-base px-3 py-1">{player.leadershipTag || 'Staff'}</span>
             )}
             {player.wicketkeeperFlag && player.roleCategory !== 'Wicketkeeper' && !player.isCoachingStaff && (
-              <span className="pill bg-gold/20 text-gold-dark">WK</span>
+              <span className="pill bg-gold/20 text-gold-dark font-bold text-sm px-3 py-1">WK</span>
             )}
             {player.profileStatus !== 'confirmed' && statusInfo && (
-              <span className={`pill ${statusInfo.className} text-[10px]`}>
-                <Clock className="w-2.5 h-2.5 mr-0.5" aria-hidden="true" />
+              <span className={`pill ${statusInfo.className} text-xs px-2 py-1`}>
+                <Clock className="w-3 h-3 mr-0.5" aria-hidden="true" />
                 {statusInfo.label}
               </span>
             )}
           </div>
 
-          {/* Stats — hidden for coaching staff; only club shown */}
-          <dl className="mt-3 space-y-1.5">
+          {/* Stats — larger font for readability */}
+          <dl className="mt-4 space-y-2">
             {!player.isCoachingStaff && (
               <>
-                <div className="flex items-center gap-2">
-                  <dt className="font-body text-xs font-semibold text-muted-foreground uppercase tracking-wider w-16 shrink-0">Bat</dt>
-                  <dd className="font-body text-sm font-medium text-navy/90">{player.battingStyle}</dd>
+                <div className="flex items-center gap-3">
+                  <dt className="font-body text-xs sm:text-sm font-bold text-muted-foreground uppercase tracking-wider w-14 sm:w-16 shrink-0">BAT</dt>
+                  <dd className="font-body text-sm sm:text-base font-semibold text-navy">{player.battingStyle}</dd>
                 </div>
-                <div className="flex items-center gap-2">
-                  <dt className="font-body text-xs font-semibold text-muted-foreground uppercase tracking-wider w-16 shrink-0">
-                    {bowlingLabel === 'Designation' ? 'Role' : 'Bowl'}
+                <div className="flex items-center gap-3">
+                  <dt className="font-body text-xs sm:text-sm font-bold text-muted-foreground uppercase tracking-wider w-14 sm:w-16 shrink-0">
+                    {bowlingLabel === 'Designation' ? 'ROLE' : 'BOWL'}
                   </dt>
-                  <dd className="font-body text-sm font-medium text-navy/90">{displayBowling}</dd>
+                  <dd className="font-body text-sm sm:text-base font-semibold text-navy">{displayBowling}</dd>
                 </div>
               </>
             )}
-            <div className="flex items-center gap-2">
-              <dt className="font-body text-xs font-semibold text-muted-foreground uppercase tracking-wider w-16 shrink-0">Club</dt>
-              <dd className="font-body text-sm font-medium text-navy/90">{player.clubEngland}</dd>
+            <div className="flex items-center gap-3">
+              <dt className="font-body text-xs sm:text-sm font-bold text-muted-foreground uppercase tracking-wider w-14 sm:w-16 shrink-0">CLUB</dt>
+              <dd className="font-body text-sm sm:text-base font-semibold text-navy">{player.clubEngland}</dd>
             </div>
           </dl>
 
-          {/* Biography — fixed height (2 lines) for uniform card sizing; full text in modal */}
-          <div className="mt-3 pt-3 border-t border-border/50 h-[3.25rem] overflow-hidden">
+          {/* Biography — slightly larger text */}
+          <div className="mt-3 pt-3 border-t border-border/50 h-[3.5rem] overflow-hidden">
             {player.shortBio ? (
-              <p className="font-body text-xs text-navy/60 leading-relaxed line-clamp-2">
+              <p className="font-body text-xs sm:text-sm text-navy/60 leading-relaxed line-clamp-2">
                 {player.shortBio}
               </p>
             ) : (
-              <p className="font-body text-xs text-navy/30 italic leading-relaxed">
+              <p className="font-body text-xs sm:text-sm text-navy/30 italic leading-relaxed">
                 Biography coming soon
               </p>
             )}
           </div>
 
           {/* Tap hint */}
-          <p className="mt-2 font-body text-xs text-sky/60 group-hover:text-sky transition-colors" aria-hidden="true">
+          <p className="mt-2 font-body text-xs sm:text-sm text-sky/60 font-medium group-hover:text-sky transition-colors" aria-hidden="true">
             Tap for full profile &rarr;
           </p>
         </div>
