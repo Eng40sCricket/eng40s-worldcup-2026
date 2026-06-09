@@ -2,7 +2,7 @@
 // Enhanced: England shortcut, skip-to-content, larger touch targets, keyboard nav, ARIA
 import { NAV_SECTIONS, ASSETS } from '@/lib/data';
 import { useState, useEffect, useCallback } from 'react';
-import { Menu, X, Shield } from 'lucide-react';
+import { Menu, X, Shield, Facebook, Instagram, Youtube } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function StickyNav() {
@@ -130,6 +130,48 @@ export default function StickyNav() {
             </button>
           </div>
 
+          {/* Social media icons */}
+          <div className="hidden lg:flex items-center gap-1 ml-3">
+            <a
+              href="https://www.facebook.com/EnglandCricketOver40s"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="p-2 text-white/60 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+            >
+              <Facebook className="w-4.5 h-4.5" />
+            </a>
+            <a
+              href="https://www.instagram.com/englandcricketover40s"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="p-2 text-white/60 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+            >
+              <Instagram className="w-4.5 h-4.5" />
+            </a>
+            <a
+              href="https://x.com/Eng40sCricket"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X (Twitter)"
+              className="p-2 text-white/60 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a
+              href="https://www.youtube.com/@EnglandCricketOver40s"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+              className="p-2 text-white/60 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+            >
+              <Youtube className="w-4.5 h-4.5" />
+            </a>
+          </div>
+
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -176,6 +218,48 @@ export default function StickyNav() {
                   <Shield className="w-4 h-4" />
                   England Squad
                 </button>
+
+                {/* Mobile social media icons */}
+                <div className="flex items-center gap-2 px-4 py-3 mt-1">
+                  <a
+                    href="https://www.facebook.com/EnglandCricketOver40s"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                    className="p-2 text-white/60 hover:text-white transition-colors"
+                  >
+                    <Facebook className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/englandcricketover40s"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="p-2 text-white/60 hover:text-white transition-colors"
+                  >
+                    <Instagram className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://x.com/Eng40sCricket"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="X (Twitter)"
+                    className="p-2 text-white/60 hover:text-white transition-colors"
+                  >
+                    <svg className="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  </a>
+                  <a
+                    href="https://www.youtube.com/@EnglandCricketOver40s"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="YouTube"
+                    className="p-2 text-white/60 hover:text-white transition-colors"
+                  >
+                    <Youtube className="w-5 h-5" />
+                  </a>
+                </div>
               </div>
             </motion.div>
           )}
