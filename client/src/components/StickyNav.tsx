@@ -133,7 +133,7 @@ export default function StickyNav() {
           {/* Social media icons */}
           <div className="hidden lg:flex items-center gap-1 ml-3">
             <a
-              href="https://www.facebook.com/englandover40s/"
+              href="https://www.facebook.com/EnglandCountiesO40s"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -222,7 +222,7 @@ export default function StickyNav() {
                 {/* Mobile social media icons */}
                 <div className="flex items-center gap-2 px-4 py-3 mt-1">
                   <a
-                    href="https://www.facebook.com/englandover40s/"
+                    href="https://www.facebook.com/EnglandCountiesO40s"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Facebook"
