@@ -153,7 +153,7 @@ export default function StickyNav() {
               </svg>
             </a>
             <a
-              href="https://www.youtube.com/@EnglandCricketOver40s"
+              href="https://www.youtube.com/channel/UC5Eg5wr5ZmD5JcfUhxK_nGg"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
@@ -233,7 +233,7 @@ export default function StickyNav() {
                     </svg>
                   </a>
                   <a
-                    href="https://www.youtube.com/@EnglandCricketOver40s"
+                    href="https://www.youtube.com/channel/UC5Eg5wr5ZmD5JcfUhxK_nGg"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="YouTube"
