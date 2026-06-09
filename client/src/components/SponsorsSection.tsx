@@ -1,5 +1,5 @@
 // DESIGN: "Stadium Broadcast" — Sponsors & Partners strip
-// Dark background with sponsor logos displayed in a clean grid
+// White background cards for all sponsors with consistent symmetry
 // BK International Group as Tournament Platinum Sponsor featured prominently
 import { ASSETS } from '@/lib/data';
 import { motion } from 'framer-motion';
@@ -9,8 +9,7 @@ interface Sponsor {
   role: string;
   logo: string;
   url: string;
-  bgClass: string;
-  logoClass?: string;
+  darkBg?: boolean; // If true, logo card uses dark background instead of white
 }
 
 const platinumSponsor: Sponsor = {
@@ -18,8 +17,6 @@ const platinumSponsor: Sponsor = {
   role: 'Tournament Platinum Sponsor',
   logo: ASSETS.bkAviationLogo,
   url: 'https://lfr.nce.mybluehost.me',
-  bgClass: 'bg-white',
-  logoClass: 'p-6',
 };
 
 const sponsors: Sponsor[] = [
@@ -28,48 +25,37 @@ const sponsors: Sponsor[] = [
     role: 'Sponsor',
     logo: ASSETS.anwaLogo,
     url: 'https://www.anwaproperties.com',
-    bgClass: 'bg-black',
-    logoClass: 'p-4',
+    darkBg: true,
   },
   {
     name: 'ATHLO',
     role: 'Sponsor',
-    logo: ASSETS.athloLogoDark,
+    logo: ASSETS.athloLogoLight,
     url: 'https://www.athlo.app',
-    bgClass: 'bg-black',
-    logoClass: 'p-5',
   },
   {
     name: "De'Longhi UK",
     role: 'Player of the Match Award',
     logo: ASSETS.delonghiLogo,
     url: 'https://www.delonghiuk.co.uk',
-    bgClass: 'bg-[#0a1929]',
-    logoClass: 'p-4',
   },
   {
     name: 'Sporta Tours',
     role: 'Travel Partner',
     logo: ASSETS.sportaLogo,
     url: 'https://www.sportatours.com',
-    bgClass: 'bg-white',
-    logoClass: 'p-3',
   },
   {
     name: 'Gentlemen & Players',
     role: 'Kit Supplier',
     logo: ASSETS.gpLogo,
     url: 'https://www.gentlemenplayers.com',
-    bgClass: 'bg-white',
-    logoClass: 'p-5',
   },
   {
     name: 'NV Play',
     role: 'Streaming Partner',
     logo: ASSETS.nvPlayLogo,
     url: 'https://www.nvplay.com',
-    bgClass: 'bg-white',
-    logoClass: 'p-4',
   },
 ];
 
@@ -118,13 +104,11 @@ export default function SponsorsSection() {
             className="group block max-w-xs sm:max-w-sm mx-auto"
             aria-label={`Visit ${platinumSponsor.name} — ${platinumSponsor.role}`}
           >
-            <div
-              className={`w-full aspect-[3/2] rounded-xl ${platinumSponsor.bgClass} flex items-center justify-center overflow-hidden shadow-lg group-hover:shadow-xl group-hover:scale-[1.03] transition-all duration-300 ring-2 ring-gold/40`}
-            >
+            <div className="w-full aspect-[3/2] rounded-xl bg-white flex items-center justify-center overflow-hidden shadow-lg group-hover:shadow-xl group-hover:scale-[1.03] transition-all duration-300 ring-2 ring-gold/40 p-6">
               <img
                 src={platinumSponsor.logo}
                 alt={`${platinumSponsor.name} logo`}
-                className={`w-full h-full object-contain ${platinumSponsor.logoClass || ''}`}
+                className="w-full h-full object-contain"
               />
             </div>
             <div className="text-center mt-3">
@@ -141,7 +125,12 @@ export default function SponsorsSection() {
         {/* Divider */}
         <div className="w-24 h-px bg-white/10 mx-auto mb-10" />
 
-        {/* Other sponsor logos grid */}
+        {/* England sponsors heading */}
+        <p className="text-center font-body text-white/60 text-xs sm:text-sm tracking-[0.2em] uppercase font-medium mb-6">
+          England Sponsors &amp; Partners
+        </p>
+
+        {/* Sponsor logos grid — consistent white cards with symmetrical layout */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 max-w-5xl mx-auto">
           {sponsors.map((sponsor, i) => (
             <motion.a
@@ -157,12 +146,14 @@ export default function SponsorsSection() {
               aria-label={`Visit ${sponsor.name} — ${sponsor.role}`}
             >
               <div
-                className={`w-full aspect-square rounded-xl ${sponsor.bgClass} flex items-center justify-center overflow-hidden shadow-lg group-hover:shadow-xl group-hover:scale-[1.04] transition-all duration-300 ring-1 ring-white/10`}
+                className={`w-full aspect-square rounded-xl flex items-center justify-center overflow-hidden shadow-lg group-hover:shadow-xl group-hover:scale-[1.04] transition-all duration-300 ring-1 ring-white/20 p-4 ${
+                  sponsor.darkBg ? 'bg-gray-900' : 'bg-white'
+                }`}
               >
                 <img
                   src={sponsor.logo}
                   alt={`${sponsor.name} logo`}
-                  className={`w-full h-full object-contain ${sponsor.logoClass || ''}`}
+                  className="w-full h-full object-contain"
                 />
               </div>
               <div className="text-center">

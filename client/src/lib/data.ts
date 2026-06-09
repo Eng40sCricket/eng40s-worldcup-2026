@@ -31,9 +31,9 @@ export const ASSETS = {
   imcLogo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/TRANSPwhiteback_716a617b.png',
   imcTextLogo: '/manus-storage/IMCLogo_6458ea74.jpg',
   // Sponsor logos
-  anwaLogo: '/manus-storage/ANWAwhatsapp_b1f25514.jpeg',
+  anwaLogo: '/manus-storage/ANWALOGO(BLACKBG)_8fc7d198.png',
   athloLogoDark: '/manus-storage/ATHLOLOGOBLACK_a049905d.png',
-  athloLogoLight: '/manus-storage/AthloLogo_694d3813.png',
+  athloLogoLight: '/manus-storage/f498ab3b-bf2e-49c6-bdfc-b8dc8b158d78_dc17ed6a.jpg',
   sportaLogo: '/manus-storage/SPORTA_TOURS_GOING_FURTHER-04_3f504ebc.jpg',
   gpLogo: '/manus-storage/G&PLOGO_64cac674.jpg',
   delonghiLogo: '/manus-storage/Image04-05-2023at15.10_7290fd9b.png',
