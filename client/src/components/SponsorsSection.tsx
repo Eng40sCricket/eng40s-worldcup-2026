@@ -1,5 +1,6 @@
 // DESIGN: "Stadium Broadcast" — Sponsors & Partners strip
 // Dark background with sponsor logos displayed in a clean grid
+// BK International Group as Tournament Platinum Sponsor featured prominently
 import { ASSETS } from '@/lib/data';
 import { motion } from 'framer-motion';
 
@@ -11,6 +12,15 @@ interface Sponsor {
   bgClass: string;
   logoClass?: string;
 }
+
+const platinumSponsor: Sponsor = {
+  name: 'BK International Group',
+  role: 'Tournament Platinum Sponsor',
+  logo: ASSETS.bkAviationLogo,
+  url: 'https://lfr.nce.mybluehost.me',
+  bgClass: 'bg-white',
+  logoClass: 'p-6',
+};
 
 const sponsors: Sponsor[] = [
   {
@@ -90,7 +100,48 @@ export default function SponsorsSection() {
           <div className="w-12 h-0.5 bg-gold mx-auto mt-3 rounded-full" />
         </motion.div>
 
-        {/* Sponsor logos grid */}
+        {/* Tournament Platinum Sponsor — featured prominently */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-30px' }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <p className="text-center font-body text-gold text-xs sm:text-sm tracking-[0.2em] uppercase font-semibold mb-4">
+            Tournament Platinum Sponsor
+          </p>
+          <a
+            href={platinumSponsor.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block max-w-xs sm:max-w-sm mx-auto"
+            aria-label={`Visit ${platinumSponsor.name} — ${platinumSponsor.role}`}
+          >
+            <div
+              className={`w-full aspect-[3/2] rounded-xl ${platinumSponsor.bgClass} flex items-center justify-center overflow-hidden shadow-lg group-hover:shadow-xl group-hover:scale-[1.03] transition-all duration-300 ring-2 ring-gold/40`}
+            >
+              <img
+                src={platinumSponsor.logo}
+                alt={`${platinumSponsor.name} logo`}
+                className={`w-full h-full object-contain ${platinumSponsor.logoClass || ''}`}
+              />
+            </div>
+            <div className="text-center mt-3">
+              <p className="font-display text-white text-base sm:text-lg font-bold tracking-wide">
+                {platinumSponsor.name}
+              </p>
+              <p className="font-body text-gold/70 text-xs sm:text-sm tracking-wider uppercase mt-0.5">
+                {platinumSponsor.role}
+              </p>
+            </div>
+          </a>
+        </motion.div>
+
+        {/* Divider */}
+        <div className="w-24 h-px bg-white/10 mx-auto mb-10" />
+
+        {/* Other sponsor logos grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 max-w-5xl mx-auto">
           {sponsors.map((sponsor, i) => (
             <motion.a
@@ -125,17 +176,6 @@ export default function SponsorsSection() {
             </motion.a>
           ))}
         </div>
-
-        {/* Placeholder for West Indies Platinum Sponsor */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center font-body text-white/30 text-xs mt-10 tracking-wide"
-        >
-          Additional partner announcements coming soon
-        </motion.p>
       </div>
     </section>
   );

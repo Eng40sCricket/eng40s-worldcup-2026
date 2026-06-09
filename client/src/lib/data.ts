@@ -38,6 +38,7 @@ export const ASSETS = {
   gpLogo: '/manus-storage/G&PLOGO_64cac674.jpg',
   delonghiLogo: '/manus-storage/Image04-05-2023at15.10_7290fd9b.png',
   nvPlayLogo: '/manus-storage/NVPlaylogo_aedff46b.jpg',
+  bkAviationLogo: '/manus-storage/IMG_0818_1fdeb560.PNG',
 } as const;
 
 export const TOURNAMENT = {
