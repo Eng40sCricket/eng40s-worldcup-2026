@@ -16,6 +16,7 @@ import {
   Shield,
   ChevronRight,
   CalendarX2,
+  BarChart3,
 } from 'lucide-react';
 
 // ---- Date helpers ----
@@ -304,6 +305,36 @@ export default function FixturesSection() {
           /* ── PLACEHOLDER STATE ── */
           <FixturesPlaceholder />
         )}
+
+        {/* Live Standings CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="max-w-2xl mx-auto mt-12"
+        >
+          <a
+            href="https://www.eng40scricket.co.uk/tournaments/wc2026/"
+            className="block rounded-xl border border-sky/30 bg-gradient-to-br from-navy/5 to-sky/5 p-6 sm:p-8 text-center hover:border-sky/50 hover:shadow-lg hover:shadow-sky/10 transition-all group"
+          >
+            <div className="flex justify-center mb-3">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sky/15 group-hover:bg-sky/25 transition-colors">
+                <BarChart3 className="w-6 h-6 text-sky" />
+              </div>
+            </div>
+            <h3 className="font-display text-navy text-xl sm:text-2xl font-bold tracking-wide mb-2">
+              Live Group Standings &amp; Results
+            </h3>
+            <p className="font-body text-navy/60 text-sm sm:text-base leading-relaxed mb-4 max-w-lg mx-auto">
+              View the latest group tables, match results and England's tournament progress
+            </p>
+            <span className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-sky text-white font-display text-sm font-semibold tracking-wider uppercase shadow-lg shadow-sky/25 group-hover:bg-sky-light group-hover:shadow-sky/40 transition-all">
+              View Standings
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );

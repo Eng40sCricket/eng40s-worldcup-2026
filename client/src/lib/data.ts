@@ -68,8 +68,8 @@ export const NAV_SECTIONS = [
   { id: 'facts', label: 'Tournament' },
   { id: 'squad', label: 'Squad' },
   { id: 'schedule', label: 'Schedule' },
-  { id: 'fixtures', label: 'Fixtures' },
   { id: 'groups', label: 'Groups' },
+  { id: 'fixtures', label: 'Fixtures' },
   { id: 'news', label: 'News' },
   { id: 'press', label: 'Press' },
 ] as const;
