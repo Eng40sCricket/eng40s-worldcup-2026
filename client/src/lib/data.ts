@@ -1169,6 +1169,7 @@ export interface ScheduleEvent {
   eventType: ScheduleEventType;
   description?: string;
   isHighlight?: boolean;
+  link?: string;
 }
 
 /**
@@ -1312,6 +1313,7 @@ export const scheduleData = {
       event: 'Rest Day / Tours — Kaieteur & Orinduik Falls / Resort',
       eventType: 'rest',
       description: 'Optional excursion to Kaieteur Falls and Orinduik Falls',
+      link: 'https://tourismguyana.gy/the-kaieteur-and-orinduik-experience/',
     },
     {
       id: 'sch-15',

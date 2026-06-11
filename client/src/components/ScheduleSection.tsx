@@ -17,6 +17,7 @@ import {
   MapPin,
   Star,
   Info,
+  ExternalLink,
 } from 'lucide-react';
 
 // ---- Event type config ----
@@ -241,13 +242,18 @@ export default function ScheduleSection() {
                   {events.map((event) => {
                     const cfg = EVENT_TYPE_CONFIG[event.eventType];
                     const Icon = cfg.icon;
+                    const Wrapper = event.link ? 'a' : 'div';
+                    const wrapperProps = event.link
+                      ? { href: event.link, target: '_blank', rel: 'noopener noreferrer' }
+                      : {};
 
                     return (
-                      <div
+                      <Wrapper
                         key={event.id}
-                        className={`relative rounded-lg border p-3 sm:p-4 transition-all ${cfg.rowClass} ${
+                        {...wrapperProps}
+                        className={`relative block rounded-lg border p-3 sm:p-4 transition-all ${cfg.rowClass} ${
                           event.isHighlight ? 'ring-1 ring-sky/30 shadow-sm' : ''
-                        }`}
+                        } ${event.link ? 'cursor-pointer hover:shadow-md hover:scale-[1.01] group' : ''}`}
                       >
                         {/* Highlight indicator */}
                         {event.isHighlight && (
@@ -278,15 +284,20 @@ export default function ScheduleSection() {
                             )}
                           </div>
 
-                          {/* Time */}
+                          {/* Time or Link indicator */}
                           {event.time && (
                             <div className="shrink-0 flex items-center gap-1 text-navy/50">
                               <Clock className="w-3 h-3" />
                               <span className="font-body text-xs font-medium">{event.time}</span>
                             </div>
                           )}
+                          {event.link && !event.time && (
+                            <div className="shrink-0 flex items-center gap-1 text-emerald-600/60 group-hover:text-emerald-600">
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </div>
+                          )}
                         </div>
-                      </div>
+                      </Wrapper>
                     );
                   })}
                 </div>
