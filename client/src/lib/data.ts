@@ -597,18 +597,6 @@ export const fixtureData = {
    */
   matches: [
     {
-      id: 'warmup-01',
-      date: '2026-10-16',
-      time: 'TBC',
-      homeTeam: 'England',
-      awayTeam: 'West Indies',
-      venue: 'Providence National Stadium',
-      stage: 'warm-up',
-      status: 'upcoming',
-      isEngland: true,
-      notes: '45-over friendly',
-    },
-    {
       id: 'group-b-eng-nz',
       date: 'TBC',
       homeTeam: 'England',
@@ -895,9 +883,9 @@ export const newsData = {
     {
       id: 'bul-9',
       date: '2026-06-02',
-      headline: 'World Cup Draw Confirmed — England in Group B with Warm-Up vs West Indies',
+      headline: 'World Cup Draw Confirmed — England in Group B',
       category: 'fixtures',
-      summary: 'The IMC has confirmed the group draw for the Over 40s World Cup 2026. England have been placed in Group B alongside New Zealand, Pakistan, UAE, India, Scotland, USA, and Rest of the World. In addition, a warm-up match has been announced: England will face the West Indies on 16 October at Providence National Stadium in a 45-over friendly, followed by a net session on the morning of 17 October (10am–12pm) ahead of the Opening Ceremony.',
+      summary: 'The IMC has confirmed the group draw for the Over 40s World Cup 2026. England have been placed in Group B alongside New Zealand, Pakistan, UAE, India, Scotland, USA, and Rest of the World. Tournament preparations begin with net sessions on 16 October, followed by the Opening Ceremony and League Day 1 on 17 October (9:30 AM GYT).',
       imageUrl: '/manus-storage/IMG_6895_61431b21.jpeg',
       isPinned: true,
       isFeatured: true,
@@ -1203,10 +1191,10 @@ export const scheduleData = {
       id: 'sch-02',
       date: '2026-10-16',
       dayOfWeek: 'Friday',
-      event: 'Warm-Up Match: England vs West Indies',
-      eventType: 'match',
-      description: '45-over friendly at Providence National Stadium',
-      isHighlight: true,
+      event: 'England Net Session',
+      eventType: 'practice',
+      description: 'Preparation nets at Malteenoes Cricket Club',
+      time: 'TBC',
     },
     {
       id: 'sch-02b',
