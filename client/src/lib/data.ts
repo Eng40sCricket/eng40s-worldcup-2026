@@ -762,38 +762,38 @@ export const groupData = {
 
   /**
    * The group compositions.
-   * Confirmed draw: 2 groups of 8 teams.
-   * England in Group B.
+   * Confirmed draw: 2 zones of 8 teams.
+   * England in Zone B.
    */
   groups: [
     {
       id: 'group-a',
-      name: 'Group A',
+      name: 'Zone A',
       isEnglandGroup: false,
       teams: [
-        { team: 'West Indies', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/westindies_15f564fe.png' },
         { team: 'Australia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/australia_ab32dd24.png' },
-        { team: 'Wales', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/wales_20b83712.png' },
-        { team: 'Sri Lanka', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/srilanka_5a26be10.png' },
         { team: 'Canada', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/canada_3c61dabf.png' },
-        { team: 'South Africa', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/southafrica_e11a94fc.png' },
-        { team: 'Namibia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/namibia_4f321dde.png' },
         { team: 'Colombia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/colombia_feef8445.png' },
+        { team: 'Namibia', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/namibia_4f321dde.png' },
+        { team: 'South Africa', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/southafrica_e11a94fc.png' },
+        { team: 'Sri Lanka', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/srilanka_5a26be10.png' },
+        { team: 'Wales', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/wales_20b83712.png' },
+        { team: 'West Indies', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/westindies_15f564fe.png' },
       ],
     },
     {
       id: 'group-b',
-      name: 'Group B',
+      name: 'Zone B',
       isEnglandGroup: true,
       teams: [
+        { team: 'England', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: true, logo: '/manus-storage/england_3b15416d.png' },
+        { team: 'India', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/india_d6e6441e.png' },
         { team: 'New Zealand', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/newzealand_25df8696.png' },
         { team: 'Pakistan', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/pakistan_9bd9057e.png' },
-        { team: 'UAE', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/uae_c35bc217.png' },
-        { team: 'India', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/india_d6e6441e.png' },
-        { team: 'England', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: true, logo: '/manus-storage/england_3b15416d.png' },
+        { team: 'Rest of the Caribbean', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/rotc_emblem_63346aaf.webp' },
+        { team: 'Rest of the World', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/restofworld_e1cbd9c6.png' },
         { team: 'Scotland', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/scotland_9d64bc4c.png' },
         { team: 'USA', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/usa_0e4fc04e.png' },
-        { team: 'Rest of the World', played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0, nrr: '+0.000', isEngland: false, logo: '/manus-storage/restofworld_e1cbd9c6.png' },
       ],
     },
   ] as Group[],
@@ -806,7 +806,7 @@ export const groupData = {
     heading: 'Draw Confirmed',
     message: 'The official draw has been confirmed by the IMC. Standings will populate automatically when match results are entered during the tournament.',
     badge: 'Draw Confirmed',
-    englandBadge: 'England — Group B',
+    englandBadge: 'England — Zone B',
   },
 };
 
@@ -883,9 +883,9 @@ export const newsData = {
     {
       id: 'bul-9',
       date: '2026-06-02',
-      headline: 'World Cup Draw Confirmed — England in Group B',
+      headline: 'World Cup Draw Confirmed — England in Zone B',
       category: 'fixtures',
-      summary: 'The IMC has confirmed the group draw for the Over 40s World Cup 2026. England have been placed in Group B alongside New Zealand, Pakistan, UAE, India, Scotland, USA, and Rest of the World. Tournament preparations begin with net sessions on 16 October, followed by the Opening Ceremony and League Day 1 on 17 October (9:30 AM GYT).',
+      summary: 'The IMC has confirmed the group draw for the Over 40s World Cup 2026. England have been placed in Zone B alongside New Zealand, Pakistan, India, Rest of the Caribbean, Rest of the World, Scotland, and USA. Tournament preparations begin with net sessions on 16 October at Malteenoes Cricket Club, followed by the Opening Ceremony and League Day 1 on 17 October (9:30 AM GYT).',
       imageUrl: '/manus-storage/IMG_6895_61431b21.jpeg',
       isPinned: true,
       isFeatured: true,
