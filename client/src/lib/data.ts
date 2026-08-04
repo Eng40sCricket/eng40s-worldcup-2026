@@ -564,7 +564,6 @@ export const fixtureData = {
     ],
     stage: [
       { label: 'All Stages', value: 'all' },
-      { label: 'Warm-Up', value: 'warm-up' },
       { label: 'Group Stage', value: 'group' },
       { label: 'Knockout', value: 'knockout' },
     ],
@@ -575,19 +574,18 @@ export const fixtureData = {
     ],
   } as const,
 
-  /** Known tournament venues (from IMC Newsletter #2) */
+  /** Confirmed tournament venues (from official IMC fixture list, August 2026) */
   venues: [
-    'Bourda Cricket Ground',
-    'Palmyra Cricket Ground',
-    'Everest Cricket Club',
-    'Enmore Recreation Ground',
-    'Albion Cricket Ground',
+    'Georgetown Cricket Club (GCC)',
+    'Guyana National Stadium — Providence',
+    'Malteenoes CC',
     'Demerara Cricket Club (DCC)',
-    'Blairmont Cricket Ground',
-    'MMZ Centre Ground',
-    'Police Sports Club Ground',
-    'Malteenoes Sports Club',
-    'Lusignan Sports Club',
+    'Lusignan',
+    'Enmore Community Centre Ground',
+    'Police Sports Club Ground at Eve Leary',
+    'Anna Regina National Stadium — Essequibo',
+    'Joe Jagmohan Ground — Essequibo',
+    'MacKenzie National Stadium — Linden',
   ],
 
   /**
@@ -764,7 +762,7 @@ export const groupData = {
   title: 'Groups & Standings',
 
   /** Qualification rule (displayed in England Focus mode) */
-  qualificationRule: 'The top 4 teams from each group will advance to the knockout stage.',
+  qualificationRule: 'The top 4 teams from each zone will advance to the knockout stage.',
 
   /** Points awarded per result (used by standings engine) */
   pointsConfig: {
@@ -911,7 +909,7 @@ export const newsData = {
       date: '2026-04-06',
       headline: 'Full Tournament Schedule Confirmed by IMC',
       category: 'fixtures',
-      summary: 'The IMC has released the proposed tournament schedule for the Over 40s World Cup 2026 in Guyana. The itinerary includes 7 group-stage rounds, crossover games, semi-finals, and the Grand Finale on 31 October, plus rest days featuring tours to Kaieteur Falls and a Windies Legends Nostalgia Event. Practice sessions begin 15 October with the Opening Ceremony on 17 October.',
+      summary: 'The IMC has released the confirmed tournament schedule for the Over 40s World Cup 2026 in Guyana. The itinerary covers 11 group-stage league days (17–27 October), Lower and Upper Crossovers (28–29 October), Placement Matches (30 October), and the Cup Final on 31 October. England play 7 Zone B fixtures across 10 days. Practice sessions begin 15 October, with the Opening Ceremony on the evening of 16 October.',
       isPinned: false,
       isFeatured: false,
       isOfficial: true,
@@ -920,9 +918,9 @@ export const newsData = {
     {
       id: 'bul-8',
       date: '2026-04-06',
-      headline: '11 Venues Confirmed Across Guyana',
+      headline: '10 Venues Confirmed Across Guyana',
       category: 'announcements',
-      summary: 'The IMC Newsletter #2 has confirmed 11 cricket grounds across Guyana that will host World Cup matches. Venues include the historic Bourda Cricket Ground in Georgetown, the new Palmyra Stadium in Berbice, Everest Cricket Club, Albion Cricket Ground, Demerara Cricket Club, and several other grounds across the Demerara and Berbice regions.',
+      summary: 'The IMC has confirmed 10 cricket grounds across Guyana that will host World Cup matches. Venues include Georgetown Cricket Club (GCC) — formerly Bourda — the Guyana National Stadium at Providence, Malteenoes CC, Demerara Cricket Club (DCC), Lusignan, Enmore Community Centre Ground, Police Sports Club Ground at Eve Leary, Anna Regina National Stadium in Essequibo, Joe Jagmohan Ground in Essequibo, and MacKenzie National Stadium in Linden.',
       isOfficial: true,
       author: 'International Masters Cricket',
     },
@@ -1189,8 +1187,8 @@ export interface ScheduleEvent {
 export const scheduleData = {
   /** Section heading */
   title: 'Tournament Schedule',
-  subtitle: 'Proposed itinerary from IMC Newsletter #2',
-  source: 'IMC Newsletter #2, February 2026',
+  subtitle: 'Confirmed tournament schedule — IMC Official Fixture List, August 2026',
+  source: 'IMC Official Fixture List, August 2026',
 
   events: [
     // ── PRE-TOURNAMENT ──────────────────────────────────────────
@@ -1408,62 +1406,57 @@ export const scheduleData = {
     },
   ] as ScheduleEvent[],
 
-  /** Venue information from IMC Newsletter #2 */
+  /** Venue information — confirmed from official IMC fixture list, August 2026 */
   venueInfo: [
     {
-      name: 'Bourda Cricket Ground',
+      name: 'Georgetown Cricket Club (GCC)',
       location: 'Georgetown',
-      description: 'One of the most historic grounds in world cricket. The first Test ground in mainland South America and the only international stadium built below sea level, uniquely protected by a surrounding moat. Home to the Georgetown Cricket Club, Bourda has hosted legends such as Sir Clive Lloyd and Brian Lara.',
+      description: 'One of the most historic grounds in world cricket, formerly known as Bourda. The first Test ground in mainland South America and the only international stadium built below sea level, uniquely protected by a surrounding moat. Home to the Georgetown Cricket Club, the ground has hosted legends such as Sir Clive Lloyd and Brian Lara. England face USA here on League Day 1.',
     },
     {
-      name: 'Palmyra Cricket Ground',
-      location: 'Region Six (Berbice)',
-      description: 'A new, state-of-the-art stadium currently under development, designed to international standards. The multipurpose venue will be capable of hosting top-level cricket including CPL matches, as well as major cultural and entertainment events.',
+      name: 'Guyana National Stadium — Providence',
+      location: 'Providence, East Bank Demerara',
+      description: 'Guyana\'s premier international cricket venue, built for the 2007 ICC Cricket World Cup. The modern stadium holds over 15,000 spectators and has hosted numerous West Indies internationals and CPL matches. Venue for the Cup Final on 31 October.',
     },
     {
-      name: 'Everest Cricket Club',
-      location: 'Georgetown',
-      description: 'A historic and active cricket ground known for hosting regional and international practice matches, including during the 2007 World Cup and CPL. Legendary player Shivnarine Chanderpaul is a member.',
-    },
-    {
-      name: 'Enmore Recreation Ground',
-      location: 'Enmore, Demerara',
-      description: 'Located in Enmore, the ground first hosted top-level domestic cricket during the 1992\u201393 Geddes Grant Shield. Between 1993 and 2009, the venue staged 17 List A matches and 4 first-class matches.',
-    },
-    {
-      name: 'Albion Cricket Ground',
-      location: 'Albion, Berbice',
-      description: 'Known as the Albion Sports Complex, this historic venue is one of Guyana\u2019s key cricket grounds, famous for hosting early West Indies One-day Internationals. Currently undergoing major upgrades.',
+      name: 'Malteenoes CC',
+      location: 'Thomas Lands, Georgetown',
+      description: 'A historic and vibrant hub for cricket in Georgetown, known for producing national players and hosting intense local matches. England play four of their seven group stage fixtures here, including matches against New Zealand, Pakistan, Scotland, and India.',
     },
     {
       name: 'Demerara Cricket Club (DCC)',
       location: 'Queenstown, Georgetown',
-      description: 'A historic ground and hub for Guyanese cricket where legends like Clive Lloyd and Lance Gibbs honed their skills. While international matches moved to Providence Stadium, DCC remains a vital part of Guyana\u2019s cricket heritage.',
+      description: 'A historic ground and hub for Guyanese cricket where legends like Clive Lloyd and Lance Gibbs honed their skills. While international matches moved to Providence Stadium, DCC remains a vital part of Guyana\'s cricket heritage.',
     },
     {
-      name: 'Blairmont Cricket Ground',
-      location: 'Blairmont, Berbice',
-      description: 'A historic cricket venue known for hosting first-class and List A matches, famous for a record low List A score (18 all out by WI U19s). Opened in 1959, it began hosting first-class cricket in 1989.',
-    },
-    {
-      name: 'MMZ Centre Ground',
-      location: 'Region Three',
-      description: 'The newly upgraded Meten-Meer-Zorg Community Centre Ground, featuring modern floodlights, a new building, and a fresh pitch for training and competitive cricket.',
-    },
-    {
-      name: 'Police Sports Club Ground',
-      location: 'Georgetown',
-      description: 'A key venue for sporting events and community outreach, hosting various local matches and competitions. The dedicated home for the force\u2019s cricket and other sports activities.',
-    },
-    {
-      name: 'Malteenoes Sports Club',
-      location: 'Thomas Lands, Georgetown',
-      description: 'A historic and vibrant hub for cricket, known for producing national players, hosting intense local matches, and fostering community spirit with a laid-back atmosphere.',
-    },
-    {
-      name: 'Lusignan Sports Club',
+      name: 'Lusignan',
       location: 'East Coast Demerara',
-      description: 'A key community venue on the East Coast Demerara, primarily hosting local and developmental cricket matches, including youth series and inter-village competitions.',
+      description: 'A key community venue on the East Coast Demerara hosting World Cup group stage matches. England face Rest of the World here on League Day 4.',
+    },
+    {
+      name: 'Enmore Community Centre Ground',
+      location: 'Enmore, Demerara',
+      description: 'Located in Enmore on the East Coast Demerara, this ground hosts World Cup group stage fixtures including England\'s final group match against Rest of the Caribbean on League Day 10.',
+    },
+    {
+      name: 'Police Sports Club Ground at Eve Leary',
+      location: 'Georgetown',
+      description: 'A key venue for sporting events in Georgetown, hosting World Cup group stage and knockout matches. The dedicated home for the Guyana Police Force\'s cricket and other sports activities.',
+    },
+    {
+      name: 'Anna Regina National Stadium',
+      location: 'Essequibo Coast',
+      description: 'A national stadium on the Essequibo Coast hosting World Cup group stage fixtures, bringing the tournament to Guyana\'s western region.',
+    },
+    {
+      name: 'Joe Jagmohan Ground',
+      location: 'Essequibo',
+      description: 'An Essequibo venue hosting World Cup group stage matches, named in honour of a prominent figure in Guyanese sport.',
+    },
+    {
+      name: 'MacKenzie National Stadium',
+      location: 'Linden',
+      description: 'A national stadium in Linden, Guyana\'s second-largest city, hosting World Cup group stage fixtures and bringing the tournament to the interior of the country.',
     },
   ],
 
