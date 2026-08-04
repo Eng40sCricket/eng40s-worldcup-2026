@@ -238,7 +238,7 @@ export const squadData = {
     {
       id: 'eng-wc-002',
       fullName: 'Taqi Abbas',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Abbas_faf36198.png',
+      image: '/manus-storage/Abbas_38ae63f7.png',
       roleCategory: 'Spinner',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm leg-break',
@@ -251,7 +251,7 @@ export const squadData = {
     {
       id: 'eng-wc-003',
       fullName: 'George Brooksbank',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Brooksbank_172557a6.png',
+      image: '/manus-storage/Brooksbank_765c1390.png',
       roleCategory: 'Seamer',
       battingStyle: 'Left-hand bat',
       bowlingStyle: 'Left-arm fast-medium',
@@ -264,7 +264,7 @@ export const squadData = {
     {
       id: 'eng-wc-004',
       fullName: 'Ryan Canning',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Canning_b7fc5d02.png',
+      image: '/manus-storage/Canning_0a75f628.png',
       roleCategory: 'Wicketkeeper',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'N/A',
@@ -290,7 +290,7 @@ export const squadData = {
     {
       id: 'eng-wc-006',
       fullName: 'Ben Frazer',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Frazer_a5d5d3d0.png',
+      image: '/manus-storage/Frazer_f74bed49.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm off-break',
@@ -316,7 +316,7 @@ export const squadData = {
     {
       id: 'eng-wc-008',
       fullName: 'Sean Heather',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Heather_68cf752a.png',
+      image: '/manus-storage/Heather_ea1be4fd.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm medium',
@@ -329,7 +329,7 @@ export const squadData = {
     {
       id: 'eng-wc-009',
       fullName: 'Jayden Levitt',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Levitt_edb2fd1a.png',
+      image: '/manus-storage/Levitt_849c1615.png',
       roleCategory: 'Batter',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'N/A',
@@ -342,7 +342,7 @@ export const squadData = {
     {
       id: 'eng-wc-010',
       fullName: 'Steven Naylor',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Naylor_a8178569.png',
+      image: '/manus-storage/Naylor_a7bd31c3.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm off-break',
@@ -368,7 +368,7 @@ export const squadData = {
     {
       id: 'eng-wc-012',
       fullName: 'Sean Park',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/ParkS_1fe913fe.png',
+      image: '/manus-storage/ParkS-vcapt_0256f5c1.png',
       roleCategory: 'Wicketkeeper',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm medium',
@@ -382,7 +382,7 @@ export const squadData = {
     {
       id: 'eng-wc-013',
       fullName: 'Iresh Saxena',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Saxena_11b2c1f3.png',
+      image: '/manus-storage/Saxena_431c3c2d.png',
       roleCategory: 'Spinner',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Slow left-arm orthodox',
@@ -395,7 +395,7 @@ export const squadData = {
     {
       id: 'eng-wc-014',
       fullName: 'Richard Sims',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Sims_efcd740b.png',
+      image: '/manus-storage/Sims_a05b9a4a.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm off-break',
@@ -408,7 +408,7 @@ export const squadData = {
     {
       id: 'eng-wc-015',
       fullName: 'Jonny Wightman',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Wightman_4f00aa52.png',
+      image: '/manus-storage/Wightman_e236755b.png',
       roleCategory: 'Seamer',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm fast-medium',
