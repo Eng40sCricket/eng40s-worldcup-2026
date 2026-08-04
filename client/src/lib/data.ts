@@ -1193,14 +1193,6 @@ export const scheduleData = {
   events: [
     // ── PRE-TOURNAMENT ──────────────────────────────────────────
     {
-      id: 'sch-01',
-      date: '2026-10-15',
-      dayOfWeek: 'Thursday',
-      event: 'Teams Arrive / Practice Sessions',
-      eventType: 'practice',
-      description: 'All squads arrive in Georgetown and begin preparation sessions',
-    },
-    {
       id: 'sch-02',
       date: '2026-10-16',
       dayOfWeek: 'Friday',
@@ -1213,19 +1205,10 @@ export const scheduleData = {
       id: 'sch-03',
       date: '2026-10-16',
       dayOfWeek: 'Friday',
-      time: 'TBC',
+      time: '3:00 pm',
       event: 'Captains & Managers Meeting',
       eventType: 'meeting',
-      description: 'Pre-tournament briefing for all team captains and managers',
-    },
-    {
-      id: 'sch-04',
-      date: '2026-10-16',
-      dayOfWeek: 'Friday',
-      time: 'TBC',
-      event: 'Press Conference / Media Briefing',
-      eventType: 'meeting',
-      description: 'Official pre-tournament media briefing',
+      description: 'Official pre-tournament briefing for all team captains and managers — Railway Courtyard, Georgetown',
     },
     {
       id: 'sch-05',
@@ -1364,6 +1347,16 @@ export const scheduleData = {
       eventType: 'match',
       isHighlight: true,
       description: 'Top 4 from each zone cross over — semi-final positions decided',
+    },
+    {
+      id: 'sch-18b',
+      date: '2026-10-29',
+      dayOfWeek: 'Thursday',
+      time: '8:00 pm',
+      event: 'Legends Event',
+      eventType: 'ceremony',
+      isHighlight: true,
+      description: 'A special evening celebrating cricket legends and the international Masters community — Pegasus Hotel, Georgetown',
     },
     {
       id: 'sch-19',
