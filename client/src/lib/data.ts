@@ -1196,7 +1196,7 @@ export const scheduleData = {
       id: 'sch-02',
       date: '2026-10-16',
       dayOfWeek: 'Friday',
-      time: 'TBC',
+      time: '10:00 am – 12:00 pm',
       event: 'England Net Session',
       eventType: 'practice',
       description: 'Preparation nets at Malteenoes Cricket Club',
