@@ -277,7 +277,7 @@ export const squadData = {
     {
       id: 'eng-wc-005',
       fullName: 'James Duffy',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/Duffy_f4285b1e.png',
+      image: '/manus-storage/duffy_dc6c1e6b.webp',
       roleCategory: 'Batter',
       battingStyle: 'Left-hand bat',
       bowlingStyle: 'N/A',
