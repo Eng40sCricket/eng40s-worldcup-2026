@@ -269,7 +269,7 @@ export const squadData = {
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'N/A',
       wicketkeeperFlag: true,
-      clubEngland: 'Ribblesdale Wanderers',
+      clubEngland: 'Burnley',
       shortBio: 'A seasoned wicketkeeper-batsman from South Africa, known for his extensive first-class career with Western Province, Cape Cobras, and Boland. He has also played club cricket in the UK and represented England Over-40s, showcasing his enduring talent and international experience. Over 300 first-class dismissals. 105 first-class matches, 5,084 runs (avg 37.38, 9x100s, 29x50s). 318 catches and 27 stumpings. 68 List A matches, 1,521 runs (avg 32.36).',
       profileStatus: 'confirmed',
       squadNumber: 22,
@@ -1095,9 +1095,9 @@ export const pressReleaseData = {
           text: 'England Over 40s World Cup Squad',
         },
         {
-          type: 'paragraph',
-          text: 'Darren Stevens (captain) \u2013 St Lawrence & Highland Court CC\nSean Park (vice-captain) \u2013 Bury St. Edmunds CC\nTaqi Abbas \u2013 Harold Wood CC\nGeorge Brooksbank \u2013 Hurlingham Club\nRyan Canning \u2013 Ribblesdale Wanderers CC\nJames Duffy \u2013 Lindow CC\nBen Frazer \u2013 Harpenden CC\nJames Hamblin \u2013 Cranleigh CC\nSean Heather \u2013 Middleton-on-sea CC\nJayden Levitt \u2013 Bromsgrove CC\nSteve Naylor \u2013 Royal Ascot CC\nGarry Park \u2013 Alvaston & Boulton CC\nIresh Saxena \u2013 Totteridge Millhillians CC\nRichard Sims \u2013 Swardeston CC\nJonny Wightman \u2013 South Northumberland CC\nJake Wilson \u2013 Normandy CC',
-        },
+         type: 'paragraph',
+          text: 'Darren Stevens (captain) \u2013 St Lawrence & Highland Court CC\nSean Park (vice-captain) \u2013 Bury St. Edmunds CC\nTaqi Abbas \u2013 Harold Wood CC\nGeorge Brooksbank \u2013 Hurlingham Club\nRyan Canning \u2013 Burnley CC\nJames Duffy \u2013 Lindow CC\nBen Frazer \u2013 Harpenden CC\nJames Hamblin \u2013 Cranleigh CC\nSean Heather \u2013 Middleton-on-sea CC\nJayden Levitt \u2013 Bromsgrove CC\nSteve Naylor \u2013 Royal Ascot CC\nGarry Park \u2013 Alvaston & Boulton CC\nIresh Saxena \u2013 Totteridge Millhillians CC\nRichard Sims \u2013 Swardeston CC\nJonny Wightman \u2013 South Northumberland CC\nJake Wilson \u2013 Normandy CC',
+       },
         {
           type: 'paragraph',
           text: 'Further announcements, including match schedule updates, player profiles and media content, will be shared via the England Over 40s Cricket website and social channels.',
