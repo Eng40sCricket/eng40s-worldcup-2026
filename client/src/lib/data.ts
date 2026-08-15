@@ -303,7 +303,7 @@ export const squadData = {
     {
       id: 'eng-wc-007',
       fullName: 'James Hamblin',
-      image: '/manus-storage/hamblin_c349bdbe.webp',
+      image: '/manus-storage/hamblin_v2_092b42c6.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm medium',
