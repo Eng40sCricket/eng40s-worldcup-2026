@@ -355,7 +355,7 @@ export const squadData = {
     {
       id: 'eng-wc-011',
       fullName: 'Garry Park',
-      image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663465975897/gtxNv2Yu4YkRqMHrRDNsLW/ParkG_19b4e30b.png',
+      image: '/manus-storage/parkG_ad7b8f63.png',
       roleCategory: 'All-rounder',
       battingStyle: 'Right-hand bat',
       bowlingStyle: 'Right-arm medium',
