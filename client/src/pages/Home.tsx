@@ -2,6 +2,7 @@
 // Section order: hero → facts → squad → schedule → groups → fixtures → news → press → footer
 // Enhanced: skip-to-content link, semantic main landmark
 import StickyNav from '@/components/StickyNav';
+import ScrollProgress from '@/components/ScrollProgress';
 import HeroSection from '@/components/HeroSection';
 import QuickFacts from '@/components/QuickFacts';
 import SquadSection from '@/components/SquadSection';
@@ -22,6 +23,7 @@ export default function Home() {
       </a>
 
       <StickyNav />
+      <ScrollProgress />
 
       <main id="main-content" role="main">
         <HeroSection />

@@ -119,8 +119,12 @@ function GroupCard({ group, index }: { group: Group; index: number }) {
       {/* Team list */}
       <div className="p-4 space-y-2">
         {group.teams.map((team: GroupTeam, ti: number) => (
-          <div
+          <motion.div
             key={team.team}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: 0.35, delay: ti * 0.06 }}
             className={`flex items-center gap-4 px-4 py-3.5 rounded-md transition-colors ${
               team.isEngland
                 ? 'bg-sky/10 border border-sky/20'
@@ -155,7 +159,7 @@ function GroupCard({ group, index }: { group: Group; index: number }) {
             }`}>
               {team.team}
             </span>
-          </div>
+          </motion.div>
         ))}
       </div>
     </motion.div>

@@ -1,8 +1,8 @@
 // DESIGN: "Stadium Broadcast" — Full-bleed hero with dark overlay, Oswald display type
 import { ASSETS, TOURNAMENT } from '@/lib/data';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function useCountdown(targetMs: number) {
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(targetMs));
@@ -27,10 +27,15 @@ const WORLD_CUP_START = new Date('2026-10-17T09:00:00').getTime();
 
 function CountdownUnit({ value, label }: { value: number; label: string }) {
   return (
-    <div className="text-center">
-      <span className="font-display text-white text-3xl sm:text-4xl font-bold tabular-nums">
+    <div className="text-center relative">
+      <motion.span
+        key={value}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="font-display text-white text-3xl sm:text-4xl font-bold tabular-nums block"
+      >
         {String(value).padStart(2, '0')}
-      </span>
+      </motion.span>
       <span className="block font-body text-white/40 text-xs tracking-widest uppercase mt-0.5">
         {label}
       </span>
@@ -40,6 +45,9 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
 
 export default function HeroSection() {
   const countdown = useCountdown(WORLD_CUP_START);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
   const scrollToFacts = () => {
     const el = document.getElementById('facts');
@@ -55,16 +63,17 @@ export default function HeroSection() {
       role="banner"
       aria-label="England Over 40s ODI World Cup 2026"
       className="relative min-h-[100vh] flex items-center justify-center overflow-hidden"
+      ref={sectionRef}
     >
       {/* Background image */}
-      <div className="absolute inset-0">
+      <motion.div className="absolute inset-0" style={{ y: bgY }}>
         <img
           src={ASSETS.heroBanner}
           alt="Cricket ground in Guyana at sunset"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-navy-dark/80 via-navy/70 to-navy-dark/90" />
-      </div>
+      </motion.div>
 
       {/* Content */}
       <div className="relative z-10 container text-center pt-24 pb-16">

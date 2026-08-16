@@ -491,9 +491,19 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
 
         {/* Countdown timer */}
         {showCountdown && (
-          <div className="mt-3 pt-3 border-t border-navy/8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mt-3 pt-3 border-t border-navy/8"
+          >
             <div className="flex items-center gap-2">
-              <Clock className="w-3.5 h-3.5 text-sky" />
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+              >
+                <Clock className="w-3.5 h-3.5 text-sky" />
+              </motion.div>
               <span className="font-body text-xs text-navy/50 uppercase tracking-wider">Countdown</span>
             </div>
             <div className="flex items-center gap-3 mt-2">
@@ -505,7 +515,7 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
               <span className="font-display text-navy/20 text-lg">:</span>
               <CountdownUnit value={countdown.secs} label="Sec" />
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </motion.div>

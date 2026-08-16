@@ -2,8 +2,15 @@
 import { QUICK_FACTS, ASSETS } from '@/lib/data';
 import { motion } from 'framer-motion';
 import { MapPin, Calendar, Trophy, Users, Target, Shield } from 'lucide-react';
+import AnimatedCounter from './AnimatedCounter';
 
 const ICONS = [Trophy, MapPin, Calendar, Target, Users, Shield];
+
+// Extract numeric values from fact strings for counter animation
+function extractNumber(value: string): number | null {
+  const match = value.match(/\d+/);
+  return match ? parseInt(match[0], 10) : null;
+}
 
 export default function QuickFacts() {
   return (
@@ -54,7 +61,15 @@ export default function QuickFacts() {
                   <Icon className="w-5 h-5 text-sky" />
                 </div>
                 <p className="font-display text-navy text-base sm:text-lg font-semibold leading-tight">
-                  {fact.value}
+                  {extractNumber(fact.value) !== null ? (
+                    <AnimatedCounter
+                      value={extractNumber(fact.value)!}
+                      className="font-display text-navy text-base sm:text-lg font-semibold"
+                      suffix={fact.value.replace(/\d+/, '')}
+                    />
+                  ) : (
+                    fact.value
+                  )}
                 </p>
                 <p className="font-body text-muted-foreground text-xs mt-1 tracking-wider uppercase">
                   {fact.label}
