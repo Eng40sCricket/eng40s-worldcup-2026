@@ -7,6 +7,7 @@ import {
   type Bulletin,
   type BulletinCategory,
 } from '@/lib/data';
+import YouTubeFeed from './YouTubeFeed';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Newspaper,
@@ -227,6 +228,9 @@ export default function NewsSection() {
                 Last updated: {formatDate(newsData.bulletins[0]?.date || '2026-06-02')}
               </span>
             </div>
+
+            {/* YouTube Feed */}
+            <YouTubeFeed />
           </>
         ) : (
           /* Empty state when no bulletins at all */
