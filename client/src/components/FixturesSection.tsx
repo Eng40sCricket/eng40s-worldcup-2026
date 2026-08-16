@@ -6,6 +6,8 @@ import {
   groupData,
   type Fixture,
 } from '@/lib/data';
+import { useWeather, type DayForecast } from '@/hooks/useWeather';
+import WeatherBadge from './WeatherBadge';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   CalendarDays,
@@ -57,6 +59,7 @@ export default function FixturesSection() {
   const [stageFilter, setStageFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [venueFilter, setVenueFilter] = useState('all');
+  const { getForecastForDate, loading: weatherLoading } = useWeather();
 
   const hasFixtures = fixtureData.matches.length > 0;
 
@@ -252,7 +255,7 @@ export default function FixturesSection() {
               <div className="space-y-3 sm:space-y-4 max-w-4xl lg:max-w-6xl mx-auto">
                 <AnimatePresence mode="popLayout">
                   {filtered.map((fixture, i) => (
-                    <FixtureListCard key={fixture.id} fixture={fixture} index={i} />
+                    <FixtureListCard key={fixture.id} fixture={fixture} index={i} forecast={fixture.date !== 'TBC' ? getForecastForDate(fixture.date) : null} weatherLoading={weatherLoading} />
                   ))}
                 </AnimatePresence>
                 {filtered.length === 0 && (
@@ -288,7 +291,7 @@ export default function FixturesSection() {
                     </div>
                     <div className="space-y-2 pl-6 border-l-2 border-sky/20">
                       {matches.map((fixture) => (
-                        <CalendarMatchCard key={fixture.id} fixture={fixture} />
+                        <CalendarMatchCard key={fixture.id} fixture={fixture} forecast={fixture.date !== 'TBC' ? getForecastForDate(fixture.date) : null} weatherLoading={weatherLoading} />
                       ))}
                     </div>
                   </div>
@@ -393,7 +396,7 @@ function TeamBadge({ teamName, size = 'sm' }: { teamName: string; size?: 'sm' | 
 }
 
 /** List view fixture card */
-function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }) {
+function FixtureListCard({ fixture, index, forecast, weatherLoading }: { fixture: Fixture; index: number; forecast: DayForecast | null; weatherLoading: boolean }) {
   const statusCfg = STATUS_CONFIG[fixture.status] || STATUS_CONFIG.tbc;
   const countdown = useCountdown(fixture.date);
   const showCountdown = fixture.status === 'upcoming' && countdown;
@@ -464,6 +467,10 @@ function FixtureListCard({ fixture, index }: { fixture: Fixture; index: number }
               )}
               {fixture.notes && (
                 <span className="pill text-[10px] bg-amber-500/10 text-amber-700">{fixture.notes}</span>
+              )}
+              {/* Weather badge */}
+              {fixture.date !== 'TBC' && (
+                <WeatherBadge forecast={forecast} loading={weatherLoading} compact />
               )}
             </div>
 
@@ -538,7 +545,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
 
 
 /** Calendar view match card */
-function CalendarMatchCard({ fixture }: { fixture: Fixture }) {
+function CalendarMatchCard({ fixture, forecast, weatherLoading }: { fixture: Fixture; forecast: DayForecast | null; weatherLoading: boolean }) {
   const statusCfg = STATUS_CONFIG[fixture.status] || STATUS_CONFIG.tbc;
 
   return (
@@ -573,6 +580,9 @@ function CalendarMatchCard({ fixture }: { fixture: Fixture }) {
           )}
         </div>
         <div className="flex items-center gap-2 shrink-0">
+          {fixture.date !== 'TBC' && (
+            <WeatherBadge forecast={forecast} loading={weatherLoading} compact />
+          )}
           <span className={`pill text-[10px] ${statusCfg.className}`}>{statusCfg.label}</span>
           {fixture.matchCentreUrl && (
             <a href={fixture.matchCentreUrl} target="_blank" rel="noopener noreferrer">
