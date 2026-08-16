@@ -42,9 +42,10 @@ export default function PlayerCard({ player, index, onClick, featured = false }:
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-20px' }}
       transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.4) }}
-      className={`group relative bg-white rounded-lg border overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${
+      whileHover={{ y: -8, scale: 1.02 }}
+      className={`group relative bg-white rounded-lg border overflow-hidden shadow-sm hover:shadow-xl hover:shadow-sky/10 transition-all duration-300 cursor-pointer ${
         isPlaceholder ? 'border-dashed border-border/60 opacity-75' : 'border-border'
-      } ${featured ? 'ring-2 ring-gold/40' : ''}`}
+      } ${featured ? 'ring-2 ring-gold/40' : ''} hover:border-sky/30`}
     >
       <button
         onClick={() => onClick(player)}
