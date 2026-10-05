@@ -197,8 +197,10 @@ function vitePluginStorageProxy(): Plugin {
 }
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
+const githubPagesBase = process.env.GITHUB_PAGES === "true" ? "/eng40s-worldcup-2026/" : "/";
 
 export default defineConfig({
+  base: githubPagesBase,
   plugins,
   resolve: {
     alias: {
