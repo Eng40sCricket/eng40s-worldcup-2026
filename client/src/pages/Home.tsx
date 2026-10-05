@@ -8,6 +8,7 @@ import QuickFacts from '@/components/QuickFacts';
 import SquadSection from '@/components/SquadSection';
 import ScheduleSection from '@/components/ScheduleSection';
 import FixturesSection from '@/components/FixturesSection';
+import WeatherDashboardSection from '@/components/WeatherDashboardSection';
 import GroupsSection from '@/components/GroupsSection';
 import NewsSection from '@/components/NewsSection';
 import PressReleaseSection from '@/components/PressReleaseSection';
@@ -30,6 +31,7 @@ export default function Home() {
         <QuickFacts />
         <SquadSection />
         <ScheduleSection />
+        <WeatherDashboardSection />
         <GroupsSection />
         <FixturesSection />
         <NewsSection />
