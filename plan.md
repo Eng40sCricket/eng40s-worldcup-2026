@@ -31,7 +31,3 @@ Embed the Guyana weather dashboard natively into the England Over 40s World Cup 
 | `pnpm-workspace.yaml` | Records the reviewed pnpm lifecycle-build permission required for a reproducible local install. |
 
 No server, database or credential is required. Open-Meteo is called by the visitor’s browser over HTTPS.
-
-## Public deployment
-
-The repository's legacy GitHub Pages setting publishes the `main` branch root. It previously returned a 404 because the root contained no `index.html`; the connected GitHub token cannot change that setting to GitHub Actions deployment. Publish the verified Vite client artifact at the existing root instead: root `index.html`, root `assets/`, and `.nojekyll` are built from `dist/public` with `GITHUB_PAGES=true`. During that build, the Vite base path and Wouter router base are set for `/eng40s-worldcup-2026/`; local and Manus preview paths remain `/`.
