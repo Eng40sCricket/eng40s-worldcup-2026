@@ -68,7 +68,6 @@ export const NAV_SECTIONS = [
   { id: 'facts', label: 'Tournament' },
   { id: 'squad', label: 'Squad' },
   { id: 'schedule', label: 'Schedule' },
-  { id: 'weather', label: 'Weather' },
   { id: 'groups', label: 'Groups' },
   { id: 'fixtures', label: 'Fixtures' },
   { id: 'news', label: 'News' },

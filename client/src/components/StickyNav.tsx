@@ -94,7 +94,7 @@ export default function StickyNav() {
           </button>
 
           {/* Desktop nav */}
-          <div className="hidden xl:flex items-center gap-0.5" role="tablist" aria-label="Page sections">
+          <div className="hidden lg:flex items-center gap-0.5" role="tablist" aria-label="Page sections">
             {NAV_SECTIONS.map((section) => (
               <button
                 key={section.id}
@@ -131,7 +131,7 @@ export default function StickyNav() {
           </div>
 
           {/* Social media icons */}
-          <div className="hidden xl:flex items-center gap-1 ml-3">
+          <div className="hidden lg:flex items-center gap-1 ml-3">
             <a
               href="https://www.facebook.com/EnglandCountiesO40s"
               target="_blank"
@@ -175,7 +175,7 @@ export default function StickyNav() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="xl:hidden text-white p-3 min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="lg:hidden text-white p-3 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
           >
@@ -190,7 +190,7 @@ export default function StickyNav() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="xl:hidden glass border-t border-white/10 overflow-hidden"
+              className="lg:hidden glass border-t border-white/10 overflow-hidden"
               role="menu"
             >
               <div className="container py-3 flex flex-col gap-1">
